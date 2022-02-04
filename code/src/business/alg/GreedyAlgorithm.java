@@ -2,7 +2,7 @@ package business.alg;
 
 public class GreedyAlgorithm {
 	
-	public void greedyAlg() {
+	public void greedyAlgorithm() {
 		
 	}
 	
