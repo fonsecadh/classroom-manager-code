@@ -1,14 +1,14 @@
 package business.entities.alg;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Individual {
 	/**
-	 * The representation of the individual. 
+	 * The representation of the individual.
 	 * 
-	 * In our problem, each position of the list represents 
-	 * the group id and each value in that position represents 
-	 * the classroom associated to that group.
+	 * In our problem, each position of the list represents the group id and each
+	 * value in that position represents the classroom associated to that group.
 	 * 
 	 * representation[groupId] == classroomId
 	 */
@@ -16,5 +16,9 @@ public class Individual {
 
 	public Individual(List<Integer> representation) {
 		this.representation = representation;
+	}
+
+	public List<Integer> getRepresentation() {
+		return new ArrayList<Integer>(representation);
 	}
 }
