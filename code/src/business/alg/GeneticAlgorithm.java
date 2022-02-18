@@ -6,34 +6,40 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import business.entities.alg.Assignment;
 import business.entities.alg.Individual;
 import business.utils.GenAlgoUtils;
 
 public class GeneticAlgorithm {
-	private int nGroups; // Individual Length
-	private int nClassrooms;
 	private int popSize;
 
 	private int individualLength;
 
 	private double mutationProb;
 	private long maxTimeMs;
+	
+	private int nGenerations;
 
 	private Random random;
+	private Decoder decoder;
+	
+	private GreedyAlgorithm greedyAlgo;
 
 	public GeneticAlgorithm(
-			int numberOfGroups, 
-			int numberOfClassrooms, 
+			int individualLength, 
 			int populationSize, 
 			double mutationProbability,
-			long maxTimeMilliseconds
+			long maxTimeMilliseconds,
+			int numberOfGenerations,
+			Decoder decoder
 	) {
-		this.nGroups = numberOfGroups; 
-		this.individualLength = numberOfGroups;
-		this.nClassrooms = numberOfClassrooms;
+		this.individualLength = individualLength;
 		this.popSize = populationSize;
 		this.mutationProb = mutationProbability;
 		this.maxTimeMs = maxTimeMilliseconds;
+		this.nGenerations = numberOfGenerations;
+		this.decoder = decoder;
+		this.random = new Random();
 	}
 
 	public Individual geneticAlgorithm() {
@@ -43,14 +49,18 @@ public class GeneticAlgorithm {
 		long startTime = System.currentTimeMillis();
 		long currentTime;
 		long totalTime;
+		
+		int gen = 0;
 
 		do {
 			population = nextGeneration(population, bestIndividual);
 			bestIndividual = bestIndividual(population);
 
+			++gen;
+
 			currentTime = System.currentTimeMillis();
 			totalTime = currentTime - startTime;
-		} while (!isFit(bestIndividual) && totalTime < maxTimeMs);
+		} while (gen < nGenerations && totalTime < maxTimeMs);
 
 		return bestIndividual;
 	}
@@ -71,18 +81,17 @@ public class GeneticAlgorithm {
 		return newPopulation;
 	}
 
-	private boolean isFit(Individual bestIndividual) {
-		return false;
-	}
-
 	private double fitnessFunction(Individual individual) {
+		List<Assignment> decoded, resulting;  
+		decoded = decoder.decode(individual);
+		resulting = greedyAlgo.greedyAlgorithm(decoded);
 		return 0.0;
 	}
 
 	private Set<Individual> initialPopulation() {
 		Set<Individual> p = new HashSet<Individual>();
 		while (p.size() < popSize) {
-			p.add(GenAlgoUtils.generateRandomIndividual(nGroups, nClassrooms));
+			p.add(GenAlgoUtils.generateRandomIndividual(individualLength));
 		}
 		return p;
 	}
@@ -113,7 +122,6 @@ public class GeneticAlgorithm {
 			}
 		}
 		return new Individual(offArray);
-
 	}
 
 	private Individual mutation(Individual child) {

@@ -7,10 +7,7 @@ public class Individual {
 	/**
 	 * The representation of the individual.
 	 * 
-	 * In our problem, each position of the list represents the group id and each
-	 * value in that position represents the classroom associated to that group.
-	 * 
-	 * representation[groupId] == classroomId
+	 * Each position of the list represents a group identifier.
 	 */
 	private List<Integer> representation;
 

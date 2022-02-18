@@ -1,42 +1,37 @@
 package business.alg;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import business.entities.Classroom;
+import business.entities.alg.Assignment;
+
 public class GreedyAlgorithm {
-	private int nGroups;
-	private int nClassrooms;
-	
-	public boolean[][] greedyAlgorithm(boolean[][] assignments, double[][] costs) {
-		for (int i = 0; i < nGroups; i++) {
-			for (int j = 0; j < nClassrooms; j++) {
-				assignments[i][j] = false;			}
-		}
-		
-		for (int i = 0; i < nGroups; i++) {
-			assignments[i][bestClass(costs, assignments, i)] = true;
-		}
-		
-		return assignments;
-	}
-	
-	private int bestClass(double[][] costs, boolean[][] assignments, int group) {
-		double min = Double.POSITIVE_INFINITY;
-		int bestClass = -1;
-		
-		for (int j = 0; j < nClassrooms; j++) {
-			if (!classAlreadyChosen(assignments, group, j) && costs[group][j] < min) {
-				min = costs[group][j];
-				bestClass = j;
+
+	public List<Assignment> greedyAlgorithm(List<Assignment> assignments) {
+		List<Assignment> result, repairs;
+		result = preprocess(assignments);
+		repairs = new ArrayList<Assignment>();
+		for (Assignment a : result) {
+			if (!a.isAssigned()) {
+				Classroom c = bestClassroomFor(a);
+				if (c != null) {
+					a.setClassroom(c);
+				} else {
+					repairs.add(a);
+				}
 			}
 		}
-		
-		return bestClass;
+		// TODO: Repair assignments
+		return result;
 	}
 
-	private boolean classAlreadyChosen(boolean[][] assignments, int group, int classroom) {
-		for (int i = 0; i < group - 1; i++) {
-			if (assignments[i][classroom]) {
-				return true;
-			}
-		}
-		return false;
+	private List<Assignment> preprocess(List<Assignment> assignments) {
+		return new ArrayList<Assignment>(assignments);
 	}
+
+	private Classroom bestClassroomFor(Assignment a) {
+		return null;
+	}
+
 }
