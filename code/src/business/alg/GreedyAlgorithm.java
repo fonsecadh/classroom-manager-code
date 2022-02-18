@@ -7,6 +7,12 @@ import business.entities.Classroom;
 import business.entities.alg.Assignment;
 
 public class GreedyAlgorithm {
+	
+	private RestrictionManager restrictionManager;
+
+	public GreedyAlgorithm(RestrictionManager restrictionManager) {
+		this.restrictionManager = restrictionManager;
+	}
 
 	public List<Assignment> greedyAlgorithm(List<Assignment> assignments) {
 		List<Assignment> result, repairs;

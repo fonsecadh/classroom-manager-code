@@ -22,6 +22,7 @@ public class GeneticAlgorithm {
 
 	private Random random;
 	private Decoder decoder;
+	private RestrictionManager restrictionManager;
 	
 	private GreedyAlgorithm greedyAlgo;
 
@@ -31,7 +32,8 @@ public class GeneticAlgorithm {
 			double mutationProbability,
 			long maxTimeMilliseconds,
 			int numberOfGenerations,
-			Decoder decoder
+			Decoder decoder,
+			RestrictionManager restrictionManager
 	) {
 		this.individualLength = individualLength;
 		this.popSize = populationSize;
@@ -39,7 +41,9 @@ public class GeneticAlgorithm {
 		this.maxTimeMs = maxTimeMilliseconds;
 		this.nGenerations = numberOfGenerations;
 		this.decoder = decoder;
+		this.restrictionManager = restrictionManager;
 		this.random = new Random();
+		this.greedyAlgo = new GreedyAlgorithm(restrictionManager);
 	}
 
 	public Individual geneticAlgorithm() {
@@ -85,7 +89,7 @@ public class GeneticAlgorithm {
 		List<Assignment> decoded, resulting;  
 		decoded = decoder.decode(individual);
 		resulting = greedyAlgo.greedyAlgorithm(decoded);
-		return 0.0;
+		return restrictionManager.formula(resulting);
 	}
 
 	private Set<Individual> initialPopulation() {
