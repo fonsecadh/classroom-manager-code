@@ -1,12 +1,12 @@
-package business.alg;
+package business.alg.greed.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import business.entities.alg.Assignment;
-import business.entities.alg.Individual;
+import business.alg.gen.model.Individual;
+import business.alg.greed.model.Assignment;
 
 public class Decoder {
 	

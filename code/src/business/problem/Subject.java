@@ -1,4 +1,4 @@
-package business.entities;
+package business.problem;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package business.alg;
+package business.alg.gen.logic;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-import business.entities.alg.Assignment;
-import business.entities.alg.Individual;
+import business.alg.gen.logic.fitness.FitnessFunction;
+import business.alg.gen.model.Individual;
 import business.utils.GenAlgoUtils;
 
 public class GeneticAlgorithm {
+
 	private int popSize;
 
 	private int individualLength;
@@ -20,11 +21,9 @@ public class GeneticAlgorithm {
 	
 	private int nGenerations;
 
+	private FitnessFunction fn;
+
 	private Random random;
-	private Decoder decoder;
-	private RestrictionManager restrictionManager;
-	
-	private GreedyAlgorithm greedyAlgo;
 
 	public GeneticAlgorithm(
 			int individualLength, 
@@ -32,18 +31,15 @@ public class GeneticAlgorithm {
 			double mutationProbability,
 			long maxTimeMilliseconds,
 			int numberOfGenerations,
-			Decoder decoder,
-			RestrictionManager restrictionManager
+			FitnessFunction fitnessFunction
 	) {
 		this.individualLength = individualLength;
 		this.popSize = populationSize;
 		this.mutationProb = mutationProbability;
 		this.maxTimeMs = maxTimeMilliseconds;
 		this.nGenerations = numberOfGenerations;
-		this.decoder = decoder;
-		this.restrictionManager = restrictionManager;
+		this.fn = fitnessFunction;
 		this.random = new Random();
-		this.greedyAlgo = new GreedyAlgorithm(restrictionManager);
 	}
 
 	public Individual geneticAlgorithm() {
@@ -86,10 +82,7 @@ public class GeneticAlgorithm {
 	}
 
 	private double fitnessFunction(Individual individual) {
-		List<Assignment> decoded, resulting;  
-		decoded = decoder.decode(individual);
-		resulting = greedyAlgo.greedyAlgorithm(decoded);
-		return restrictionManager.formula(resulting);
+		return fn.fitnessFunction(individual);
 	}
 
 	private Set<Individual> initialPopulation() {
@@ -163,4 +156,5 @@ public class GeneticAlgorithm {
 	private int randomOffset(int length) {
 		return random.nextInt(length);
 	}
+
 }

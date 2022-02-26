@@ -1,4 +1,4 @@
-package business.entities.alg;
+package business.alg.gen.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,4 +23,5 @@ public class Individual {
 	public List<Integer> getRepresentation() {
 		return new ArrayList<Integer>(representation);
 	}
+
 }

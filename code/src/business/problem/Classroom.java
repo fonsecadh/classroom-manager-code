@@ -1,4 +1,4 @@
-package business.entities;
+package business.problem;
 
 public class Classroom {
 	private String code;

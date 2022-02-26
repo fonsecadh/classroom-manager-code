@@ -1,17 +1,23 @@
-package business.alg;
+package business.alg.greed.logic;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import business.entities.Classroom;
-import business.entities.alg.Assignment;
+import business.alg.greed.logic.filters.ClassroomFilter;
+import business.alg.greed.model.Assignment;
+import business.problem.Classroom;
 
 public class GreedyAlgorithm {
 	
-	private RestrictionManager restrictionManager;
-
-	public GreedyAlgorithm(RestrictionManager restrictionManager) {
-		this.restrictionManager = restrictionManager;
+	List<ClassroomFilter> classroomFilters;
+	List<Classroom> classrooms;
+	
+	public GreedyAlgorithm(
+			List<ClassroomFilter> classroomFilters,
+			List<Classroom> classrooms
+	) {
+		this.classroomFilters = new ArrayList<ClassroomFilter>(classroomFilters);
+		this.classrooms = new ArrayList<Classroom>(classrooms);
 	}
 
 	public List<Assignment> greedyAlgorithm(List<Assignment> assignments) {

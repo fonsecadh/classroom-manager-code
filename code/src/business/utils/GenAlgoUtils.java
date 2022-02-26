@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import business.entities.alg.Individual;
+import business.alg.gen.model.Individual;
 
 public class GenAlgoUtils {
 

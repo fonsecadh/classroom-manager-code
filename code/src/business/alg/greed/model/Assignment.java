@@ -1,7 +1,7 @@
-package business.entities.alg;
+package business.alg.greed.model;
 
-import business.entities.Classroom;
-import business.entities.Group;
+import business.problem.Classroom;
+import business.problem.Group;
 
 public class Assignment {
 
