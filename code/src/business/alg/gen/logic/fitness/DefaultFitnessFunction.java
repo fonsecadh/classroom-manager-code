@@ -1,7 +1,9 @@
 package business.alg.gen.logic.fitness;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import business.alg.gen.logic.fitness.values.FitnessValue;
 import business.alg.gen.model.Individual;
 import business.alg.greed.logic.Decoder;
 import business.alg.greed.logic.GreedyAlgorithm;
@@ -11,10 +13,16 @@ public class DefaultFitnessFunction implements FitnessFunction {
 
 	private Decoder decoder;
 	private GreedyAlgorithm greedyAlgo;
+	private List<FitnessValue> fnValues;
 	
-	public DefaultFitnessFunction(Decoder decoder, GreedyAlgorithm greedyAlgorithm) {
+	public DefaultFitnessFunction(
+			Decoder decoder, 
+			GreedyAlgorithm greedyAlgorithm,
+			List<FitnessValue> fitnessValues
+	) {
 		this.decoder = decoder;
 		this.greedyAlgo = greedyAlgorithm;
+		this.fnValues = new ArrayList<FitnessValue>(fitnessValues);
 	}
 
 	@Override
@@ -26,7 +34,11 @@ public class DefaultFitnessFunction implements FitnessFunction {
 	}
 
 	private double formula(List<Assignment> resulting) {
-		return 0;
+		double result = 0.0;
+		for (FitnessValue fnVal : fnValues) {
+			result += fnVal.getWeight() * fnVal.getValue(resulting);
+		}
+		return result;
 	}
 
 }

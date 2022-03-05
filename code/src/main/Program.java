@@ -6,6 +6,7 @@ import java.util.List;
 import business.alg.gen.logic.GeneticAlgorithm;
 import business.alg.gen.logic.fitness.DefaultFitnessFunction;
 import business.alg.gen.logic.fitness.FitnessFunction;
+import business.alg.gen.logic.fitness.values.FitnessValue;
 import business.alg.gen.model.Individual;
 import business.alg.greed.logic.Decoder;
 import business.alg.greed.logic.GreedyAlgorithm;
@@ -24,6 +25,7 @@ public class Program {
 		List<Classroom> classrooms = new ArrayList<Classroom>();
 		
 		List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
+		List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
 
 		int individualLength = groups.size();
 		int populationSize = 100;
@@ -39,7 +41,7 @@ public class Program {
 			decoder.putMasterAssignment(g.getId(), new Assignment(g));
 		}
 
-		FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo);
+		FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
 		
 		GeneticAlgorithm genAlgo = new GeneticAlgorithm(
 				individualLength, 
@@ -47,7 +49,8 @@ public class Program {
 				mutationProbability, 
 				maxTimeMilliseconds, 
 				numberOfGenerations, 
-				fitnessFunction);
+				fitnessFunction
+		);
 		
 		Individual bestIndividual = genAlgo.geneticAlgorithm();
 		System.out.println(bestIndividual.toString());
