@@ -2,9 +2,14 @@ package business.problem;
 
 public class Classroom {
 
+	private int id;
 	private String code;
 	private int numberOfSeats;
 	private ClassroomType type;
+
+	public int getId() {
+		return id;
+	}
 
 	public String getCode() {
 		return code;
@@ -16,6 +21,10 @@ public class Classroom {
 
 	public ClassroomType getType() {
 		return type;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public void setCode(String code) {

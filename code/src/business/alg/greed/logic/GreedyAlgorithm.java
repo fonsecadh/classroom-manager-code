@@ -2,28 +2,30 @@ package business.alg.greed.logic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Set;
 
-import business.alg.greed.logic.filters.ClassroomFilter;
+import business.alg.greed.logic.filters.ClassroomFilterManager;
 import business.alg.greed.model.Assignment;
 import business.problem.Classroom;
 import business.problem.Group;
 
 public class GreedyAlgorithm {
-	
-	private List<ClassroomFilter> classroomFilters;
-	private List<Classroom> classrooms;
-	private Map<String, Classroom> assignedClassrooms;
-	
-	public GreedyAlgorithm(
-			List<ClassroomFilter> classroomFilters,
-			List<Classroom> classrooms
-	) {
-		this.classroomFilters = new ArrayList<ClassroomFilter>(classroomFilters);
-		this.classrooms = new ArrayList<Classroom>(classrooms);
-		this.assignedClassrooms = new HashMap<String, Classroom>();
+
+	/**
+	 * Map with the groups assigned to each classroom. <br>
+	 * <br>
+	 * Key: Classroom ID. <br>
+	 * Value: Set of groups assigned to that classroom.
+	 */
+	private Map<Integer, Set<Group>> assignedGroupsToClassrooms;
+	private ClassroomFilterManager cfm;
+
+	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager) {
+		this.cfm = classroomFilterManager;
+		this.assignedGroupsToClassrooms = new HashMap<Integer, Set<Group>>();
 	}
 
 	public List<Assignment> greedyAlgorithm(List<Assignment> assignments) {
@@ -31,12 +33,15 @@ public class GreedyAlgorithm {
 		result = preprocess(assignments);
 		repairs = new ArrayList<Assignment>();
 		for (Assignment a : result) {
-			List<Assignment> currAssign = new ArrayList<Assignment>(result);
 			if (!a.isAssigned()) {
-				Classroom c = bestClassroomFor(a, currAssign);
+				Classroom c = bestClassroomFor(a);
 				if (c != null) {
 					a.setClassroom(c);
-					assignedClassrooms.put(c.getCode(), c);
+					Set<Group> gSet = assignedGroupsToClassrooms.get(c.getId());
+					if (gSet == null)
+						gSet = new HashSet<Group>();
+					gSet.add(a.getGroup());
+					assignedGroupsToClassrooms.put(c.getId(), gSet);
 				} else {
 					repairs.add(a);
 				}
@@ -47,41 +52,32 @@ public class GreedyAlgorithm {
 	}
 
 	private List<Assignment> preprocess(List<Assignment> assignments) {
-		assignedClassrooms.clear();
+		assignedGroupsToClassrooms.clear();
 		return new ArrayList<Assignment>(assignments);
 	}
 
-	private Classroom bestClassroomFor(Assignment a, List<Assignment> currAssign) {
-		List<Classroom> filteredClassrooms = new ArrayList<Classroom>(classrooms);
+	private Classroom bestClassroomFor(Assignment a) {
 		Classroom selected = null;
-		
-		for (ClassroomFilter cf : classroomFilters) {
-			filteredClassrooms = cf.filterByGroup(a.getGroup(), filteredClassrooms);
-		}
-		
+		List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
+
 		boolean stop = false;
 		while (filteredClassrooms.size() > 0 || stop) {
 			selected = filteredClassrooms.get(0);
 			filteredClassrooms.remove(selected);
-			if (!assignedClassrooms.containsKey(selected.getCode())) {
+			if (!collisionsExistFor(a.getGroup(), selected))
 				stop = true;
-			} else {
-				if (!collisionsExistFor(a.getGroup(), currAssign, selected))
-					stop = true;
-			}
 		}
 
 		return selected;
 	}
 
-	private boolean collisionsExistFor(Group g, List<Assignment> currAssign, Classroom c) {
-		List<Group> filteredGroups = currAssign
-				.stream()
-				.filter(a -> a.getClassroom().getCode().equals(c.getCode()))
-				.map(a -> a.getGroup())
-				.collect(Collectors.toList());
-		
-		return filteredGroups.stream().anyMatch(other -> g.collidesWith(other));
+	private boolean collisionsExistFor(Group g, Classroom c) {
+		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getId());
+
+		if (gSet == null || gSet.size() == 0)
+			return false;
+
+		return gSet.stream().anyMatch(other -> g.collidesWith(other));
 	}
 
 }
