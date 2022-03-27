@@ -8,7 +8,7 @@ import java.util.Set;
 
 import business.alg.gen.logic.fitness.FitnessFunction;
 import business.alg.gen.model.Individual;
-import business.utils.GenAlgoUtils;
+import business.alg.gen.utils.GenAlgoUtils;
 
 public class GeneticAlgorithm {
 
@@ -94,7 +94,7 @@ public class GeneticAlgorithm {
 	}
 
 	private Individual selection(List<Individual> population) {
-		return null;
+		return population.get(random.nextInt(population.size()));
 	}
 
 	private Individual crossover(Individual firstParent, Individual secondParent) {

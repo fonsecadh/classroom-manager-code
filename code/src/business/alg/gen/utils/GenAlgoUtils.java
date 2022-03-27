@@ -1,4 +1,4 @@
-package business.utils;
+package business.alg.gen.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
