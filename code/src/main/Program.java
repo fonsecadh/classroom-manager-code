@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 import business.alg.gen.logic.GeneticAlgorithm;
 import business.alg.gen.logic.fitness.DefaultFitnessFunction;
@@ -13,6 +14,8 @@ import business.alg.greed.logic.GreedyAlgorithm;
 import business.alg.greed.logic.filters.ClassroomFilter;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
 import business.alg.greed.model.Assignment;
+import business.errorhandler.ErrorHandler;
+import business.loghandler.LogHandler;
 import business.problem.Classroom;
 import business.problem.Group;
 
@@ -20,42 +23,50 @@ public class Program {
 
 	public static void main(String[] args) {
 
-		// Persistence
-		// TODO: Retrieve configuration and data from files
-		List<Group> groups = new ArrayList<Group>();
-		List<Classroom> classrooms = new ArrayList<Classroom>();
+		try {
 
-		List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
-		List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
+			// Persistence
+			// TODO: Retrieve configuration and data from files
+			List<Group> groups = new ArrayList<Group>();
+			List<Classroom> classrooms = new ArrayList<Classroom>();
 
-		int individualLength = groups.size();
-		int populationSize = 100;
-		double mutationProbability = 0.3;
-		long maxTimeMilliseconds = 30000;
-		int numberOfGenerations = 20;
+			List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
+			List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
 
-		// Business logic
-		ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classrooms);
-		GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm);
+			int individualLength = groups.size();
+			int populationSize = 100;
+			double mutationProbability = 0.3;
+			long maxTimeMilliseconds = 30000;
+			int numberOfGenerations = 20;
 
-		Decoder decoder = new Decoder();
-		for (Group g : groups) {
-			decoder.putMasterAssignment(g.getId(), new Assignment(g));
+			// Business logic
+			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classrooms);
+			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm);
+
+			Decoder decoder = new Decoder();
+			for (Group g : groups) {
+				decoder.putMasterAssignment(g.getId(), new Assignment(g));
+			}
+
+			FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
+
+			GeneticAlgorithm genAlgo = new GeneticAlgorithm(individualLength, populationSize, mutationProbability,
+					maxTimeMilliseconds, numberOfGenerations, fitnessFunction);
+
+			Individual bestIndividual = genAlgo.geneticAlgorithm();
+			System.out.println(bestIndividual.toString());
+
+		} catch (Exception e) {
+
+			LogHandler.getInstance().log(Level.SEVERE, Program.class.getName(), "main", e.getLocalizedMessage(), e);
+			ErrorHandler.getInstance().addError(e);
+
+		} finally {
+
+			if (ErrorHandler.getInstance().anyErrors())
+				ErrorHandler.getInstance().showErrors(System.out);
+
 		}
-
-		FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
-
-		GeneticAlgorithm genAlgo = new GeneticAlgorithm(
-				individualLength, 
-				populationSize, 
-				mutationProbability,
-				maxTimeMilliseconds, 
-				numberOfGenerations, 
-				fitnessFunction
-		);
-
-		Individual bestIndividual = genAlgo.geneticAlgorithm();
-		System.out.println(bestIndividual.toString());
 	}
 
 }
