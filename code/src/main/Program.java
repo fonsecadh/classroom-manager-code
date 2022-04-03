@@ -18,6 +18,8 @@ import business.errorhandler.ErrorHandler;
 import business.loghandler.LogHandler;
 import business.problem.Classroom;
 import business.problem.Group;
+import business.problem.Subject;
+import business.problem.schedule.GroupSchedule;
 
 public class Program {
 
@@ -26,9 +28,13 @@ public class Program {
 		try {
 
 			// Persistence
+			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Persistence logic START");
+
 			// TODO: Retrieve configuration and data from files
-			List<Group> groups = new ArrayList<Group>();
+			List<Subject> subjects = new ArrayList<Subject>();
 			List<Classroom> classrooms = new ArrayList<Classroom>();
+			List<Group> groups = new ArrayList<Group>();
+			List<GroupSchedule> schedules = new ArrayList<GroupSchedule>();
 
 			List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
 			List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
@@ -39,7 +45,15 @@ public class Program {
 			long maxTimeMilliseconds = 30000;
 			int numberOfGenerations = 20;
 
+			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Persistence logic END");
+
+			// Persistence errors
+			if (ErrorHandler.getInstance().anyErrors())
+				ErrorHandler.getInstance().showErrors(System.out);
+
 			// Business logic
+			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Business logic START");
+
 			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classrooms);
 			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm);
 
@@ -55,6 +69,12 @@ public class Program {
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
 			System.out.println(bestIndividual.toString());
+
+			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Business logic END");
+
+			// Business errors
+			if (ErrorHandler.getInstance().anyErrors())
+				ErrorHandler.getInstance().showErrors(System.out);
 
 		} catch (Exception e) {
 

@@ -12,7 +12,7 @@ public class ClassTypeFilter implements ClassroomFilter {
 	public List<Classroom> filterByGroup(Group group, List<Classroom> classrooms) {
 		return classrooms
 				.stream()
-				.filter(c -> c.getType().toString().equals(group.getClassroomType().toString()))
+				.filter(c -> c.getType().equals(group.getClassroomType()))
 				.collect(Collectors.toList());
 	}
 
