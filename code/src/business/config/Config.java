@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import business.errorhandler.ErrorHandler;
+import business.errorhandler.logic.ErrorHandler;
+import business.errorhandler.model.ErrorType;
 import business.loghandler.LogHandler;
 
 public class Config {
@@ -29,11 +30,19 @@ public class Config {
 			this.prop.load(new BufferedReader(new FileReader(filename)));
 		} catch (FileNotFoundException e) {
 			LogHandler.getInstance().log(Level.SEVERE, Config.class.getName(), "load", e.getLocalizedMessage(), e);
-			ErrorHandler.getInstance().addError(e);
+			ErrorHandler.getInstance().addError(new ErrorType("CONFIG file not found.", e));
 		} catch (IOException e) {
 			LogHandler.getInstance().log(Level.SEVERE, Config.class.getName(), "load", e.getLocalizedMessage(), e);
-			ErrorHandler.getInstance().addError(e);
+			ErrorHandler.getInstance().addError(new ErrorType("Error encountered while loading the CONFIG file.", e));
 		}
+	}
+
+	public void addProperty(String key, String value) {
+		this.prop.put(key, value);
+	}
+
+	public String getProperty(String key) {
+		return this.prop.getProperty(key);
 	}
 
 }

@@ -14,21 +14,31 @@ import business.alg.greed.logic.GreedyAlgorithm;
 import business.alg.greed.logic.filters.ClassroomFilter;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
 import business.alg.greed.model.Assignment;
-import business.errorhandler.ErrorHandler;
+import business.errorhandler.logic.ErrorHandler;
+import business.errorhandler.model.ErrorType;
 import business.loghandler.LogHandler;
 import business.problem.Classroom;
 import business.problem.Group;
 import business.problem.Subject;
 import business.problem.schedule.GroupSchedule;
+import ui.CommandLineInterface;
 
 public class Program {
 
 	public static void main(String[] args) {
 
+		// CLI
+		CommandLineInterface cli = CommandLineInterface.getInstance();
+		LogHandler logh = LogHandler.getInstance();
+		ErrorHandler errh = ErrorHandler.getInstance();
+
 		try {
+			
+			cli.showProgramDetails();
 
 			// Persistence
-			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Persistence logic START");
+			cli.showMessage("START Processing input files...");
+			logh.log(Level.FINE, Program.class.getName(), "main", "START Persistence logic");
 
 			// TODO: Retrieve configuration and data from files
 			List<Subject> subjects = new ArrayList<Subject>();
@@ -45,14 +55,18 @@ public class Program {
 			long maxTimeMilliseconds = 30000;
 			int numberOfGenerations = 20;
 
-			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Persistence logic END");
-
 			// Persistence errors
-			if (ErrorHandler.getInstance().anyErrors())
-				ErrorHandler.getInstance().showErrors(System.out);
+			if (errh.anyErrors()) {
+				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
+				cli.showEndOfProgramWithErrors();
+				return;
+			}
+
+			cli.showMessage("END Processing input files...");
+			logh.log(Level.FINE, Program.class.getName(), "main", "END Persistence logic");
 
 			// Business logic
-			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Business logic START");
+			logh.log(Level.FINE, Program.class.getName(), "main", "START Business logic");
 
 			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classrooms);
 			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm);
@@ -70,21 +84,27 @@ public class Program {
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
 			System.out.println(bestIndividual.toString());
 
-			LogHandler.getInstance().log(Level.FINE, Program.class.getName(), "main", "Business logic END");
-
 			// Business errors
-			if (ErrorHandler.getInstance().anyErrors())
-				ErrorHandler.getInstance().showErrors(System.out);
+			if (errh.anyErrors()) {
+				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
+				cli.showEndOfProgramWithErrors();
+				return;
+			}
+
+			logh.log(Level.FINE, Program.class.getName(), "main", "END Business logic");
 
 		} catch (Exception e) {
 
-			LogHandler.getInstance().log(Level.SEVERE, Program.class.getName(), "main", e.getLocalizedMessage(), e);
-			ErrorHandler.getInstance().addError(e);
+			logh.log(Level.SEVERE, Program.class.getName(), "main", e.getLocalizedMessage(), e);
+			errh.addError(new ErrorType("FATAL ERROR while executing the program. Terminating...", e));
 
 		} finally {
 
-			if (ErrorHandler.getInstance().anyErrors())
-				ErrorHandler.getInstance().showErrors(System.out);
+			if (errh.anyErrors()) {
+				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
+				cli.showEndOfProgramWithErrors();
+			} else
+				cli.showEndOfProgram();
 
 		}
 	}
