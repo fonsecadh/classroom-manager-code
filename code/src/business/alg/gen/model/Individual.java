@@ -3,6 +3,15 @@ package business.alg.gen.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import business.problem.Group;
+
+/**
+ * Models an individual. An individual is a list of integers, each integer
+ * corresponding to the identifier of a group ({@link Group}).
+ * 
+ * @author Hugo Fonseca Díaz
+ * 
+ */
 public class Individual {
 
 	private List<Integer> representation;

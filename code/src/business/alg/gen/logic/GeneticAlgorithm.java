@@ -5,11 +5,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.logging.Level;
 
 import business.alg.gen.logic.fitness.FitnessFunction;
+import business.alg.gen.model.GenAlgoMetric;
 import business.alg.gen.model.Individual;
 import business.alg.gen.utils.GenAlgoUtils;
+import business.loghandler.LogHandler;
+import ui.CommandLineInterface;
 
+/**
+ * Models a genetic algorithm with its operators.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class GeneticAlgorithm {
 
 	private int popSize;
@@ -17,22 +27,33 @@ public class GeneticAlgorithm {
 	private int individualLength;
 
 	private double mutationProb;
+
 	private long maxTimeMs;
-	
 	private int nGenerations;
 
 	private FitnessFunction fn;
 
 	private Random random;
 
-	public GeneticAlgorithm(
-			int individualLength, 
-			int populationSize, 
-			double mutationProbability,
-			long maxTimeMilliseconds,
-			int numberOfGenerations,
-			FitnessFunction fitnessFunction
-	) {
+	/**
+	 * The greatest fitness of each generation. Used for the metrics.
+	 */
+	private double genBestFitness;
+
+	/**
+	 * Creates a Genetic Algorithm given its parameters.
+	 * 
+	 * @param individualLength    Length of the individual ({@link Individual}).
+	 * @param populationSize      Size of the population.
+	 * @param mutationProbability The mutation probability.
+	 * @param maxTimeMilliseconds The maximum time for the execution of the
+	 *                            algorithm, in milliseconds.
+	 * @param numberOfGenerations The maximum number of generations for the
+	 *                            execution of the algorithm.
+	 * @param fitnessFunction     The fitness function of the algorithm.
+	 */
+	public GeneticAlgorithm(int individualLength, int populationSize, double mutationProbability,
+			long maxTimeMilliseconds, int numberOfGenerations, FitnessFunction fitnessFunction) {
 		this.individualLength = individualLength;
 		this.popSize = populationSize;
 		this.mutationProb = mutationProbability;
@@ -42,26 +63,82 @@ public class GeneticAlgorithm {
 		this.random = new Random();
 	}
 
+	/**
+	 * The objective of this algorithm is to generate a given number of generations
+	 * of individuals and return the individual with the greatest fitness value at
+	 * the end of the execution.
+	 * 
+	 * @return The individual ({@link Individual}) with the best fitness value.
+	 */
 	public Individual geneticAlgorithm() {
-		List<Individual> population = new ArrayList<>(initialPopulation());
-		Individual bestIndividual = bestIndividual(population);
 
+		// CLI and LOG
+		CommandLineInterface cli = CommandLineInterface.getInstance();
+		LogHandler logh = LogHandler.getInstance();
+
+		String parametersMsg = "Max number of generations: " + nGenerations + ", max time (ms): " + maxTimeMs
+				+ ", mutation probability: " + mutationProb + ", population size: " + popSize;
+		String parametersMsgExtended = parametersMsg + ", fitness function: " + fn.getClass().getName()
+				+ ", individual length: " + individualLength;
+
+		cli.showMessage("START Executing Genetic Algorithm...");
+		cli.showMessage(parametersMsg);
+
+		logh.log(Level.FINE, GeneticAlgorithm.class.getName(), "geneticAlgorithm", "START Genetic Algorithm");
+		logh.log(Level.FINER, GeneticAlgorithm.class.getName(), "geneticAlgorithm", parametersMsgExtended);
+
+		// Time variables
 		long startTime = System.currentTimeMillis();
 		long currentTime;
 		long totalTime;
-		
+		long genTime;
+
+		// The algorithm starts
+		List<Individual> population = new ArrayList<>(initialPopulation());
+		Individual bestIndividual = bestIndividual(population);
+
 		int gen = 0;
 
 		do {
+
+			genTime = System.currentTimeMillis();
+
+			// Core of the genetic algorithm
 			population = nextGeneration(population, bestIndividual);
 			bestIndividual = bestIndividual(population);
-
 			++gen;
 
 			currentTime = System.currentTimeMillis();
+			genTime = currentTime - genTime;
 			totalTime = currentTime - startTime;
+
+			// Metrics for the command line interface
+			GenAlgoMetric m = new GenAlgoMetric(gen, genBestFitness, genTime);
+			cli.showMessage(m.toString());
+
 		} while (gen < nGenerations && totalTime < maxTimeMs);
 
+		// CLI and LOG
+		cli.showMessage("END Genetic Algorithm");
+		logh.log(Level.FINE, GeneticAlgorithm.class.getName(), "geneticAlgorithm", "START Genetic Algorithm");
+
+		return bestIndividual;
+
+	}
+
+	private Individual bestIndividual(List<Individual> population) {
+		Individual bestIndividual = null;
+		double bestFitness = Double.NEGATIVE_INFINITY;
+
+		for (Individual individual : population) {
+			double fValue = fitnessFunction(individual);
+			if (fValue > bestFitness) {
+				bestIndividual = individual;
+				bestFitness = fValue;
+			}
+		}
+
+		this.genBestFitness = bestFitness;
 		return bestIndividual;
 	}
 
@@ -136,21 +213,6 @@ public class GeneticAlgorithm {
 		mutatedRepresentation.set(p2, tmp);
 
 		return new Individual(mutatedRepresentation);
-	}
-
-	private Individual bestIndividual(List<Individual> population) {
-		Individual bestIndividual = null;
-		double bestFitness = Double.NEGATIVE_INFINITY;
-
-		for (Individual individual : population) {
-			double fValue = fitnessFunction(individual);
-			if (fValue > bestFitness) {
-				bestIndividual = individual;
-				bestFitness = fValue;
-			}
-		}
-
-		return bestIndividual;
 	}
 
 	private int randomOffset(int length) {

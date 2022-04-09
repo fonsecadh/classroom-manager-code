@@ -12,6 +12,12 @@ import business.alg.greed.model.Assignment;
 import business.problem.Classroom;
 import business.problem.Group;
 
+/**
+ * Models a greedy algorithm and its functions.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class GreedyAlgorithm {
 
 	/**
@@ -23,15 +29,35 @@ public class GreedyAlgorithm {
 	private Map<Integer, Set<Group>> assignedGroupsToClassrooms;
 	private ClassroomFilterManager cfm;
 
+	/**
+	 * Creates a Greedy Algorithm.
+	 * 
+	 * @param classroomFilterManager
+	 * 
+	 *                               The manager ({@link ClassroomFilterManager})
+	 *                               for filtering the classrooms for each group
+	 *                               ({@link Group})
+	 */
 	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager) {
 		this.cfm = classroomFilterManager;
 		this.assignedGroupsToClassrooms = new HashMap<Integer, Set<Group>>();
 	}
 
+	/**
+	 * Given a list of assignments ({@link Assignment}), the greedy algorithm
+	 * assigns the best classroom ({@link Classroom}) to each group ({@link Group})
+	 * such that the classroom fulfills the filters and there are no scheduling
+	 * collisions.
+	 * 
+	 * @param assignments Initial list of assignments.
+	 * @return Final list with the calculated assignments of classrooms to each
+	 *         group.
+	 */
 	public List<Assignment> greedyAlgorithm(List<Assignment> assignments) {
 		List<Assignment> result, repairs;
 		result = preprocess(assignments);
 		repairs = new ArrayList<Assignment>();
+
 		for (Assignment a : result) {
 			if (!a.isAssigned()) {
 				Classroom c = bestClassroomFor(a);
@@ -47,7 +73,9 @@ public class GreedyAlgorithm {
 				}
 			}
 		}
+
 		// TODO: Repair assignments
+
 		return result;
 	}
 
