@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import business.alg.greed.logic.collisions.CollisionManager;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
 import business.alg.greed.model.Assignment;
 import business.problem.Classroom;
@@ -28,6 +29,7 @@ public class GreedyAlgorithm {
 	 */
 	private Map<Integer, Set<Group>> assignedGroupsToClassrooms;
 	private ClassroomFilterManager cfm;
+	private CollisionManager cm;
 
 	/**
 	 * Creates a Greedy Algorithm.
@@ -37,8 +39,12 @@ public class GreedyAlgorithm {
 	 *                               The manager ({@link ClassroomFilterManager})
 	 *                               for filtering the classrooms for each group
 	 *                               ({@link Group})
+	 * @param collisionManager
+	 * 
+	 *                               The manager ({@link CollisionManager}) for
+	 *                               checking if two groups ({@link Group}) collide.
 	 */
-	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager) {
+	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager, CollisionManager collisionManager) {
 		this.cfm = classroomFilterManager;
 		this.assignedGroupsToClassrooms = new HashMap<Integer, Set<Group>>();
 	}
@@ -89,7 +95,7 @@ public class GreedyAlgorithm {
 		List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
 
 		boolean stop = false;
-		while (filteredClassrooms.size() > 0 || stop) {
+		while (filteredClassrooms.size() > 0 && !stop) {
 			selected = filteredClassrooms.get(0);
 			filteredClassrooms.remove(selected);
 			if (!collisionsExistFor(a.getGroup(), selected))
@@ -105,7 +111,7 @@ public class GreedyAlgorithm {
 		if (gSet == null || gSet.size() == 0)
 			return false;
 
-		return gSet.stream().anyMatch(other -> g.collidesWith(other));
+		return gSet.stream().anyMatch(other -> cm.groupsCollide(g, other));
 	}
 
 }

@@ -1,6 +1,7 @@
 package business.alg.greed.logic.filters;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class ClassroomFilterManager {
 			for (ClassroomFilter cf : filters) {
 				fc = cf.filterByGroup(g, fc);
 			}
+			Collections.sort(fc, (c1, c2) -> c1.getNumberOfSeats() - c2.getNumberOfSeats());
 			mapFiltered.put(g.getId(), fc);
 		}
 		return new ArrayList<Classroom>(fc);

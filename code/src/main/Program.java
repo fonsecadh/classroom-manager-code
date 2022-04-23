@@ -7,10 +7,15 @@ import java.util.logging.Level;
 import business.alg.gen.logic.GeneticAlgorithm;
 import business.alg.gen.logic.fitness.DefaultFitnessFunction;
 import business.alg.gen.logic.fitness.FitnessFunction;
+import business.alg.gen.logic.fitness.values.CollisionsFitnessValue;
 import business.alg.gen.logic.fitness.values.FitnessValue;
+import business.alg.gen.logic.fitness.values.FreeLabsFitnessValue;
 import business.alg.gen.model.Individual;
 import business.alg.greed.logic.Decoder;
 import business.alg.greed.logic.GreedyAlgorithm;
+import business.alg.greed.logic.collisions.CollisionManager;
+import business.alg.greed.logic.filters.CapacityFilter;
+import business.alg.greed.logic.filters.ClassTypeFilter;
 import business.alg.greed.logic.filters.ClassroomFilter;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
 import business.alg.greed.model.Assignment;
@@ -33,7 +38,7 @@ public class Program {
 		ErrorHandler errh = ErrorHandler.getInstance();
 
 		try {
-			
+
 			cli.showProgramDetails();
 
 			// Persistence
@@ -46,14 +51,16 @@ public class Program {
 			List<Group> groups = new ArrayList<Group>();
 			List<GroupSchedule> schedules = new ArrayList<GroupSchedule>();
 
-			List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
-			List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
-
+			// Genetic parameters
 			int individualLength = groups.size();
 			int populationSize = 100;
 			double mutationProbability = 0.3;
 			long maxTimeMilliseconds = 30000;
 			int numberOfGenerations = 20;
+
+			// Fitness weights
+			double collisionsFnWeight = 0.7;
+			double freeLabsFnWeight = 0.2;
 
 			// Persistence errors
 			if (errh.anyErrors()) {
@@ -68,8 +75,18 @@ public class Program {
 			// Business logic
 			logh.log(Level.FINE, Program.class.getName(), "main", "START Business logic");
 
+			List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
+			List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
+
+			classroomFilters.add(new ClassTypeFilter());
+			classroomFilters.add(new CapacityFilter());
+
+			fitnessValues.add(new CollisionsFitnessValue(collisionsFnWeight));
+			fitnessValues.add(new FreeLabsFitnessValue(freeLabsFnWeight));
+
 			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classrooms);
-			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm);
+			CollisionManager cm = new CollisionManager();
+			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm);
 
 			Decoder decoder = new Decoder();
 			for (Group g : groups) {
@@ -96,7 +113,7 @@ public class Program {
 		} catch (Exception e) {
 
 			logh.log(Level.SEVERE, Program.class.getName(), "main", e.getLocalizedMessage(), e);
-			errh.addError(new ErrorType("FATAL ERROR while executing the program. Terminating...", e));
+			errh.addError(new ErrorType(e));
 
 		} finally {
 
