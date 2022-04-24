@@ -72,11 +72,11 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 			break;
 		}
 
-		String[] stFields = startTime.trim().split(".", -1);
+		String[] stFields = startTime.trim().split("\\.", -1);
 		String stHour = stFields[0];
 		String stMin = stFields[1];
 
-		String[] etFields = endTime.trim().split(".", -1);
+		String[] etFields = endTime.trim().split("\\.", -1);
 		String etHour = etFields[0];
 		String etMin = etFields[1];
 
@@ -89,8 +89,10 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		gs.setFinish(et);
 
 		Group g = groups.get(groupCode);
-		g.addGroupSchedule(gs);
-		groups.put(g.getCode(), g);
+		if (g != null) {
+			g.addGroupSchedule(gs);
+			groups.put(g.getCode(), g);
+		}
 
 		return gs;
 
@@ -112,11 +114,11 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 
 		// Start time
 		ValidationUtils.validateString(startTime, csvName, lineNumber);
-		ValidationUtils.validateDate(startTime, csvName, lineNumber);
+		ValidationUtils.validateTime(startTime, csvName, lineNumber);
 
 		// End time
 		ValidationUtils.validateString(endTime, csvName, lineNumber);
-		ValidationUtils.validateDate(endTime, csvName, lineNumber);
+		ValidationUtils.validateTime(endTime, csvName, lineNumber);
 
 	}
 

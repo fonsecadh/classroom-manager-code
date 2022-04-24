@@ -26,7 +26,7 @@ public class IndividualPrinter {
 		this.decoder = decoder;
 	}
 
-	public void printIndividual(PrintStream printStream, Individual individual) {
+	public String getPrettyIndividual(Individual individual) {
 		StringBuilder sb = new StringBuilder();
 
 		Map<String, Assignment> assignmentsMap = decoder.decodeAsMap(individual);
@@ -55,10 +55,15 @@ public class IndividualPrinter {
 					String gMsg = group.getCode().toUpperCase() + ":" + classroom.getCode().toUpperCase();
 					appendLine(sb, gMsg);
 				}
+				appendNewLine(sb);
 			}
 		}
 
-		printStream.println(sb.toString());
+		return sb.toString();
+	}
+
+	public void printIndividual(PrintStream printStream, Individual individual) {
+		printStream.println(getPrettyIndividual(individual));
 	}
 
 	private void appendTitle(StringBuilder sb, String msg) {
@@ -71,6 +76,10 @@ public class IndividualPrinter {
 
 	private void appendLine(StringBuilder sb, String msg) {
 		sb.append(msg + "\n");
+	}
+
+	private void appendNewLine(StringBuilder sb) {
+		sb.append("\n");
 	}
 
 }

@@ -2,7 +2,6 @@ package business.loghandler;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -20,7 +19,8 @@ public class LogHandler {
 	private static final String FOLDERPATH = "files/log/";
 
 	private LogHandler() {
-		LOGGER.addHandler(getHandler());
+		Handler handler = getHandler();
+		Logger.getLogger(LogHandler.class.getName()).addHandler(handler);
 	}
 
 	public static LogHandler getInstance() {
@@ -41,7 +41,7 @@ public class LogHandler {
 
 		try {
 
-			h = new FileHandler(FOLDERPATH + getFileName() + ".txt");
+			h = new FileHandler(FOLDERPATH + getFileName() + ".txt", true);
 			h.setFormatter(new SimpleFormatter());
 
 		} catch (SecurityException e) {
@@ -71,14 +71,7 @@ public class LogHandler {
 		int month = ld.getMonthValue();
 		int day = ld.getDayOfMonth();
 
-		String msg = year + "_" + month + "_" + day;
-
-		LocalTime lt = LocalTime.now();
-		int hour = lt.getHour();
-		int min = lt.getMinute();
-		int sec = lt.getSecond();
-
-		msg += hour + "_" + min + "_" + sec;
+		String msg = String.valueOf(year) + String.valueOf(month) + String.valueOf(day);
 
 		return msg;
 

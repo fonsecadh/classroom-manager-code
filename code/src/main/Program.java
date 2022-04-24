@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.stream.Collectors;
 
 import business.alg.gen.logic.GeneticAlgorithm;
+import business.alg.gen.logic.IndividualManager;
+import business.alg.gen.logic.IndividualPrinter;
 import business.alg.gen.logic.fitness.DefaultFitnessFunction;
 import business.alg.gen.logic.fitness.FitnessFunction;
 import business.alg.gen.logic.fitness.values.CollisionsFitnessValue;
@@ -26,6 +29,7 @@ import business.loghandler.LogHandler;
 import business.problem.Classroom;
 import business.problem.Group;
 import business.problem.Subject;
+import persistence.filemanager.FileManager;
 import persistence.problem.csv.AcademicWeeksDataAccessCsv;
 import persistence.problem.csv.ClassroomsDataAccessCsv;
 import persistence.problem.csv.GroupScheduleDataAccessCsv;
@@ -50,6 +54,7 @@ public class Program {
 			cli.showMessage("START Processing input files...");
 			logh.log(Level.FINE, Program.class.getName(), "main", "START Persistence logic");
 
+			// Input
 			String subjectFilePath = "files/input/1_CSV_Asignatura.csv";
 			String classroomsFilePath = "files/input/2_CSV_Aula.csv";
 			String groupsFilePath = "files/input/3_CSV_Grupo.csv";
@@ -66,12 +71,16 @@ public class Program {
 			List<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
 			List<Group> groupList = new ArrayList<Group>(groups.values());
 
+			// Output
+			String outputFilePath = "files/output/output.txt";
+			FileManager fm = new FileManager();
+
 			// Genetic parameters
 			int individualLength = groups.size();
-			int populationSize = 100;
+			int populationSize = 50;
 			double mutationProbability = 0.3;
 			long maxTimeMilliseconds = 30000;
-			int numberOfGenerations = 20;
+			int numberOfGenerations = 10;
 
 			// Fitness weights
 			double collisionsFnWeight = 0.7;
@@ -110,11 +119,15 @@ public class Program {
 
 			FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
 
+			List<String> groupCodes = groupList.stream().map(g -> g.getCode()).collect(Collectors.toList());
+			IndividualManager individualManager = new IndividualManager(groupCodes);
+
 			GeneticAlgorithm genAlgo = new GeneticAlgorithm(individualLength, populationSize, mutationProbability,
-					maxTimeMilliseconds, numberOfGenerations, fitnessFunction);
+					maxTimeMilliseconds, numberOfGenerations, fitnessFunction, individualManager);
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
-			System.out.println(bestIndividual.toString());
+			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, decoder);
+			fm.writeToFile(outputFilePath, individualPrinter.getPrettyIndividual(bestIndividual));
 
 			// Business errors
 			if (errh.anyErrors()) {

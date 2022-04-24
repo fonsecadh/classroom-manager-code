@@ -53,13 +53,13 @@ public class ValidationUtils {
 
 	}
 
-	public static void validateDate(String str, String csvName, int lineNumber) throws InputValidationException {
+	public static void validateTime(String str, String csvName, int lineNumber) throws InputValidationException {
 
-		String[] fields = str.trim().split(".", -1);
+		String[] fields = str.trim().split("\\.", -1);
 
 		if (fields.length != 2) {
 			String msg = String.format(
-					"Wrong date format in %s csv file (Expected format: HH.MM, Received: %s), line %d", csvName, str,
+					"Wrong time format in %s csv file (Expected format: HH.MM, Received: %s), line %d", csvName, str,
 					lineNumber);
 			throw new InputValidationException(msg);
 		}
@@ -70,7 +70,7 @@ public class ValidationUtils {
 		try {
 			Integer.parseInt(hour);
 		} catch (NumberFormatException e) {
-			String msg = String.format("Wrong date format in %s csv file (hour is not a number: %s), line %d", csvName,
+			String msg = String.format("Wrong time format in %s csv file (hour is not a number: %s), line %d", csvName,
 					hour, lineNumber);
 			throw new InputValidationException(msg);
 		}
@@ -78,7 +78,7 @@ public class ValidationUtils {
 		try {
 			Integer.parseInt(min);
 		} catch (NumberFormatException e) {
-			String msg = String.format("Wrong date format in %s csv file (minutes are not a number: %s), line %d",
+			String msg = String.format("Wrong time format in %s csv file (minutes are not a number: %s), line %d",
 					csvName, min, lineNumber);
 			throw new InputValidationException(msg);
 		}

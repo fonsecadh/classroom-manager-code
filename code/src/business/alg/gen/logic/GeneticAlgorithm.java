@@ -10,7 +10,6 @@ import java.util.logging.Level;
 import business.alg.gen.logic.fitness.FitnessFunction;
 import business.alg.gen.model.GenAlgoMetric;
 import business.alg.gen.model.Individual;
-import business.alg.gen.utils.GenAlgoUtils;
 import business.loghandler.LogHandler;
 import ui.CommandLineInterface;
 
@@ -32,6 +31,7 @@ public class GeneticAlgorithm {
 	private int nGenerations;
 
 	private FitnessFunction fn;
+	private IndividualManager im;
 
 	private Random random;
 
@@ -50,16 +50,21 @@ public class GeneticAlgorithm {
 	 *                            algorithm, in milliseconds.
 	 * @param numberOfGenerations The maximum number of generations for the
 	 *                            execution of the algorithm.
-	 * @param fitnessFunction     The fitness function of the algorithm.
+	 * @param fitnessFunction     The fitness function ({@link FitnessFunction}) of
+	 *                            the algorithm.
+	 * @param individualManager   A manager ({@link IndividualManager}) for the
+	 *                            individual operations.
 	 */
 	public GeneticAlgorithm(int individualLength, int populationSize, double mutationProbability,
-			long maxTimeMilliseconds, int numberOfGenerations, FitnessFunction fitnessFunction) {
+			long maxTimeMilliseconds, int numberOfGenerations, FitnessFunction fitnessFunction,
+			IndividualManager individualManager) {
 		this.individualLength = individualLength;
 		this.popSize = populationSize;
 		this.mutationProb = mutationProbability;
 		this.maxTimeMs = maxTimeMilliseconds;
 		this.nGenerations = numberOfGenerations;
 		this.fn = fitnessFunction;
+		this.im = individualManager;
 		this.random = new Random();
 	}
 
@@ -165,7 +170,7 @@ public class GeneticAlgorithm {
 	private Set<Individual> initialPopulation() {
 		Set<Individual> p = new HashSet<Individual>();
 		while (p.size() < popSize) {
-			p.add(GenAlgoUtils.generateRandomIndividual(individualLength));
+			p.add(im.generateRandomIndividual());
 		}
 		return p;
 	}

@@ -46,6 +46,7 @@ public class GreedyAlgorithm {
 	 */
 	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager, CollisionManager collisionManager) {
 		this.cfm = classroomFilterManager;
+		this.cm = collisionManager;
 		this.assignedGroupsToClassrooms = new HashMap<String, Set<Group>>();
 	}
 

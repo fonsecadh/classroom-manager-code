@@ -1,0 +1,100 @@
+abr 24, 2022 11:40:37 PM main.Program main
+GRAVE: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateTime(ValidationUtils.java:65)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.validate(GroupScheduleDataAccessCsv.java:115)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:53)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:41:10 PM main.Program main
+GRAVE: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateTime(ValidationUtils.java:66)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.validate(GroupScheduleDataAccessCsv.java:115)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:53)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:41:42 PM main.Program main
+GRAVE: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateTime(ValidationUtils.java:67)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.validate(GroupScheduleDataAccessCsv.java:115)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:53)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:42:42 PM main.Program main
+GRAVE: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong time format in GROUPSCHEDULE csv file (Expected format: HH.MM, Received: 11.00), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateTime(ValidationUtils.java:68)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.validate(GroupScheduleDataAccessCsv.java:115)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:53)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:44:35 PM main.Program main
+GRAVE: For input string: ""
+java.lang.NumberFormatException: For input string: ""
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:592)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:83)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:45:31 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:92)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:47:04 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.lineToGroupSchedule(GroupScheduleDataAccessCsv.java:93)
+	at persistence.problem.csv.GroupScheduleDataAccessCsv.loadGroupSchedule(GroupScheduleDataAccessCsv.java:31)
+	at main.Program.main(Program.java:62)
+
+abr 24, 2022 11:47:49 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.alg.greed.logic.GreedyAlgorithm.greedyAlgorithm(GreedyAlgorithm.java:68)
+	at business.alg.gen.logic.fitness.DefaultFitnessFunction.fitnessFunction(DefaultFitnessFunction.java:32)
+	at business.alg.gen.logic.GeneticAlgorithm.fitnessFunction(GeneticAlgorithm.java:162)
+	at business.alg.gen.logic.GeneticAlgorithm.bestIndividual(GeneticAlgorithm.java:134)
+	at business.alg.gen.logic.GeneticAlgorithm.geneticAlgorithm(GeneticAlgorithm.java:98)
+	at main.Program.main(Program.java:116)
+
+abr 24, 2022 11:51:24 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.alg.greed.logic.GreedyAlgorithm.greedyAlgorithm(GreedyAlgorithm.java:68)
+	at business.alg.gen.logic.fitness.DefaultFitnessFunction.fitnessFunction(DefaultFitnessFunction.java:32)
+	at business.alg.gen.logic.GeneticAlgorithm.fitnessFunction(GeneticAlgorithm.java:162)
+	at business.alg.gen.logic.GeneticAlgorithm.bestIndividual(GeneticAlgorithm.java:134)
+	at business.alg.gen.logic.GeneticAlgorithm.geneticAlgorithm(GeneticAlgorithm.java:98)
+	at main.Program.main(Program.java:115)
+
+abr 24, 2022 11:52:47 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.alg.greed.logic.GreedyAlgorithm.greedyAlgorithm(GreedyAlgorithm.java:71)
+	at business.alg.gen.logic.fitness.DefaultFitnessFunction.fitnessFunction(DefaultFitnessFunction.java:32)
+	at business.alg.gen.logic.GeneticAlgorithm.fitnessFunction(GeneticAlgorithm.java:162)
+	at business.alg.gen.logic.GeneticAlgorithm.bestIndividual(GeneticAlgorithm.java:134)
+	at business.alg.gen.logic.GeneticAlgorithm.geneticAlgorithm(GeneticAlgorithm.java:98)
+	at main.Program.main(Program.java:115)
+
+abr 24, 2022 11:53:35 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.alg.greed.logic.GreedyAlgorithm.greedyAlgorithm(GreedyAlgorithm.java:73)
+	at business.alg.gen.logic.fitness.DefaultFitnessFunction.fitnessFunction(DefaultFitnessFunction.java:32)
+	at business.alg.gen.logic.GeneticAlgorithm.fitnessFunction(GeneticAlgorithm.java:162)
+	at business.alg.gen.logic.GeneticAlgorithm.bestIndividual(GeneticAlgorithm.java:134)
+	at business.alg.gen.logic.GeneticAlgorithm.geneticAlgorithm(GeneticAlgorithm.java:98)
+	at main.Program.main(Program.java:115)
+
