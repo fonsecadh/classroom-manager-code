@@ -1,5 +1,8 @@
 package business.errorhandler.model;
 
+import business.errorhandler.exceptions.InputValidationException;
+import business.errorhandler.exceptions.PersistenceException;
+
 public class ErrorType {
 
 	private String customMsg;
@@ -24,6 +27,10 @@ public class ErrorType {
 	}
 
 	private String getMsgForExceptionType(Exception e) {
+		if (e instanceof InputValidationException)
+			return e.getMessage();
+		else if (e instanceof PersistenceException)
+			return e.getMessage();
 		return "FATAL ERROR while executing the program. Terminating...";
 	}
 

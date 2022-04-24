@@ -27,7 +27,7 @@ public class GreedyAlgorithm {
 	 * Key: Classroom ID. <br>
 	 * Value: Set of groups assigned to that classroom.
 	 */
-	private Map<Integer, Set<Group>> assignedGroupsToClassrooms;
+	private Map<String, Set<Group>> assignedGroupsToClassrooms;
 	private ClassroomFilterManager cfm;
 	private CollisionManager cm;
 
@@ -46,7 +46,7 @@ public class GreedyAlgorithm {
 	 */
 	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager, CollisionManager collisionManager) {
 		this.cfm = classroomFilterManager;
-		this.assignedGroupsToClassrooms = new HashMap<Integer, Set<Group>>();
+		this.assignedGroupsToClassrooms = new HashMap<String, Set<Group>>();
 	}
 
 	/**
@@ -69,11 +69,11 @@ public class GreedyAlgorithm {
 				Classroom c = bestClassroomFor(a);
 				if (c != null) {
 					a.setClassroom(c);
-					Set<Group> gSet = assignedGroupsToClassrooms.get(c.getId());
+					Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
 					if (gSet == null)
 						gSet = new HashSet<Group>();
 					gSet.add(a.getGroup());
-					assignedGroupsToClassrooms.put(c.getId(), gSet);
+					assignedGroupsToClassrooms.put(c.getCode(), gSet);
 				} else {
 					repairs.add(a);
 				}
@@ -106,7 +106,7 @@ public class GreedyAlgorithm {
 	}
 
 	private boolean collisionsExistFor(Group g, Classroom c) {
-		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getId());
+		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
 
 		if (gSet == null || gSet.size() == 0)
 			return false;
