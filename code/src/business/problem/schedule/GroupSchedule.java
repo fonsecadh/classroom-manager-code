@@ -36,16 +36,10 @@ public class GroupSchedule {
 		boolean overlaps = false;
 		if (sameDay(other)) {
 			if (intervalOverlap(other)) {
-				if (weekOverlap(other)) {
-					overlaps = true;
-				}
+				overlaps = true;
 			}
 		}
 		return overlaps;
-	}
-
-	private boolean weekOverlap(GroupSchedule other) {
-		return false;
 	}
 
 	private boolean intervalOverlap(GroupSchedule other) {
