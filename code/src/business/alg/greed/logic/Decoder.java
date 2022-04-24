@@ -10,30 +10,30 @@ import business.alg.greed.model.Assignment;
 
 public class Decoder {
 
-	private Map<Integer, Assignment> masterAssignments;
+	private Map<String, Assignment> masterAssignments;
 
 	public Decoder() {
-		this.masterAssignments = new HashMap<Integer, Assignment>();
+		this.masterAssignments = new HashMap<String, Assignment>();
 	}
 
-	public void putMasterAssignment(int groupId, Assignment a) {
+	public void putMasterAssignment(String groupId, Assignment a) {
 		this.masterAssignments.put(groupId, a);
 	}
 
 	public List<Assignment> decode(Individual i) {
 		List<Assignment> decodedRep = new ArrayList<Assignment>();
-		List<Integer> rep = i.getRepresentation();
-		for (Integer groupId : rep) {
+		List<String> rep = i.getRepresentation();
+		for (String groupId : rep) {
 			decodedRep.add(masterAssignments.get(groupId));
 		}
 		return decodedRep;
 	}
 
-	public Map<Integer, Assignment> decodeAsMap(Individual i) {
+	public Map<String, Assignment> decodeAsMap(Individual i) {
 		List<Assignment> l = decode(i);
-		Map<Integer, Assignment> m = new HashMap<Integer, Assignment>();
+		Map<String, Assignment> m = new HashMap<String, Assignment>();
 		for (Assignment a : l) {
-			m.put(a.getGroup().getId(), a);
+			m.put(a.getGroup().getCode(), a);
 		}
 		return m;
 	}

@@ -1,17 +1,14 @@
 package business.problem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Subject {
 
-	private int id;
 	private String code;
 	private String course;
+	private String semester;
 	private List<Group> groups;
-
-	public int getId() {
-		return id;
-	}
 
 	public String getCode() {
 		return code;
@@ -21,12 +18,12 @@ public class Subject {
 		return course;
 	}
 
-	public List<Group> getGroups() {
-		return groups;
+	public String getSemester() {
+		return semester;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public List<Group> getGroups() {
+		return new ArrayList<Group>(groups);
 	}
 
 	public void setCode(String code) {
@@ -37,8 +34,12 @@ public class Subject {
 		this.course = course;
 	}
 
-	public void setGroups(List<Group> groups) {
-		this.groups = groups;
+	public void setSemester(String semester) {
+		this.semester = semester;
+	}
+
+	public void addGroup(Group group) {
+		this.groups.add(group);
 	}
 
 }

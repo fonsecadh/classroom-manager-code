@@ -7,15 +7,11 @@ import business.problem.schedule.GroupSchedule;
 
 public class Group {
 
-	private int id;
 	private String code;
 	private int numberOfStudents;
 	private ClassroomType classroomType;
+	private GroupLanguage groupLanguage;
 	private List<GroupSchedule> allGroupSchedules;
-
-	public int getId() {
-		return id;
-	}
 
 	public String getCode() {
 		return code;
@@ -29,12 +25,12 @@ public class Group {
 		return classroomType;
 	}
 
-	public List<GroupSchedule> getAllGroupSchedules() {
-		return new ArrayList<GroupSchedule>(allGroupSchedules);
+	public GroupLanguage getGroupLanguage() {
+		return groupLanguage;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public List<GroupSchedule> getAllGroupSchedules() {
+		return new ArrayList<GroupSchedule>(allGroupSchedules);
 	}
 
 	public void setCode(String code) {
@@ -49,8 +45,12 @@ public class Group {
 		this.classroomType = classroomType;
 	}
 
-	public void setAllGroupSchedules(List<GroupSchedule> allGroupSchedules) {
-		this.allGroupSchedules = new ArrayList<GroupSchedule>(allGroupSchedules);
+	public void setGroupLanguage(GroupLanguage groupLanguage) {
+		this.groupLanguage = groupLanguage;
+	}
+
+	public void addGroupSchedule(GroupSchedule groupSchedule) {
+		this.allGroupSchedules.add(groupSchedule);
 	}
 
 	public boolean collidesWith(Group other) {

@@ -1,37 +1,39 @@
 package persistence.problem.csv;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
+import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.loghandler.LogHandler;
 import business.problem.Classroom;
 import business.problem.ClassroomType;
 import persistence.problem.ClassroomsDataAccess;
 import persistence.problem.csv.utils.CsvUtils;
+import persistence.problem.csv.utils.ValidationUtils;
 
 public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
 	@Override
-	public List<Classroom> loadClassrooms(String filename) throws InputValidationException, PersistenceException {
-		List<Classroom> classrooms = new ArrayList<Classroom>();
+	public Map<String, Classroom> loadClassrooms(String filename)
+			throws InputValidationException, PersistenceException {
 
-		List<String> lines = readLines(filename);
+		Map<String, Classroom> classrooms = new HashMap<String, Classroom>();
 
-		if (lines == null)
-			return classrooms;
+		List<String> lines = CsvUtils.readLinesFromCsv(filename, ClassroomsDataAccessCsv.class.getName(),
+				"loadClassrooms", "CLASSROOMS");
 
-		for (int i = 1; i < lines.size(); i++) // Ignore header
-			classrooms.add(lineToClassroom(lines.get(i), i));
+		for (int i = 1; i < lines.size(); i++) { // Ignore header
+			Classroom c = lineToClassroom(lines.get(i), i);
+			classrooms.put(c.getCode(), c);
+		}
 
 		return classrooms;
+
 	}
 
 	private Classroom lineToClassroom(String line, int lineNumber) throws InputValidationException {
+
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
 		if (fields.length != 3) {
@@ -57,74 +59,32 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 			break;
 		}
 
-		int capacityInt = Integer.parseInt(capacity);
-
 		Classroom c = new Classroom();
-
 		c.setCode(code);
 		c.setType(ct);
-		c.setNumberOfSeats(capacityInt);
+		c.setNumberOfSeats(Integer.parseInt(capacity));
 
 		return c;
+
 	}
 
 	private void validate(String code, String type, String capacity, int lineNumber) throws InputValidationException {
 
-		if (code == null || code.trim().equals("")) {
-			String msg = String.format("Wrong code in CLASSROOM csv file, line %d", lineNumber);
-			throw new InputValidationException(msg);
-		}
+		String csvName = "CLASSROOM";
 
-		if (type == null || type.trim().equals("") || !(type.equals("T") || type.equals("L"))) {
-			String msg = String.format("Wrong type in CLASSROOM csv file, line %d", lineNumber);
-			throw new InputValidationException(msg);
-		}
+		// Code validation
+		ValidationUtils.validateString(code, csvName, lineNumber);
 
-		if (capacity == null || capacity.trim().equals("")) {
-			String msg = String.format("Wrong capacity in CLASSROOM csv file, line %d", lineNumber);
-			throw new InputValidationException(msg);
-		}
+		// Type validation
+		ValidationUtils.validateString(type, csvName, lineNumber);
 
-		int capacityInt = 0;
+		String[] values = { "T", "L" };
+		ValidationUtils.validateStringValues(type, csvName, values, lineNumber);
 
-		try {
-			capacityInt = Integer.parseInt(capacity);
-		} catch (NumberFormatException e) {
-			String msg = String.format("Wrong capacity in CLASSROOM csv file, line %d", lineNumber);
-			throw new InputValidationException(msg);
-		}
+		// Capacity validation
+		ValidationUtils.validateString(capacity, csvName, lineNumber);
+		ValidationUtils.validatePositiveInt(capacity, csvName, lineNumber);
 
-		if (capacityInt <= 0) {
-			String msg = String.format("Wrong capacity in CLASSROOM csv file, line %d", lineNumber);
-			throw new InputValidationException(msg);
-		}
-
-	}
-
-	private List<String> readLines(String filename) throws PersistenceException {
-		List<String> lines = null;
-
-		try {
-
-			lines = CsvUtils.readLinesFromCsv(filename);
-
-		} catch (FileNotFoundException e) {
-
-			LogHandler.getInstance().log(Level.SEVERE, ClassroomsDataAccessCsv.class.getName(), "readLines",
-					e.getLocalizedMessage(), e);
-
-			throw new PersistenceException("CLASSROOM csv file not found");
-
-		} catch (IOException e) {
-
-			LogHandler.getInstance().log(Level.SEVERE, ClassroomsDataAccessCsv.class.getName(), "readLines",
-					e.getLocalizedMessage(), e);
-
-			throw new PersistenceException("Error encountered while loading the CLASSROOMS csv file.");
-
-		}
-
-		return lines;
 	}
 
 }

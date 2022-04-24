@@ -90,7 +90,7 @@ public class Program {
 
 			Decoder decoder = new Decoder();
 			for (Group g : groups) {
-				decoder.putMasterAssignment(g.getId(), new Assignment(g));
+				decoder.putMasterAssignment(g.getCode(), new Assignment(g));
 			}
 
 			FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);

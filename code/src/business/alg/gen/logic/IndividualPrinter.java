@@ -29,7 +29,7 @@ public class IndividualPrinter {
 	public void printIndividual(PrintStream printStream, Individual individual) {
 		StringBuilder sb = new StringBuilder();
 
-		Map<Integer, Assignment> assignmentsMap = decoder.decodeAsMap(individual);
+		Map<String, Assignment> assignmentsMap = decoder.decodeAsMap(individual);
 
 		List<String> coursesDuplicates = subjects.stream().map(s -> s.getCourse()).collect(Collectors.toList());
 		Set<String> courses = new TreeSet<String>(coursesDuplicates);
@@ -51,7 +51,7 @@ public class IndividualPrinter {
 				appendTitle(sb, sMsg);
 
 				for (Group group : subject.getGroups()) {
-					Classroom classroom = assignmentsMap.get(group.getId()).getClassroom();
+					Classroom classroom = assignmentsMap.get(group.getCode()).getClassroom();
 					String gMsg = group.getCode().toUpperCase() + ":" + classroom.getCode().toUpperCase();
 					appendLine(sb, gMsg);
 				}

@@ -4,15 +4,9 @@ import java.time.LocalTime;
 
 public class GroupSchedule {
 
-	private int id;
 	private Day day;
 	private LocalTime start;
 	private LocalTime finish;
-	private WeekType weekType;
-
-	public int getId() {
-		return id;
-	}
 
 	public Day getDay() {
 		return day;
@@ -26,14 +20,6 @@ public class GroupSchedule {
 		return finish;
 	}
 
-	public WeekType getWeekType() {
-		return weekType;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public void setDay(Day day) {
 		this.day = day;
 	}
@@ -44,10 +30,6 @@ public class GroupSchedule {
 
 	public void setFinish(LocalTime finish) {
 		this.finish = finish;
-	}
-
-	public void setWeekType(WeekType weekType) {
-		this.weekType = weekType;
 	}
 
 	public boolean overlapsWith(GroupSchedule other) {
@@ -63,8 +45,7 @@ public class GroupSchedule {
 	}
 
 	private boolean weekOverlap(GroupSchedule other) {
-		return getWeekType().equals(other.getWeekType())
-				|| (getWeekType().equals(WeekType.ALWAYS) || (other.getWeekType().equals(WeekType.ALWAYS)));
+		return false;
 	}
 
 	private boolean intervalOverlap(GroupSchedule other) {

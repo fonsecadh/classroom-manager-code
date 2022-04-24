@@ -177,9 +177,9 @@ public class GeneticAlgorithm {
 	private Individual crossover(Individual firstParent, Individual secondParent) {
 		int p1 = randomOffset(individualLength);
 		int p2 = randomOffset(individualLength);
-		List<Integer> xArray = firstParent.getRepresentation();
-		List<Integer> yArray = secondParent.getRepresentation();
-		List<Integer> offArray = new ArrayList<Integer>(xArray);
+		List<String> xArray = firstParent.getRepresentation();
+		List<String> yArray = secondParent.getRepresentation();
+		List<String> offArray = new ArrayList<String>(xArray);
 
 		// Keep the substring from p1 to p2-1 to the offspring, order and position
 		// The remaining genes, p2 to p1-1, from the second parent, relative order
@@ -205,10 +205,10 @@ public class GeneticAlgorithm {
 			p2 = randomOffset(individualLength);
 		}
 
-		List<Integer> mutatedRepresentation = new ArrayList<Integer>(child.getRepresentation());
+		List<String> mutatedRepresentation = new ArrayList<String>(child.getRepresentation());
 
 		// We swap two random points
-		Integer tmp = mutatedRepresentation.get(p1);
+		String tmp = mutatedRepresentation.get(p1);
 		mutatedRepresentation.set(p1, mutatedRepresentation.get(p2));
 		mutatedRepresentation.set(p2, tmp);
 

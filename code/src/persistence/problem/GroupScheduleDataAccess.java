@@ -1,15 +1,16 @@
 package persistence.problem;
 
+import java.util.List;
 import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
 import business.problem.Group;
-import business.problem.Subject;
+import business.problem.schedule.GroupSchedule;
 
-public interface GroupsDataAccess {
+public interface GroupScheduleDataAccess {
 
-	Map<String, Group> loadGroups(String filename, Map<String, Subject> subjects)
+	List<GroupSchedule> loadGroupSchedule(String filename, Map<String, Group> groups)
 			throws PersistenceException, InputValidationException;
 
 }
