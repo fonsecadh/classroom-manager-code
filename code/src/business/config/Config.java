@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import business.errorhandler.logic.ErrorHandler;
-import business.errorhandler.model.ErrorType;
+import business.errorhandler.exceptions.PersistenceException;
 import business.loghandler.LogHandler;
 
 public class Config {
@@ -25,15 +24,15 @@ public class Config {
 		return INSTANCE;
 	}
 
-	public void load(String filename) {
+	public void load(String filename) throws PersistenceException {
 		try {
 			this.prop.load(new BufferedReader(new FileReader(filename)));
 		} catch (FileNotFoundException e) {
 			LogHandler.getInstance().log(Level.SEVERE, Config.class.getName(), "load", e.getLocalizedMessage(), e);
-			ErrorHandler.getInstance().addError(new ErrorType("CONFIG file not found.", e));
+			throw new PersistenceException("CONFIG csv file not found");
 		} catch (IOException e) {
 			LogHandler.getInstance().log(Level.SEVERE, Config.class.getName(), "load", e.getLocalizedMessage(), e);
-			ErrorHandler.getInstance().addError(new ErrorType("Error encountered while loading the CONFIG file.", e));
+			throw new PersistenceException("Error encountered while loading the CONFIG file.");
 		}
 	}
 

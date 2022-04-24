@@ -14,6 +14,8 @@ import persistence.problem.csv.utils.ValidationUtils;
 
 public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
+	public static final String CSVNAME = "CLASSROOMS";
+
 	@Override
 	public Map<String, Classroom> loadClassrooms(String filename)
 			throws InputValidationException, PersistenceException {
@@ -21,7 +23,7 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 		Map<String, Classroom> classrooms = new HashMap<String, Classroom>();
 
 		List<String> lines = CsvUtils.readLinesFromCsv(filename, ClassroomsDataAccessCsv.class.getName(),
-				"loadClassrooms", "CLASSROOMS");
+				"loadClassrooms", CSVNAME);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Classroom c = lineToClassroom(lines.get(i), i);
@@ -37,14 +39,14 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
 		if (fields.length != 3) {
-			String msg = String.format("Wrong line format in CLASSROOM csv file: different column size, line %d",
+			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
 					lineNumber);
 			throw new InputValidationException(msg);
 		}
 
-		String code = fields[0];
-		String type = fields[1];
-		String capacity = fields[2];
+		String code = fields[0].trim();
+		String type = fields[1].trim();
+		String capacity = fields[2].trim();
 
 		validate(code, type, capacity, lineNumber);
 
@@ -70,7 +72,7 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
 	private void validate(String code, String type, String capacity, int lineNumber) throws InputValidationException {
 
-		String csvName = "CLASSROOM";
+		String csvName = CSVNAME;
 
 		// Code validation
 		ValidationUtils.validateString(code, csvName, lineNumber);

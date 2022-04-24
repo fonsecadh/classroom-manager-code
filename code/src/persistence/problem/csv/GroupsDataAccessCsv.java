@@ -16,6 +16,8 @@ import persistence.problem.csv.utils.ValidationUtils;
 
 public class GroupsDataAccessCsv implements GroupsDataAccess {
 
+	public static final String CSVNAME = "GROUPS";
+
 	@Override
 	public Map<String, Group> loadGroups(String filename, Map<String, Subject> subjects)
 			throws PersistenceException, InputValidationException {
@@ -23,7 +25,7 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 		Map<String, Group> groups = new HashMap<String, Group>();
 
 		List<String> lines = CsvUtils.readLinesFromCsv(filename, GroupsDataAccessCsv.class.getName(), "loadGroups",
-				"GROUPS");
+				CSVNAME);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Group g = lineToGroup(lines.get(i), i, subjects);
@@ -40,16 +42,16 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
 		if (fields.length != 5) {
-			String msg = String.format("Wrong line format in GROUPS csv file: different column size, line %d",
+			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
 					lineNumber);
 			throw new InputValidationException(msg);
 		}
 
-		String code = fields[0];
-		String subjectCode = fields[1];
-		String nStudents = fields[2];
-		String type = fields[3];
-		String language = fields[4];
+		String code = fields[0].trim();
+		String subjectCode = fields[1].trim();
+		String nStudents = fields[2].trim();
+		String type = fields[3].trim();
+		String language = fields[4].trim();
 
 		validate(code, subjectCode, nStudents, type, language, lineNumber);
 
@@ -92,7 +94,7 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 	private void validate(String code, String subjectCode, String nStudents, String type, String language,
 			int lineNumber) throws InputValidationException {
 
-		String csvName = "GROUP";
+		String csvName = CSVNAME;
 
 		// Code validation
 		ValidationUtils.validateString(code, csvName, lineNumber);

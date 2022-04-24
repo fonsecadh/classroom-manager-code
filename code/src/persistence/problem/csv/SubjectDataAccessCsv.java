@@ -13,13 +13,15 @@ import persistence.problem.csv.utils.ValidationUtils;
 
 public class SubjectDataAccessCsv implements SubjectDataAccess {
 
+	public static final String CSVNAME = "SUBJECT";
+
 	@Override
 	public Map<String, Subject> loadSubjects(String filename) throws InputValidationException, PersistenceException {
 
 		Map<String, Subject> subjects = new HashMap<String, Subject>();
 
 		List<String> lines = CsvUtils.readLinesFromCsv(filename, SubjectDataAccessCsv.class.getName(), "loadSubjects",
-				"SUBJECT");
+				CSVNAME);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Subject s = lineToSubject(lines.get(i), i);
@@ -35,14 +37,14 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
 		if (fields.length != 3) {
-			String msg = String.format("Wrong line format in SUBJECT csv file: different column size, line %d",
+			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
 					lineNumber);
 			throw new InputValidationException(msg);
 		}
 
-		String code = fields[0];
-		String course = fields[1];
-		String semester = fields[2];
+		String code = fields[0].trim();
+		String course = fields[1].trim();
+		String semester = fields[2].trim();
 
 		validate(code, course, semester, lineNumber);
 
@@ -57,7 +59,7 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 
 	private void validate(String code, String course, String semester, int lineNumber) throws InputValidationException {
 
-		String csvName = "SUBJECT";
+		String csvName = CSVNAME;
 
 		// Code validation
 		ValidationUtils.validateString(code, csvName, lineNumber);

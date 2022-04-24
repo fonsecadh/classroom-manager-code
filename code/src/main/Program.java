@@ -2,6 +2,7 @@ package main;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 
 import business.alg.gen.logic.GeneticAlgorithm;
@@ -25,7 +26,11 @@ import business.loghandler.LogHandler;
 import business.problem.Classroom;
 import business.problem.Group;
 import business.problem.Subject;
-import business.problem.schedule.GroupSchedule;
+import persistence.problem.csv.AcademicWeeksDataAccessCsv;
+import persistence.problem.csv.ClassroomsDataAccessCsv;
+import persistence.problem.csv.GroupScheduleDataAccessCsv;
+import persistence.problem.csv.GroupsDataAccessCsv;
+import persistence.problem.csv.SubjectDataAccessCsv;
 import ui.CommandLineInterface;
 
 public class Program {
@@ -45,11 +50,21 @@ public class Program {
 			cli.showMessage("START Processing input files...");
 			logh.log(Level.FINE, Program.class.getName(), "main", "START Persistence logic");
 
-			// TODO: Retrieve configuration and data from files
-			List<Subject> subjects = new ArrayList<Subject>();
-			List<Classroom> classrooms = new ArrayList<Classroom>();
-			List<Group> groups = new ArrayList<Group>();
-			List<GroupSchedule> schedules = new ArrayList<GroupSchedule>();
+			String subjectFilePath = "files/input/1_CSV_Asignatura.csv";
+			String classroomsFilePath = "files/input/2_CSV_Aula.csv";
+			String groupsFilePath = "files/input/3_CSV_Grupo.csv";
+			String groupScheduleFilePath = "files/input/4_CSV_Horario.csv";
+			String weeksFilePath = "files/input/5_CSV_SemanaLectiva.csv";
+
+			Map<String, Subject> subjects = new SubjectDataAccessCsv().loadSubjects(subjectFilePath);
+			Map<String, Classroom> classrooms = new ClassroomsDataAccessCsv().loadClassrooms(classroomsFilePath);
+			Map<String, Group> groups = new GroupsDataAccessCsv().loadGroups(groupsFilePath, subjects);
+			new GroupScheduleDataAccessCsv().loadGroupSchedule(groupScheduleFilePath, groups);
+			new AcademicWeeksDataAccessCsv().loadAcademicWeeks(weeksFilePath, groups);
+
+			List<Subject> subjectList = new ArrayList<Subject>(subjects.values());
+			List<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
+			List<Group> groupList = new ArrayList<Group>(groups.values());
 
 			// Genetic parameters
 			int individualLength = groups.size();
@@ -84,12 +99,12 @@ public class Program {
 			fitnessValues.add(new CollisionsFitnessValue(collisionsFnWeight));
 			fitnessValues.add(new FreeLabsFitnessValue(freeLabsFnWeight));
 
-			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classrooms);
+			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
 			CollisionManager cm = new CollisionManager();
 			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm);
 
 			Decoder decoder = new Decoder();
-			for (Group g : groups) {
+			for (Group g : groupList) {
 				decoder.putMasterAssignment(g.getCode(), new Assignment(g));
 			}
 

@@ -12,6 +12,12 @@ public class Group {
 	private ClassroomType classroomType;
 	private GroupLanguage groupLanguage;
 	private List<GroupSchedule> allGroupSchedules;
+	private List<String> academicWeeks;
+
+	public Group() {
+		this.allGroupSchedules = new ArrayList<GroupSchedule>();
+		this.academicWeeks = new ArrayList<String>();
+	}
 
 	public String getCode() {
 		return code;
@@ -33,6 +39,10 @@ public class Group {
 		return new ArrayList<GroupSchedule>(allGroupSchedules);
 	}
 
+	public List<String> getAcademicWeeks() {
+		return new ArrayList<String>(academicWeeks);
+	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -51,6 +61,10 @@ public class Group {
 
 	public void addGroupSchedule(GroupSchedule groupSchedule) {
 		this.allGroupSchedules.add(groupSchedule);
+	}
+
+	public void addAcademicWeek(String academicWeek) {
+		this.academicWeeks.add(academicWeek);
 	}
 
 	public boolean collidesWith(Group other) {

@@ -16,6 +16,8 @@ import persistence.problem.csv.utils.ValidationUtils;
 
 public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 
+	public static final String CSVNAME = "GROUPSCHEDULE";
+
 	@Override
 	public List<GroupSchedule> loadGroupSchedule(String filename, Map<String, Group> groups)
 			throws PersistenceException, InputValidationException {
@@ -23,7 +25,7 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		List<GroupSchedule> groupSchedule = new ArrayList<GroupSchedule>();
 
 		List<String> lines = CsvUtils.readLinesFromCsv(filename, GroupScheduleDataAccessCsv.class.getName(),
-				"loadGroupSchedule", "GROUPSCHEDULE");
+				"loadGroupSchedule", CSVNAME);
 
 		for (int i = 1; i < lines.size(); i++) // Ignore header
 			groupSchedule.add(lineToGroupSchedule(lines.get(i), i, groups));
@@ -38,15 +40,15 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
 		if (fields.length != 4) {
-			String msg = String.format("Wrong line format in GROUPSCHEDULE csv file: different column size, line %d",
+			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
 					lineNumber);
 			throw new InputValidationException(msg);
 		}
 
-		String groupCode = fields[0];
-		String day = fields[1];
-		String startTime = fields[2];
-		String endTime = fields[3];
+		String groupCode = fields[0].trim();
+		String day = fields[1].trim();
+		String startTime = fields[2].trim();
+		String endTime = fields[3].trim();
 
 		validate(groupCode, day, startTime, endTime, lineNumber);
 
@@ -97,7 +99,7 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 	private void validate(String groupCode, String day, String startTime, String endTime, int lineNumber)
 			throws InputValidationException {
 
-		String csvName = "GROUPSCHEDULE";
+		String csvName = CSVNAME;
 
 		// Group code validation
 		ValidationUtils.validateString(groupCode, csvName, lineNumber);

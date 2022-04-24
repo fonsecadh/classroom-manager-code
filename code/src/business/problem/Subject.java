@@ -10,6 +10,10 @@ public class Subject {
 	private String semester;
 	private List<Group> groups;
 
+	public Subject() {
+		this.groups = new ArrayList<Group>();
+	}
+
 	public String getCode() {
 		return code;
 	}

@@ -16,7 +16,10 @@ public class CommandLineInterface {
 
 	public void showProgramDetails() {
 		String version = Config.getInstance().getProperty("VERSION");
-		System.out.println("CLASSROOM MANAGER" + " v" + version);
+		String msg = "CLASSROOM MANAGER";
+		if (version != null)
+			msg += " v" + version;
+		System.out.println(msg);
 	}
 
 	public void showMessage(String msg) {
