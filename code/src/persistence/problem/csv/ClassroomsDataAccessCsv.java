@@ -8,8 +8,8 @@ import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
 import business.problem.Classroom;
 import business.problem.ClassroomType;
+import persistence.filemanager.FileManager;
 import persistence.problem.ClassroomsDataAccess;
-import persistence.problem.csv.utils.CsvUtils;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
@@ -17,13 +17,12 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 	public static final String CSVNAME = "CLASSROOMS";
 
 	@Override
-	public Map<String, Classroom> loadClassrooms(String filename)
+	public Map<String, Classroom> loadClassrooms(String filename, FileManager fileManager)
 			throws InputValidationException, PersistenceException {
 
 		Map<String, Classroom> classrooms = new HashMap<String, Classroom>();
 
-		List<String> lines = CsvUtils.readLinesFromCsv(filename, ClassroomsDataAccessCsv.class.getName(),
-				"loadClassrooms", CSVNAME);
+		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Classroom c = lineToClassroom(lines.get(i), i);

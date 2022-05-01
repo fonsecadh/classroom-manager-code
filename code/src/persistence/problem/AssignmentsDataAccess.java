@@ -1,17 +1,18 @@
 package persistence.problem;
 
-import java.util.List;
 import java.util.Map;
 
+import business.alg.greed.model.Assignment;
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
+import business.problem.Classroom;
 import business.problem.Group;
-import business.problem.schedule.GroupSchedule;
 import persistence.filemanager.FileManager;
 
-public interface GroupScheduleDataAccess {
+public interface AssignmentsDataAccess {
 
-	List<GroupSchedule> loadGroupSchedule(String filename, Map<String, Group> groups, FileManager fileManager)
+	Map<String, Assignment> loadGroupSchedule(String filename, Map<String, Group> groups,
+			Map<String, Classroom> classrooms, FileManager fileManager)
 			throws PersistenceException, InputValidationException;
 
 }

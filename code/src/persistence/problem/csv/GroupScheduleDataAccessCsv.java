@@ -10,8 +10,8 @@ import business.errorhandler.exceptions.PersistenceException;
 import business.problem.Group;
 import business.problem.schedule.Day;
 import business.problem.schedule.GroupSchedule;
+import persistence.filemanager.FileManager;
 import persistence.problem.GroupScheduleDataAccess;
-import persistence.problem.csv.utils.CsvUtils;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
@@ -19,13 +19,12 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 	public static final String CSVNAME = "GROUPSCHEDULE";
 
 	@Override
-	public List<GroupSchedule> loadGroupSchedule(String filename, Map<String, Group> groups)
+	public List<GroupSchedule> loadGroupSchedule(String filename, Map<String, Group> groups, FileManager fileManager)
 			throws PersistenceException, InputValidationException {
 
 		List<GroupSchedule> groupSchedule = new ArrayList<GroupSchedule>();
 
-		List<String> lines = CsvUtils.readLinesFromCsv(filename, GroupScheduleDataAccessCsv.class.getName(),
-				"loadGroupSchedule", CSVNAME);
+		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) // Ignore header
 			groupSchedule.add(lineToGroupSchedule(lines.get(i), i, groups));
@@ -89,10 +88,14 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		gs.setFinish(et);
 
 		Group g = groups.get(groupCode);
-		if (g != null) {
-			g.addGroupSchedule(gs);
-			groups.put(g.getCode(), g);
+		if (g == null) {
+			String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME, groupCode,
+					lineNumber);
+			throw new InputValidationException(msg);
 		}
+
+		g.addGroupSchedule(gs);
+		groups.put(g.getCode(), g);
 
 		return gs;
 

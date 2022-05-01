@@ -10,8 +10,8 @@ import business.problem.ClassroomType;
 import business.problem.Group;
 import business.problem.GroupLanguage;
 import business.problem.Subject;
+import persistence.filemanager.FileManager;
 import persistence.problem.GroupsDataAccess;
-import persistence.problem.csv.utils.CsvUtils;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class GroupsDataAccessCsv implements GroupsDataAccess {
@@ -19,13 +19,12 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 	public static final String CSVNAME = "GROUPS";
 
 	@Override
-	public Map<String, Group> loadGroups(String filename, Map<String, Subject> subjects)
+	public Map<String, Group> loadGroups(String filename, Map<String, Subject> subjects, FileManager fileManager)
 			throws PersistenceException, InputValidationException {
 
 		Map<String, Group> groups = new HashMap<String, Group>();
 
-		List<String> lines = CsvUtils.readLinesFromCsv(filename, GroupsDataAccessCsv.class.getName(), "loadGroups",
-				CSVNAME);
+		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Group g = lineToGroup(lines.get(i), i, subjects);
@@ -84,6 +83,12 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 		g.setGroupLanguage(gl);
 
 		Subject s = subjects.get(subjectCode);
+		if (s == null) {
+			String msg = String.format("Non existing code for subject in %s csv file (%s), line %d", CSVNAME,
+					subjectCode, lineNumber);
+			throw new InputValidationException(msg);
+		}
+
 		s.addGroup(g);
 		subjects.put(s.getCode(), s);
 

@@ -7,21 +7,21 @@ import java.util.Map;
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
 import business.problem.Subject;
+import persistence.filemanager.FileManager;
 import persistence.problem.SubjectDataAccess;
-import persistence.problem.csv.utils.CsvUtils;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class SubjectDataAccessCsv implements SubjectDataAccess {
 
-	public static final String CSVNAME = "SUBJECT";
+	public static final String CSVNAME = "SUBJECTS";
 
 	@Override
-	public Map<String, Subject> loadSubjects(String filename) throws InputValidationException, PersistenceException {
+	public Map<String, Subject> loadSubjects(String filename, FileManager fileManager)
+			throws InputValidationException, PersistenceException {
 
 		Map<String, Subject> subjects = new HashMap<String, Subject>();
 
-		List<String> lines = CsvUtils.readLinesFromCsv(filename, SubjectDataAccessCsv.class.getName(), "loadSubjects",
-				CSVNAME);
+		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Subject s = lineToSubject(lines.get(i), i);

@@ -21,6 +21,7 @@ public class LogHandler {
 	private LogHandler() {
 		Handler handler = getHandler();
 		Logger.getLogger(LogHandler.class.getName()).addHandler(handler);
+		Logger.getLogger(LogHandler.class.getName()).setLevel(Level.ALL);
 	}
 
 	public static LogHandler getInstance() {
@@ -67,12 +68,17 @@ public class LogHandler {
 	private String getFileName() {
 
 		LocalDate ld = LocalDate.now();
+
 		int year = ld.getYear();
+		String yearStr = String.format("%04d", year);
+
 		int month = ld.getMonthValue();
+		String monthStr = String.format("%02d", month);
+
 		int day = ld.getDayOfMonth();
+		String dayStr = String.format("%02d", day);
 
-		String msg = String.valueOf(year) + String.valueOf(month) + String.valueOf(day);
-
+		String msg = yearStr + monthStr + dayStr + "_log"; 
 		return msg;
 
 	}

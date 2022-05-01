@@ -52,7 +52,7 @@ public class IndividualPrinter {
 
 				for (Group group : subject.getGroups()) {
 					Classroom classroom = assignmentsMap.get(group.getCode()).getClassroom();
-					String gMsg = group.getCode().toUpperCase() + ":" + classroom.getCode().toUpperCase();
+					String gMsg = group.getCode().toUpperCase() + " -> " + classroom.getCode().toUpperCase();
 					appendLine(sb, gMsg);
 				}
 				appendNewLine(sb);

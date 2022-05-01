@@ -1,5 +1,6 @@
 package main;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,7 @@ import business.alg.greed.logic.filters.ClassTypeFilter;
 import business.alg.greed.logic.filters.ClassroomFilter;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
 import business.alg.greed.model.Assignment;
+import business.config.Config;
 import business.errorhandler.logic.ErrorHandler;
 import business.errorhandler.model.ErrorType;
 import business.loghandler.LogHandler;
@@ -31,6 +33,7 @@ import business.problem.Group;
 import business.problem.Subject;
 import persistence.filemanager.FileManager;
 import persistence.problem.csv.AcademicWeeksDataAccessCsv;
+import persistence.problem.csv.AssignmentDataAccessCsv;
 import persistence.problem.csv.ClassroomsDataAccessCsv;
 import persistence.problem.csv.GroupScheduleDataAccessCsv;
 import persistence.problem.csv.GroupsDataAccessCsv;
@@ -43,29 +46,63 @@ public class Program {
 
 		// CLI
 		CommandLineInterface cli = CommandLineInterface.getInstance();
+
 		LogHandler logh = LogHandler.getInstance();
 		ErrorHandler errh = ErrorHandler.getInstance();
+		Config config = Config.getInstance();
+
+		// Time
+		long startTime = System.currentTimeMillis(), currentTime, totalTime;
 
 		try {
 
-			cli.showProgramDetails();
+			cli.showProgramDetails("1.0.0");
 
 			// Persistence
 			cli.showMessage("START Processing input files...");
+			cli.showNewLine();
 			logh.log(Level.FINE, Program.class.getName(), "main", "START Persistence logic");
 
+			// FileManager
+			FileManager fm = new FileManager();
+
 			// Input
+			String configFilePath = "files/config/classroom-manager.properties";
 			String subjectFilePath = "files/input/1_CSV_Asignatura.csv";
 			String classroomsFilePath = "files/input/2_CSV_Aula.csv";
 			String groupsFilePath = "files/input/3_CSV_Grupo.csv";
 			String groupScheduleFilePath = "files/input/4_CSV_Horario.csv";
 			String weeksFilePath = "files/input/5_CSV_SemanaLectiva.csv";
+			String assignmentsFilePath = "files/input/6_CSV_Asignaciones.csv";
 
-			Map<String, Subject> subjects = new SubjectDataAccessCsv().loadSubjects(subjectFilePath);
-			Map<String, Classroom> classrooms = new ClassroomsDataAccessCsv().loadClassrooms(classroomsFilePath);
-			Map<String, Group> groups = new GroupsDataAccessCsv().loadGroups(groupsFilePath, subjects);
-			new GroupScheduleDataAccessCsv().loadGroupSchedule(groupScheduleFilePath, groups);
-			new AcademicWeeksDataAccessCsv().loadAcademicWeeks(weeksFilePath, groups);
+			cli.showMessageWithoutNewLine("Loading CONFIG file...");
+			config.load(configFilePath);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading SUBJECTS file...");
+			Map<String, Subject> subjects = new SubjectDataAccessCsv().loadSubjects(subjectFilePath, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading CLASSROOMS file...");
+			Map<String, Classroom> classrooms = new ClassroomsDataAccessCsv().loadClassrooms(classroomsFilePath, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading GROUPS file...");
+			Map<String, Group> groups = new GroupsDataAccessCsv().loadGroups(groupsFilePath, subjects, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading GROUPSCHEDULE file...");
+			new GroupScheduleDataAccessCsv().loadGroupSchedule(groupScheduleFilePath, groups, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading WEEKS file...");
+			new AcademicWeeksDataAccessCsv().loadAcademicWeeks(weeksFilePath, groups, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
+			Map<String, Assignment> assignments = new AssignmentDataAccessCsv().loadGroupSchedule(assignmentsFilePath,
+					groups, classrooms, fm);
+			cli.showMessage(" DONE");
 
 			List<Subject> subjectList = new ArrayList<Subject>(subjects.values());
 			List<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
@@ -73,14 +110,14 @@ public class Program {
 
 			// Output
 			String outputFilePath = "files/output/output.txt";
-			FileManager fm = new FileManager();
 
 			// Genetic parameters
 			int individualLength = groups.size();
-			int populationSize = 50;
-			double mutationProbability = 0.3;
-			long maxTimeMilliseconds = 30000;
-			int numberOfGenerations = 10;
+			int populationSize = Integer.parseInt(config.getProperty("POP_SIZE"));
+			double crossoverProbability = Double.parseDouble(config.getProperty("CROSS_PROB"));
+			double mutationProbability = Double.parseDouble(config.getProperty("MUTA_PROB"));
+			long maxTimeMilliseconds = Long.parseLong(config.getProperty("MAX_TIME_MS"));
+			int numberOfGenerations = Integer.parseInt(config.getProperty("NUM_GEN"));
 
 			// Fitness weights
 			double collisionsFnWeight = 0.7;
@@ -93,7 +130,9 @@ public class Program {
 				return;
 			}
 
-			cli.showMessage("END Processing input files...");
+			cli.showNewLine();
+			cli.showMessage("END Processing input files");
+			cli.showNewLine();
 			logh.log(Level.FINE, Program.class.getName(), "main", "END Persistence logic");
 
 			// Business logic
@@ -114,7 +153,10 @@ public class Program {
 
 			Decoder decoder = new Decoder();
 			for (Group g : groupList) {
-				decoder.putMasterAssignment(g.getCode(), new Assignment(g));
+				if (assignments.get(g.getCode()) != null)
+					decoder.putMasterAssignment(g.getCode(), assignments.get(g.getCode()));
+				else
+					decoder.putMasterAssignment(g.getCode(), new Assignment(g));
 			}
 
 			FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
@@ -123,7 +165,7 @@ public class Program {
 			IndividualManager individualManager = new IndividualManager(groupCodes);
 
 			GeneticAlgorithm genAlgo = new GeneticAlgorithm(individualLength, populationSize, mutationProbability,
-					maxTimeMilliseconds, numberOfGenerations, fitnessFunction, individualManager);
+					crossoverProbability, maxTimeMilliseconds, numberOfGenerations, fitnessFunction, individualManager);
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
 			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, decoder);
@@ -144,6 +186,19 @@ public class Program {
 			errh.addError(new ErrorType(e));
 
 		} finally {
+
+			currentTime = System.currentTimeMillis();
+			totalTime = currentTime - startTime;
+
+			Duration d = Duration.ofMillis(totalTime);
+			long minutes = d.toMinutes();
+			long seconds = d.minusMinutes(minutes).getSeconds();
+
+			cli.showNewLine();
+			if (minutes > 0)
+				cli.showMessage(String.format("Finished execution in %02d minutes and %02d seconds", minutes, seconds));
+			else
+				cli.showMessage(String.format("Finished execution in %02d seconds", seconds));
 
 			if (errh.anyErrors()) {
 				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
