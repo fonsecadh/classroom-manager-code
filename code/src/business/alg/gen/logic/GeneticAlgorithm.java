@@ -102,7 +102,7 @@ public class GeneticAlgorithm {
 		long genTime;
 
 		// The algorithm starts
-		List<Individual> population = new ArrayList<>(initialPopulation());
+		List<Individual> population = new ArrayList<Individual>(initialPopulation());
 		Individual bestIndividual = bestIndividual(population);
 
 		int gen = 0;
@@ -112,7 +112,7 @@ public class GeneticAlgorithm {
 			genTime = System.currentTimeMillis();
 
 			// Core of the genetic algorithm
-			population = nextGeneration(population, bestIndividual);
+			population = nextGeneration(population);
 			bestIndividual = bestIndividual(population);
 			++gen;
 
@@ -121,9 +121,9 @@ public class GeneticAlgorithm {
 			totalTime = currentTime - startTime;
 
 			// Metrics for the command line interface
-			if (gen % 10 == 0)
-				cli.showMessage(
-						String.format("Generation = %d, best fitness = %.2f", gen, metrics.getDouble("BEST_FITNESS")));
+			if (gen == 1 || gen % 10 == 0)
+				cli.showMessage(String.format("Generation = %d, best fitness = %.2f, average fitness = %.2f", gen,
+						metrics.getDouble("BEST_FITNESS"), metrics.getDouble("AVG_FITNESS")));
 
 		} while (gen < nGenerations && totalTime < maxTimeMs);
 
@@ -140,31 +140,38 @@ public class GeneticAlgorithm {
 	private Individual bestIndividual(List<Individual> population) {
 		Individual bestIndividual = null;
 		double bestFitness = Double.NEGATIVE_INFINITY;
+		double avgFitness = 0.0;
 
 		for (Individual individual : population) {
 			double fValue = fitnessFunction(individual);
+			avgFitness += fValue;
 			if (fValue > bestFitness) {
 				bestIndividual = individual;
 				bestFitness = fValue;
 			}
 		}
 
+		avgFitness = avgFitness / population.size();
+
 		metrics.set("BEST_FITNESS", bestFitness);
+		metrics.set("AVG_FITNESS", avgFitness);
 		return bestIndividual;
 	}
 
-	private List<Individual> nextGeneration(List<Individual> population, Individual bestBefore) {
+	private List<Individual> nextGeneration(List<Individual> population) {
 
-		List<Individual> newPopulation = new ArrayList<Individual>(population.size());
+		List<Individual> newPopulation, oldPopulation;
+		newPopulation = new ArrayList<Individual>();
+		oldPopulation = new ArrayList<Individual>(population);
 
-		while (!population.isEmpty()) {
+		while (!oldPopulation.isEmpty()) {
 
 			Individual p1, p2, c1, c2; // Parents and children
 
 			// Selection
 			// Note: SELECTED elements are REMOVED from POPULATION
-			p1 = selection(population);
-			p2 = selection(population);
+			p1 = selection(oldPopulation);
+			p2 = selection(oldPopulation);
 
 			c1 = p1;
 			c2 = p2;

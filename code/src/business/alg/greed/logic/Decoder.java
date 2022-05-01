@@ -24,7 +24,7 @@ public class Decoder {
 		List<Assignment> decodedRep = new ArrayList<Assignment>();
 		List<String> rep = i.getRepresentation();
 		for (String groupId : rep) {
-			decodedRep.add(masterAssignments.get(groupId));
+			decodedRep.add(new Assignment(masterAssignments.get(groupId)));
 		}
 		return decodedRep;
 	}
@@ -33,7 +33,7 @@ public class Decoder {
 		List<Assignment> l = decode(i);
 		Map<String, Assignment> m = new HashMap<String, Assignment>();
 		for (Assignment a : l) {
-			m.put(a.getGroup().getCode(), a);
+			m.put(a.getGroup().getCode(), new Assignment(a));
 		}
 		return m;
 	}

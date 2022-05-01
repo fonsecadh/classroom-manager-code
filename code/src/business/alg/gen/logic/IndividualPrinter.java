@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 import business.alg.gen.model.Individual;
 import business.alg.greed.logic.Decoder;
+import business.alg.greed.logic.GreedyAlgorithm;
 import business.alg.greed.model.Assignment;
 import business.problem.Classroom;
 import business.problem.Group;
@@ -18,18 +19,21 @@ import business.problem.Subject;
 
 public class IndividualPrinter {
 
-	List<Subject> subjects;
-	Decoder decoder;
+	private List<Subject> subjects;
+	private Decoder decoder;
+	private GreedyAlgorithm greedy;
 
-	public IndividualPrinter(List<Subject> subjects, Decoder decoder) {
+	public IndividualPrinter(List<Subject> subjects, Decoder decoder, GreedyAlgorithm greedy) {
 		this.subjects = new ArrayList<Subject>(subjects);
 		this.decoder = decoder;
+		this.greedy = greedy;
 	}
 
 	public String getPrettyIndividual(Individual individual) {
 		StringBuilder sb = new StringBuilder();
 
-		Map<String, Assignment> assignmentsMap = decoder.decodeAsMap(individual);
+		List<Assignment> decoded = decoder.decode(individual);
+		Map<String, Assignment> assignmentsMap = greedy.greedyAlgorithm(decoded);
 
 		List<String> coursesDuplicates = subjects.stream().map(s -> s.getCourse()).collect(Collectors.toList());
 		Set<String> courses = new TreeSet<String>(coursesDuplicates);
@@ -52,7 +56,9 @@ public class IndividualPrinter {
 
 				for (Group group : subject.getGroups()) {
 					Classroom classroom = assignmentsMap.get(group.getCode()).getClassroom();
-					String gMsg = group.getCode().toUpperCase() + " -> " + classroom.getCode().toUpperCase();
+					String gMsg = group.getCode().toUpperCase() + " -> ";
+					if (classroom != null)
+						gMsg += classroom.getCode().toUpperCase();
 					appendLine(sb, gMsg);
 				}
 				appendNewLine(sb);

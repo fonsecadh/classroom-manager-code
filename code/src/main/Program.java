@@ -15,6 +15,8 @@ import business.alg.gen.logic.fitness.FitnessFunction;
 import business.alg.gen.logic.fitness.values.CollisionsFitnessValue;
 import business.alg.gen.logic.fitness.values.FitnessValue;
 import business.alg.gen.logic.fitness.values.FreeLabsFitnessValue;
+import business.alg.gen.logic.fitness.values.LanguageFitnessValue;
+import business.alg.gen.logic.fitness.values.SharedLabsFitnessValue;
 import business.alg.gen.model.Individual;
 import business.alg.greed.logic.Decoder;
 import business.alg.greed.logic.GreedyAlgorithm;
@@ -118,10 +120,13 @@ public class Program {
 			double mutationProbability = Double.parseDouble(config.getProperty("MUTA_PROB"));
 			long maxTimeMilliseconds = Long.parseLong(config.getProperty("MAX_TIME_MS"));
 			int numberOfGenerations = Integer.parseInt(config.getProperty("NUM_GEN"));
+			int freeLabs = Integer.parseInt(config.getProperty("FREE_LABS"));
 
 			// Fitness weights
-			double collisionsFnWeight = 0.7;
+			double collisionsFnWeight = 0.9;
 			double freeLabsFnWeight = 0.2;
+			double languageFnWeight = 0.7;
+			double sharedLabsFnWeight = 0.6;
 
 			// Persistence errors
 			if (errh.anyErrors()) {
@@ -141,11 +146,15 @@ public class Program {
 			List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
 			List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
 
+			// Classroom filters
 			classroomFilters.add(new ClassTypeFilter());
 			classroomFilters.add(new CapacityFilter());
 
+			// Fitness values
 			fitnessValues.add(new CollisionsFitnessValue(collisionsFnWeight));
-			fitnessValues.add(new FreeLabsFitnessValue(freeLabsFnWeight));
+			fitnessValues.add(new FreeLabsFitnessValue(freeLabsFnWeight, freeLabs));
+			fitnessValues.add(new LanguageFitnessValue(languageFnWeight, subjectList));
+			fitnessValues.add(new SharedLabsFitnessValue(sharedLabsFnWeight, subjectList, classroomList));
 
 			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
 			CollisionManager cm = new CollisionManager();
@@ -154,7 +163,7 @@ public class Program {
 			Decoder decoder = new Decoder();
 			for (Group g : groupList) {
 				if (assignments.get(g.getCode()) != null)
-					decoder.putMasterAssignment(g.getCode(), assignments.get(g.getCode()));
+					decoder.putMasterAssignment(g.getCode(), new Assignment(assignments.get(g.getCode())));
 				else
 					decoder.putMasterAssignment(g.getCode(), new Assignment(g));
 			}
@@ -168,7 +177,7 @@ public class Program {
 					crossoverProbability, maxTimeMilliseconds, numberOfGenerations, fitnessFunction, individualManager);
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
-			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, decoder);
+			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, decoder, greedyAlgo);
 			fm.writeToFile(outputFilePath, individualPrinter.getPrettyIndividual(bestIndividual));
 
 			// Business errors

@@ -14,15 +14,19 @@ import business.problem.schedule.GroupSchedule;
 public class FreeLabsFitnessValue extends AbstractFitnessValue {
 
 	private FreeLabsCounter counter;
+	private int freeLabsPref = 0;
 
-	public FreeLabsFitnessValue(double weight) {
+	public FreeLabsFitnessValue(double weight, int freeLabsPreference) {
 		super(weight);
-		this.counter = new FreeLabsCounter();
+		this.freeLabsPref = freeLabsPreference;
 	}
 
 	@Override
-	public double getValue(List<Assignment> assignments) {
-		List<Assignment> filtered = assignments.stream()
+	public double getValue(Map<String, Assignment> assignments) {
+
+		this.counter = new FreeLabsCounter();
+
+		List<Assignment> filtered = assignments.values().stream()
 				.filter(a -> a.isAssigned() && a.getGroup().getClassroomType() == ClassroomType.LABORATORY)
 				.collect(Collectors.toList());
 
@@ -33,7 +37,14 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 			}
 		}
 
-		return counter.getMeanByHour();
+		double mean = counter.getMeanByHour();
+		double absDiff = Math.abs(mean - freeLabsPref);
+
+		if (absDiff >= freeLabsPref)
+			return 0;
+
+		return 100 - (100 * absDiff / freeLabsPref);
+
 	}
 
 	private class FreeLabsCounter {
@@ -73,6 +84,8 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 				int counter = dayMap.get(i);
 				dayMap.put(i, ++counter);
 			}
+
+			weekMap.put(gs.getDay(), dayMap);
 		}
 
 		private void initializeWeekMap() {

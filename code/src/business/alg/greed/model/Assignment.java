@@ -8,6 +8,11 @@ public class Assignment {
 	private Group group;
 	private Classroom classroom;
 	
+	public Assignment(Assignment assignment) {
+		this.group = assignment.getGroup();
+		this.classroom = assignment.getClassroom();
+	}
+	
 	public Assignment(Group group) {
 		this.group = group;
 	}

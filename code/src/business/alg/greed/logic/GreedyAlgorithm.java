@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import business.alg.greed.logic.collisions.CollisionManager;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
@@ -57,19 +58,24 @@ public class GreedyAlgorithm {
 	 * collisions.
 	 * 
 	 * @param assignments Initial list of assignments.
-	 * @return Final list with the calculated assignments of classrooms to each
+	 * @return Final map with the calculated assignments of classrooms to each
 	 *         group.
 	 */
-	public List<Assignment> greedyAlgorithm(List<Assignment> assignments) {
-		List<Assignment> result, repairs;
-		result = preprocess(assignments);
+	public Map<String, Assignment> greedyAlgorithm(List<Assignment> assignments) {
+
+		List<Assignment> preproc, repairs;
+		preproc = preprocess(assignments);
 		repairs = new ArrayList<Assignment>();
 
-		for (Assignment a : result) {
+		Map<String, Assignment> result = preproc.stream()
+				.collect(Collectors.toMap(a -> a.getGroup().getCode(), a -> a));
+
+		for (Assignment a : preproc) {
 			if (!a.isAssigned()) {
 				Classroom c = bestClassroomFor(a);
 				if (c != null) {
 					a.setClassroom(c);
+					result.put(a.getGroup().getCode(), a);
 					Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
 					if (gSet == null)
 						gSet = new HashSet<Group>();
@@ -83,7 +89,8 @@ public class GreedyAlgorithm {
 
 		// TODO: Repair assignments
 
-		return result;
+		return new HashMap<String, Assignment>(result);
+
 	}
 
 	private List<Assignment> preprocess(List<Assignment> assignments) {
