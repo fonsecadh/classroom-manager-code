@@ -1,14 +1,19 @@
 package persistence.problem.csv;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import business.alg.greed.model.Assignment;
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
 import business.problem.Classroom;
 import business.problem.Group;
+import business.problem.Subject;
 import persistence.filemanager.FileManager;
 import persistence.problem.AssignmentsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
@@ -78,6 +83,57 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 		// Subject code validation
 		ValidationUtils.validateString(classroomCode, csvName, lineNumber);
 
+	}
+
+	@Override
+	public void writeAssignments(String filename, Map<String, Assignment> assignments, List<Subject> subjects,
+			FileManager fileManager) throws PersistenceException {
+
+		StringBuilder sb = new StringBuilder();
+
+		List<String> coursesDuplicates = subjects.stream().map(s -> s.getCourse()).collect(Collectors.toList());
+		Set<String> courses = new TreeSet<String>(coursesDuplicates);
+
+		Comparator<Subject> c = Comparator.comparing(s -> s.getCourse());
+		c = c.thenComparing(Comparator.comparing(s -> s.getCode()));
+
+		subjects.sort(c);
+
+		appendLine(sb, "CodigoGrupo;CodigoAula");
+
+		for (String course : courses) {
+
+			List<Subject> courseSubjects = subjects.stream().filter(s -> s.getCourse().equalsIgnoreCase(course))
+					.collect(Collectors.toList());
+
+			for (Subject subject : courseSubjects) {
+
+				for (Group group : subject.getGroups()) {
+
+					Classroom classroom = assignments.get(group.getCode()).getClassroom();
+					String gMsg = group.getCode() + ";";
+					if (classroom != null)
+						gMsg += classroom.getCode();
+					appendLine(sb, gMsg);
+
+				}
+
+			}
+
+		}
+
+		appendNewLine(sb);
+
+		fileManager.writeToFile(filename, sb.toString());
+
+	}
+
+	private void appendLine(StringBuilder sb, String msg) {
+		sb.append(msg + "\n");
+	}
+
+	private void appendNewLine(StringBuilder sb) {
+		sb.append("\n");
 	}
 
 }

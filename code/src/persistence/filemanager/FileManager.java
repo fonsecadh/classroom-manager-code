@@ -38,7 +38,8 @@ public class FileManager {
 			BufferedReader file = new BufferedReader(new FileReader(filename));
 			while (file.ready()) {
 				line = file.readLine();
-				lines.add(line);
+				if (line.trim() != "")
+					lines.add(line);
 			}
 			file.close();
 		} catch (FileNotFoundException e) {

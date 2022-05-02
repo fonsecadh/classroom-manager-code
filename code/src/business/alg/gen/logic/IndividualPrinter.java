@@ -3,6 +3,7 @@ package business.alg.gen.logic;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,8 +11,6 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import business.alg.gen.model.Individual;
-import business.alg.greed.logic.Decoder;
-import business.alg.greed.logic.GreedyAlgorithm;
 import business.alg.greed.model.Assignment;
 import business.problem.Classroom;
 import business.problem.Group;
@@ -20,20 +19,15 @@ import business.problem.Subject;
 public class IndividualPrinter {
 
 	private List<Subject> subjects;
-	private Decoder decoder;
-	private GreedyAlgorithm greedy;
+	private Map<String, Assignment> assignmentsMap;
 
-	public IndividualPrinter(List<Subject> subjects, Decoder decoder, GreedyAlgorithm greedy) {
+	public IndividualPrinter(List<Subject> subjects, Map<String, Assignment> assignmentsMap) {
 		this.subjects = new ArrayList<Subject>(subjects);
-		this.decoder = decoder;
-		this.greedy = greedy;
+		this.assignmentsMap = new HashMap<String, Assignment>(assignmentsMap);
 	}
 
 	public String getPrettyIndividual(Individual individual) {
 		StringBuilder sb = new StringBuilder();
-
-		List<Assignment> decoded = decoder.decode(individual);
-		Map<String, Assignment> assignmentsMap = greedy.greedyAlgorithm(decoded);
 
 		List<String> coursesDuplicates = subjects.stream().map(s -> s.getCourse()).collect(Collectors.toList());
 		Set<String> courses = new TreeSet<String>(coursesDuplicates);
@@ -44,23 +38,23 @@ public class IndividualPrinter {
 		subjects.sort(c);
 
 		for (String course : courses) {
-			String cMsg = "COURSE: " + course.toUpperCase();
+			String cMsg = "COURSE: " + course;
 			appendTitle(sb, cMsg);
 
 			List<Subject> courseSubjects = subjects.stream().filter(s -> s.getCourse().equalsIgnoreCase(course))
 					.collect(Collectors.toList());
 
 			for (Subject subject : courseSubjects) {
-				String sMsg = "SUBJECT: " + subject.getCode().toUpperCase();
+				String sMsg = "SUBJECT: " + subject.getCode();
 				appendTitle(sb, sMsg);
 
 				for (Group group : subject.getGroups()) {
 					Classroom classroom = assignmentsMap.get(group.getCode()).getClassroom();
-					String gMsg = group.getCode().toUpperCase() + " -> ";
+					String gMsg = group.getCode() + " -> ";
 					if (classroom != null)
-						gMsg += classroom.getCode().toUpperCase();
+						gMsg += classroom.getCode();
 					else
-						gMsg += " NO CLASS ASSIGNED!";
+						gMsg += "NO CLASS ASSIGNED!";
 					appendLine(sb, gMsg);
 				}
 				appendNewLine(sb);

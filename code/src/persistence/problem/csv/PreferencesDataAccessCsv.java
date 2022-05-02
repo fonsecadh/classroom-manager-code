@@ -82,11 +82,12 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 		Classroom c = classrooms.get(classroomCode);
 		if (c == null) {
 			String msg = String.format("Non existing code for classroom in %s csv file (%s), line %d", CSVNAME,
-					subjectCode, lineNumber);
+					classroomCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
 
 		Preference p = prefs.get(s.getCode());
+
 		if (p == null)
 			p = new Preference();
 

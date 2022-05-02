@@ -216,3 +216,145 @@ may 02, 2022 3:31:10 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
 DETALLADO: END Genetic Algorithm
 may 02, 2022 3:31:10 PM main.Program main
 DETALLADO: END Business logic
+may 02, 2022 6:27:52 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 6:27:52 PM main.Program main
+GRAVE: Wrong line format in RESTRICTIONS csv file: different column size, line 1
+business.errorhandler.exceptions.InputValidationException: Wrong line format in RESTRICTIONS csv file: different column size, line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:94)
+	at persistence.problem.csv.RestrictionsDataAccessCsv.lineToRestrictions(RestrictionsDataAccessCsv.java:42)
+	at persistence.problem.csv.RestrictionsDataAccessCsv.loadRestrictions(RestrictionsDataAccessCsv.java:31)
+	at main.Program.main(Program.java:125)
+
+may 02, 2022 6:28:42 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 6:28:42 PM main.Program main
+DETALLADO: END Persistence logic
+may 02, 2022 6:28:42 PM main.Program main
+DETALLADO: START Business logic
+may 02, 2022 6:28:42 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 02, 2022 6:28:42 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 02, 2022 6:30:41 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 02, 2022 6:30:41 PM main.Program main
+DETALLADO: END Business logic
+may 02, 2022 6:33:40 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 6:33:40 PM main.Program main
+DETALLADO: END Persistence logic
+may 02, 2022 6:33:40 PM main.Program main
+DETALLADO: START Business logic
+may 02, 2022 6:33:40 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 02, 2022 6:33:40 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 2
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 02, 2022 6:33:42 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 02, 2022 6:33:42 PM main.Program main
+DETALLADO: END Business logic
+may 02, 2022 6:37:32 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 6:37:32 PM main.Program main
+DETALLADO: END Persistence logic
+may 02, 2022 6:37:32 PM main.Program main
+DETALLADO: START Business logic
+may 02, 2022 6:37:32 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 02, 2022 6:37:32 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 02, 2022 6:39:41 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 02, 2022 6:39:41 PM main.Program main
+DETALLADO: END Business logic
+may 02, 2022 6:41:27 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 6:41:27 PM main.Program main
+DETALLADO: END Persistence logic
+may 02, 2022 6:41:27 PM main.Program main
+DETALLADO: START Business logic
+may 02, 2022 6:41:27 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 02, 2022 6:41:27 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 02, 2022 6:43:36 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 02, 2022 6:43:37 PM main.Program main
+DETALLADO: END Business logic
+may 02, 2022 7:06:45 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 7:06:45 PM main.Program main
+DETALLADO: END Persistence logic
+may 02, 2022 7:06:45 PM main.Program main
+DETALLADO: START Business logic
+may 02, 2022 7:06:45 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 02, 2022 7:06:45 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 02, 2022 7:08:53 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 02, 2022 7:08:53 PM main.Program main
+DETALLADO: END Business logic
+may 02, 2022 7:11:34 PM main.Program main
+DETALLADO: START Persistence logic
+may 02, 2022 7:11:34 PM main.Program main
+DETALLADO: END Persistence logic
+may 02, 2022 7:11:34 PM main.Program main
+DETALLADO: START Business logic
+may 02, 2022 7:11:34 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 02, 2022 7:11:34 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 02, 2022 7:13:46 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 02, 2022 7:13:46 PM main.Program main
+DETALLADO: END Business logic

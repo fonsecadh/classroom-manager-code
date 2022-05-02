@@ -28,7 +28,9 @@ import business.alg.greed.logic.filters.CapacityFilter;
 import business.alg.greed.logic.filters.ClassTypeFilter;
 import business.alg.greed.logic.filters.ClassroomFilter;
 import business.alg.greed.logic.filters.ClassroomFilterManager;
+import business.alg.greed.logic.filters.RestrictionFilter;
 import business.alg.greed.model.Assignment;
+import business.alg.greed.model.Restriction;
 import business.config.Config;
 import business.errorhandler.logic.ErrorHandler;
 import business.errorhandler.model.ErrorType;
@@ -37,12 +39,14 @@ import business.problem.Classroom;
 import business.problem.Group;
 import business.problem.Subject;
 import persistence.filemanager.FileManager;
+import persistence.problem.AssignmentsDataAccess;
 import persistence.problem.csv.AcademicWeeksDataAccessCsv;
 import persistence.problem.csv.AssignmentDataAccessCsv;
 import persistence.problem.csv.ClassroomsDataAccessCsv;
 import persistence.problem.csv.GroupScheduleDataAccessCsv;
 import persistence.problem.csv.GroupsDataAccessCsv;
 import persistence.problem.csv.PreferencesDataAccessCsv;
+import persistence.problem.csv.RestrictionsDataAccessCsv;
 import persistence.problem.csv.SubjectDataAccessCsv;
 import ui.CommandLineInterface;
 
@@ -81,6 +85,7 @@ public class Program {
 			String weeksFilePath = "files/input/5_CSV_SemanaLectiva.csv";
 			String assignmentsFilePath = "files/input/6_CSV_Asignaciones.csv";
 			String preferencesFilePath = "files/input/7_CSV_Preferencias.csv";
+			String restrictionsFilePath = "files/input/8_CSV_Restricciones.csv";
 
 			cli.showMessageWithoutNewLine("Loading CONFIG file...");
 			config.load(configFilePath);
@@ -107,13 +112,18 @@ public class Program {
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
-			Map<String, Assignment> assignments = new AssignmentDataAccessCsv().loadAssignments(assignmentsFilePath,
-					groups, classrooms, fm);
+			AssignmentsDataAccess ada = new AssignmentDataAccessCsv();
+			Map<String, Assignment> assignments = ada.loadAssignments(assignmentsFilePath, groups, classrooms, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading PREFERENCES file...");
 			Map<String, Preference> preferences = new PreferencesDataAccessCsv().loadPreferences(preferencesFilePath,
 					classrooms, subjects, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading RESTRICTIONS file...");
+			Map<String, List<Restriction>> restrictions = new RestrictionsDataAccessCsv()
+					.loadRestrictions(restrictionsFilePath, classrooms, groups, fm);
 			cli.showMessage(" DONE");
 
 			List<Subject> subjectList = new ArrayList<Subject>(subjects.values());
@@ -122,6 +132,7 @@ public class Program {
 
 			// Output
 			String outputFilePath = "files/output/output.txt";
+			String outputAssignmentsFilePath = "files/output/X_CSV_Asignaciones.csv";
 
 			// Genetic parameters
 			int individualLength = groups.size();
@@ -161,6 +172,7 @@ public class Program {
 			// Classroom filters
 			classroomFilters.add(new ClassTypeFilter());
 			classroomFilters.add(new CapacityFilter());
+			classroomFilters.add(new RestrictionFilter(restrictions));
 
 			// Fitness values
 			fitnessValues.add(new CollisionsFitnessValue(collisionsFnWeight));
@@ -191,8 +203,14 @@ public class Program {
 					crossoverProbability, maxTimeMilliseconds, numberOfGenerations, fitnessFunction, individualManager);
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
-			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, decoder, greedyAlgo);
+
+			// Output files
+			List<Assignment> decoded = decoder.decode(bestIndividual);
+			Map<String, Assignment> assignmentsMap = greedyAlgo.greedyAlgorithm(decoded);
+
+			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, assignmentsMap);
 			fm.writeToFile(outputFilePath, individualPrinter.getPrettyIndividual(bestIndividual));
+			ada.writeAssignments(outputAssignmentsFilePath, assignmentsMap, subjectList, fm);
 
 			// Business errors
 			if (errh.anyErrors()) {
