@@ -16,8 +16,11 @@ import business.alg.gen.logic.fitness.values.CollisionsFitnessValue;
 import business.alg.gen.logic.fitness.values.FitnessValue;
 import business.alg.gen.logic.fitness.values.FreeLabsFitnessValue;
 import business.alg.gen.logic.fitness.values.LanguageFitnessValue;
+import business.alg.gen.logic.fitness.values.PreferencesFitnessValue;
 import business.alg.gen.logic.fitness.values.SharedLabsFitnessValue;
+import business.alg.gen.logic.fitness.values.SharedTheoryFitnessValue;
 import business.alg.gen.model.Individual;
+import business.alg.gen.model.Preference;
 import business.alg.greed.logic.Decoder;
 import business.alg.greed.logic.GreedyAlgorithm;
 import business.alg.greed.logic.collisions.CollisionManager;
@@ -39,6 +42,7 @@ import persistence.problem.csv.AssignmentDataAccessCsv;
 import persistence.problem.csv.ClassroomsDataAccessCsv;
 import persistence.problem.csv.GroupScheduleDataAccessCsv;
 import persistence.problem.csv.GroupsDataAccessCsv;
+import persistence.problem.csv.PreferencesDataAccessCsv;
 import persistence.problem.csv.SubjectDataAccessCsv;
 import ui.CommandLineInterface;
 
@@ -76,6 +80,7 @@ public class Program {
 			String groupScheduleFilePath = "files/input/4_CSV_Horario.csv";
 			String weeksFilePath = "files/input/5_CSV_SemanaLectiva.csv";
 			String assignmentsFilePath = "files/input/6_CSV_Asignaciones.csv";
+			String preferencesFilePath = "files/input/7_CSV_Preferencias.csv";
 
 			cli.showMessageWithoutNewLine("Loading CONFIG file...");
 			config.load(configFilePath);
@@ -102,8 +107,13 @@ public class Program {
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
-			Map<String, Assignment> assignments = new AssignmentDataAccessCsv().loadGroupSchedule(assignmentsFilePath,
+			Map<String, Assignment> assignments = new AssignmentDataAccessCsv().loadAssignments(assignmentsFilePath,
 					groups, classrooms, fm);
+			cli.showMessage(" DONE");
+
+			cli.showMessageWithoutNewLine("Loading PREFERENCES file...");
+			Map<String, Preference> preferences = new PreferencesDataAccessCsv().loadPreferences(preferencesFilePath,
+					classrooms, subjects, fm);
 			cli.showMessage(" DONE");
 
 			List<Subject> subjectList = new ArrayList<Subject>(subjects.values());
@@ -123,10 +133,12 @@ public class Program {
 			int freeLabs = Integer.parseInt(config.getProperty("FREE_LABS"));
 
 			// Fitness weights
-			double collisionsFnWeight = 0.9;
-			double freeLabsFnWeight = 0.2;
-			double languageFnWeight = 0.7;
-			double sharedLabsFnWeight = 0.6;
+			double collisionsFnWeight = Double.parseDouble(config.getProperty("COL_WEIGHT"));
+			double freeLabsFnWeight = Double.parseDouble(config.getProperty("FREE_LABS_WEIGHT"));
+			double languageFnWeight = Double.parseDouble(config.getProperty("LANG_WEIGHT"));
+			double sharedLabsFnWeight = Double.parseDouble(config.getProperty("SHARED_LABS_WEIGHT"));
+			double sharedTheoryFnWeight = Double.parseDouble(config.getProperty("SHARED_THEORY_WEIGHT"));
+			double prefsFnWeight = Double.parseDouble(config.getProperty("PREFS_WEIGHT"));
 
 			// Persistence errors
 			if (errh.anyErrors()) {
@@ -155,6 +167,8 @@ public class Program {
 			fitnessValues.add(new FreeLabsFitnessValue(freeLabsFnWeight, freeLabs));
 			fitnessValues.add(new LanguageFitnessValue(languageFnWeight, subjectList));
 			fitnessValues.add(new SharedLabsFitnessValue(sharedLabsFnWeight, subjectList, classroomList));
+			fitnessValues.add(new SharedTheoryFitnessValue(sharedTheoryFnWeight, subjectList, classroomList));
+			fitnessValues.add(new PreferencesFitnessValue(prefsFnWeight, preferences, subjectList));
 
 			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
 			CollisionManager cm = new CollisionManager();

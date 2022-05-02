@@ -11,6 +11,7 @@ import business.alg.greed.model.Assignment;
 import business.problem.Classroom;
 import business.problem.ClassroomType;
 import business.problem.Group;
+import business.problem.GroupLanguage;
 import business.problem.Subject;
 
 public class SharedLabsFitnessValue extends AbstractFitnessValue {
@@ -30,23 +31,51 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 
 		double value = 0.0;
 
-		List<Classroom> assignedLabs = new ArrayList<Classroom>();
+		List<Classroom> assignedLabsEn, assignedLabsEs;
+		assignedLabsEn = new ArrayList<Classroom>();
+		assignedLabsEs = new ArrayList<Classroom>();
 
 		for (Subject s : subjects) {
 
-			assignedLabs.clear();
+			assignedLabsEn.clear();
+			assignedLabsEs.clear();
+
 			for (Group g : s.getGroups()) {
 				if (g.getClassroomType().equals(ClassroomType.LABORATORY)) {
 					if (assignments.get(g.getCode()) != null) {
-						assignedLabs.add(assignments.get(g.getCode()).getClassroom());
+						if (g.getGroupLanguage().equals(GroupLanguage.ENGLISH)) {
+							assignedLabsEn.add(assignments.get(g.getCode()).getClassroom());
+						} else {
+							assignedLabsEs.add(assignments.get(g.getCode()).getClassroom());
+						}
 					}
 				}
 			}
 
-			Set<Classroom> labSet = new HashSet<Classroom>(assignedLabs);
-			int uniqueLabs = labSet.size();
+			Set<Classroom> labSetEn, labSetEs;
 
-			double subjectValue = 100 - (uniqueLabs * 100 / labs.size());
+			int langCounter = 0;
+			int uniqueLabsEn = 0, uniqueLabsEs = 0;
+			double subjectValue = 0.0, enValue = 0.0, esValue = 0.0;
+
+			if (assignedLabsEn.size() > 0) {
+				labSetEn = new HashSet<Classroom>(assignedLabsEn);
+				uniqueLabsEn = labSetEn.size();
+				enValue = 100 - (uniqueLabsEn * 100 / labs.size());
+				++langCounter;
+			}
+
+			if (assignedLabsEs.size() > 0) {
+				labSetEs = new HashSet<Classroom>(assignedLabsEs);
+				uniqueLabsEs = labSetEs.size();
+				esValue = 100 - (uniqueLabsEs * 100 / labs.size());
+				++langCounter;
+			}
+
+			subjectValue = enValue + esValue;
+			if (langCounter > 0)
+				subjectValue = subjectValue / langCounter;
+
 			value += subjectValue;
 
 		}

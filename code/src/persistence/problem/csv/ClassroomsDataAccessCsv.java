@@ -37,11 +37,7 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
-		if (fields.length != 3) {
-			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
-					lineNumber);
-			throw new InputValidationException(msg);
-		}
+		ValidationUtils.validateColumns(fields, 3, CSVNAME, lineNumber);
 
 		String code = fields[0].trim();
 		String type = fields[1].trim();

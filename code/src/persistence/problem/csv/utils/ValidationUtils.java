@@ -85,4 +85,15 @@ public class ValidationUtils {
 
 	}
 
+	public static void validateColumns(String[] fields, int columnSize, String csvName, int lineNumber)
+			throws InputValidationException {
+
+		if (fields.length != columnSize) {
+			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", csvName,
+					lineNumber);
+			throw new InputValidationException(msg);
+		}
+
+	}
+
 }

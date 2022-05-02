@@ -59,6 +59,8 @@ public class IndividualPrinter {
 					String gMsg = group.getCode().toUpperCase() + " -> ";
 					if (classroom != null)
 						gMsg += classroom.getCode().toUpperCase();
+					else
+						gMsg += " NO CLASS ASSIGNED!";
 					appendLine(sb, gMsg);
 				}
 				appendNewLine(sb);

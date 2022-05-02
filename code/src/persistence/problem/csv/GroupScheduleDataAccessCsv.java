@@ -38,11 +38,7 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
-		if (fields.length != 4) {
-			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
-					lineNumber);
-			throw new InputValidationException(msg);
-		}
+		ValidationUtils.validateColumns(fields, 4, CSVNAME, lineNumber);
 
 		String groupCode = fields[0].trim();
 		String day = fields[1].trim();

@@ -34,11 +34,7 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
-		if (fields.length != fields.length) {
-			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
-					lineNumber);
-			throw new InputValidationException(msg);
-		}
+		ValidationUtils.validateColumns(fields, header.length, CSVNAME, lineNumber);
 
 		String groupCode = fields[0].trim();
 		ValidationUtils.validateString(groupCode, CSVNAME, lineNumber);

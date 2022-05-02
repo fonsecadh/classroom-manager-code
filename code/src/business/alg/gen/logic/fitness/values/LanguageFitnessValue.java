@@ -43,21 +43,21 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 			labIntersec = intersection(enLab, esLab);
 
 			double subjectValue, theoryValue = 0.0, labValue = 0.0;
-			int typeCounter = 0;
+			int langCounter = 0;
 
 			if (enTheory.size() + esTheory.size() > 0) {
 				theoryValue = 100 - (theoryIntersec.size() * 100 / (enTheory.size() + esTheory.size()));
-				++typeCounter;
+				++langCounter;
 			}
 
 			if (enLab.size() + esLab.size() > 0) {
 				labValue = 100 - (labIntersec.size() * 100 / (enLab.size() + esLab.size()));
-				++typeCounter;
+				++langCounter;
 			}
 
 			subjectValue = theoryValue + labValue;
-			if (typeCounter > 0)
-				subjectValue = subjectValue / typeCounter;
+			if (langCounter > 0)
+				subjectValue = subjectValue / langCounter;
 
 			value += subjectValue;
 		}
@@ -90,7 +90,7 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 	}
 
 	private void addClassroom(Map<String, Assignment> assignments, List<Classroom> en, List<Classroom> es, Group g) {
-		
+
 		if (assignments.get(g.getCode()) == null)
 			return;
 

@@ -18,7 +18,7 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 	public static final String CSVNAME = "ASSIGNMENTS";
 
 	@Override
-	public Map<String, Assignment> loadGroupSchedule(String filename, Map<String, Group> groups,
+	public Map<String, Assignment> loadAssignments(String filename, Map<String, Group> groups,
 			Map<String, Classroom> classrooms, FileManager fileManager)
 			throws PersistenceException, InputValidationException {
 
@@ -40,11 +40,7 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 
 		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
 
-		if (fields.length != 2) {
-			String msg = String.format("Wrong line format in %s csv file: different column size, line %d", CSVNAME,
-					lineNumber);
-			throw new InputValidationException(msg);
-		}
+		ValidationUtils.validateColumns(fields, 2, CSVNAME, lineNumber);
 
 		String groupCode = fields[0].trim();
 		String classroomCode = fields[1].trim();
