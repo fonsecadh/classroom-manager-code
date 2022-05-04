@@ -1,0 +1,85 @@
+CLASSROOM MANAGER v1.0.0
+Author: Hugo Fonseca Diaz
+Supervisors: Raul Mencia Cascallana, Carlos Mencia Cascallana
+Entity: School of Computing Engineering of the University of Oviedo
+
+START Processing input files...
+
+Loading CONFIG file... DONE
+Loading SUBJECTS file... DONE
+Loading CLASSROOMS file... DONE
+Loading GROUPS file... DONE
+Loading GROUPSCHEDULE file... DONE
+Loading WEEKS file... DONE
+Loading ASSIGNMENTS file... DONE
+Loading PREFERENCES file... DONE
+Loading RESTRICTIONS file... DONE
+
+END Processing input files
+
+START Executing Genetic Algorithm...
+
+Parameters: 
+
+	-> Max number of generations: 500
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 200
+
+Generation = 1, best fitness = 274,64, average fitness = 265,55
+Generation = 10, best fitness = 277,60, average fitness = 271,74
+Generation = 20, best fitness = 279,56, average fitness = 276,08
+Generation = 30, best fitness = 283,28, average fitness = 279,56
+Generation = 40, best fitness = 284,52, average fitness = 282,89
+Generation = 50, best fitness = 285,45, average fitness = 284,49
+Generation = 60, best fitness = 286,78, average fitness = 285,37
+Generation = 70, best fitness = 287,41, average fitness = 286,55
+Generation = 80, best fitness = 288,61, average fitness = 287,52
+Generation = 90, best fitness = 289,02, average fitness = 288,25
+Generation = 100, best fitness = 289,41, average fitness = 288,74
+Generation = 110, best fitness = 289,77, average fitness = 289,14
+Generation = 120, best fitness = 289,88, average fitness = 289,45
+Generation = 130, best fitness = 290,26, average fitness = 289,73
+Generation = 140, best fitness = 290,45, average fitness = 290,00
+Generation = 150, best fitness = 290,94, average fitness = 290,27
+Generation = 160, best fitness = 291,01, average fitness = 290,52
+Generation = 170, best fitness = 291,39, average fitness = 290,78
+Generation = 180, best fitness = 291,77, average fitness = 291,10
+Generation = 190, best fitness = 292,13, average fitness = 291,54
+Generation = 200, best fitness = 292,42, average fitness = 291,94
+Generation = 210, best fitness = 292,52, average fitness = 292,21
+Generation = 220, best fitness = 292,81, average fitness = 292,43
+Generation = 230, best fitness = 293,05, average fitness = 292,67
+Generation = 240, best fitness = 293,27, average fitness = 292,93
+Generation = 250, best fitness = 293,56, average fitness = 293,18
+Generation = 260, best fitness = 294,06, average fitness = 293,49
+Generation = 270, best fitness = 294,17, average fitness = 293,83
+Generation = 280, best fitness = 294,26, average fitness = 294,08
+Generation = 290, best fitness = 294,46, average fitness = 294,24
+Generation = 300, best fitness = 294,55, average fitness = 294,30
+Generation = 310, best fitness = 294,55, average fitness = 294,42
+Generation = 320, best fitness = 294,74, average fitness = 294,54
+Generation = 330, best fitness = 294,74, average fitness = 294,57
+Generation = 340, best fitness = 294,84, average fitness = 294,69
+Generation = 350, best fitness = 294,84, average fitness = 294,81
+Generation = 360, best fitness = 294,84, average fitness = 294,84
+Generation = 370, best fitness = 294,90, average fitness = 294,84
+Generation = 380, best fitness = 294,90, average fitness = 294,86
+Generation = 390, best fitness = 294,90, average fitness = 294,89
+Generation = 400, best fitness = 294,90, average fitness = 294,90
+Generation = 410, best fitness = 294,90, average fitness = 294,90
+Generation = 420, best fitness = 294,90, average fitness = 294,90
+Generation = 430, best fitness = 294,94, average fitness = 294,90
+Generation = 440, best fitness = 294,94, average fitness = 294,91
+Generation = 450, best fitness = 295,01, average fitness = 294,91
+Generation = 460, best fitness = 295,01, average fitness = 294,93
+Generation = 470, best fitness = 295,04, average fitness = 294,97
+
+END Genetic Algorithm
+
+
+Finished execution in 06 minutes and 00 seconds
+
+Program terminated with OK status.
+See the LOG file for details.

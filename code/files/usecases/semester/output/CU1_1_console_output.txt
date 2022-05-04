@@ -1,0 +1,68 @@
+CLASSROOM MANAGER v1.0.0
+Author: Hugo Fonseca Diaz
+Supervisors: Raul Mencia Cascallana, Carlos Mencia Cascallana
+Entity: School of Computing Engineering of the University of Oviedo
+
+START Processing input files...
+
+Loading CONFIG file... DONE
+Loading SUBJECTS file... DONE
+Loading CLASSROOMS file... DONE
+Loading GROUPS file... DONE
+Loading GROUPSCHEDULE file... DONE
+Loading WEEKS file... DONE
+Loading ASSIGNMENTS file... DONE
+Loading PREFERENCES file... DONE
+Loading RESTRICTIONS file... DONE
+
+END Processing input files
+
+START Executing Genetic Algorithm...
+
+Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+
+Generation = 1, best fitness = 271,01, average fitness = 265,36
+Generation = 10, best fitness = 272,95, average fitness = 270,14
+Generation = 20, best fitness = 277,45, average fitness = 272,90
+Generation = 30, best fitness = 278,04, average fitness = 275,83
+Generation = 40, best fitness = 279,29, average fitness = 277,98
+Generation = 50, best fitness = 280,60, average fitness = 279,37
+Generation = 60, best fitness = 282,46, average fitness = 280,66
+Generation = 70, best fitness = 282,73, average fitness = 281,93
+Generation = 80, best fitness = 283,56, average fitness = 282,70
+Generation = 90, best fitness = 284,10, average fitness = 283,36
+Generation = 100, best fitness = 284,76, average fitness = 283,92
+Generation = 110, best fitness = 285,45, average fitness = 284,57
+Generation = 120, best fitness = 287,44, average fitness = 285,56
+Generation = 130, best fitness = 288,58, average fitness = 286,89
+Generation = 140, best fitness = 289,31, average fitness = 288,38
+Generation = 150, best fitness = 289,97, average fitness = 289,24
+Generation = 160, best fitness = 290,21, average fitness = 289,79
+Generation = 170, best fitness = 290,66, average fitness = 290,21
+Generation = 180, best fitness = 290,96, average fitness = 290,50
+Generation = 190, best fitness = 291,18, average fitness = 290,82
+Generation = 200, best fitness = 291,70, average fitness = 291,16
+Generation = 210, best fitness = 292,33, average fitness = 291,64
+Generation = 220, best fitness = 292,37, average fitness = 291,94
+Generation = 230, best fitness = 292,86, average fitness = 292,25
+Generation = 240, best fitness = 293,18, average fitness = 292,66
+Generation = 250, best fitness = 293,37, average fitness = 293,05
+Generation = 260, best fitness = 293,69, average fitness = 293,31
+Generation = 270, best fitness = 293,91, average fitness = 293,54
+Generation = 280, best fitness = 294,15, average fitness = 293,80
+Generation = 290, best fitness = 294,34, average fitness = 294,11
+Generation = 300, best fitness = 294,34, average fitness = 294,22
+
+END Genetic Algorithm
+
+
+Finished execution in 01 minutes and 59 seconds
+
+Program terminated with OK status.
+See the LOG file for details.
