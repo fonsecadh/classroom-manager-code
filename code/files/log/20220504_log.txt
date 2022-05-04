@@ -1,0 +1,70 @@
+may 04, 2022 10:10:54 PM main.Program main
+DETALLADO: START Persistence logic
+may 04, 2022 10:10:54 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at java.io.FileInputStream.<init>(FileInputStream.java:130)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:38)
+	at persistence.problem.csv.SubjectDataAccessCsv.loadSubjects(SubjectDataAccessCsv.java:24)
+	at main.Program.main(Program.java:107)
+
+may 04, 2022 10:12:27 PM main.Program main
+DETALLADO: START Persistence logic
+may 04, 2022 10:12:27 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at java.io.FileInputStream.<init>(FileInputStream.java:130)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:38)
+	at persistence.problem.csv.SubjectDataAccessCsv.loadSubjects(SubjectDataAccessCsv.java:24)
+	at main.Program.main(Program.java:107)
+
+may 04, 2022 10:16:34 PM main.Program main
+DETALLADO: START Persistence logic
+may 04, 2022 10:16:34 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at java.io.FileInputStream.<init>(FileInputStream.java:130)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:38)
+	at persistence.problem.csv.SubjectDataAccessCsv.loadSubjects(SubjectDataAccessCsv.java:24)
+	at main.Program.main(Program.java:109)
+
+may 04, 2022 10:18:44 PM main.Program main
+DETALLADO: START Persistence logic
+may 04, 2022 10:18:44 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at java.io.FileInputStream.<init>(FileInputStream.java:130)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:38)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.loadAcademicWeeks(AcademicWeeksDataAccessCsv.java:21)
+	at main.Program.main(Program.java:127)
+
+may 04, 2022 10:19:44 PM main.Program main
+DETALLADO: START Persistence logic
+may 04, 2022 10:19:44 PM main.Program main
+DETALLADO: END Persistence logic
+may 04, 2022 10:19:44 PM main.Program main
+DETALLADO: START Business logic
+may 04, 2022 10:19:44 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+may 04, 2022 10:19:44 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 300
+	-> Max time (ms): 180000
+	-> Mutation probability: 0.6
+	-> Crossover probability: 0.8
+	-> Population size: 100
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+may 04, 2022 10:22:45 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+may 04, 2022 10:22:45 PM main.Program main
+DETALLADO: END Business logic

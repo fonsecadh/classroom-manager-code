@@ -2,6 +2,7 @@ package main;
 
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
@@ -76,23 +77,36 @@ public class Program {
 			// FileManager
 			FileManager fm = new FileManager();
 
-			// Input
+			// Config file
 			String configFilePath = "files/config/classroom-manager.properties";
-			String subjectFilePath = "files/input/1_CSV_Asignatura.csv";
-			String classroomsFilePath = "files/input/2_CSV_Aula.csv";
-			String groupsFilePath = "files/input/3_CSV_Grupo.csv";
-			String groupScheduleFilePath = "files/input/4_CSV_Horario.csv";
-			String weeksFilePath = "files/input/5_CSV_SemanaLectiva.csv";
-			String assignmentsFilePath = "files/input/6_CSV_Asignaciones.csv";
-			String preferencesFilePath = "files/input/7_CSV_Preferencias.csv";
-			String restrictionsFilePath = "files/input/8_CSV_Restricciones.csv";
 
 			cli.showMessageWithoutNewLine("Loading CONFIG file...");
 			config.load(configFilePath);
 			cli.showMessage(" DONE");
 
+			// Input
+
+			// Required
+			String subjectsFilePath = config.getProperty("SUBJECTS_FILE_PATH");
+			String classroomsFilePath = config.getProperty("CLASSROOMS_FILE_PATH");
+			String groupsFilePath = config.getProperty("GROUPS_FILE_PATH");
+			String groupScheduleFilePath = config.getProperty("GROUPSCHEDULE_FILE_PATH");
+			String weeksFilePath = config.getProperty("WEEKS_FILE_PATH");
+
+			// Optional
+			boolean loadAssignments = Boolean.parseBoolean(config.getProperty("LOAD_ASSIGNMENTS"));
+			String assignmentsFilePath = config.getProperty("ASSIGNMENTS_FILE_PATH");
+
+			boolean loadPreferences = Boolean.parseBoolean(config.getProperty("LOAD_PREFERENCES"));
+			String preferencesFilePath = config.getProperty("PREFERENCES_FILE_PATH");
+
+			boolean loadRestrictions = Boolean.parseBoolean(config.getProperty("LOAD_RESTRICTIONS"));
+			String restrictionsFilePath = config.getProperty("RESTRICTIONS_FILE_PATH");
+
+			// Load files
+
 			cli.showMessageWithoutNewLine("Loading SUBJECTS file...");
-			Map<String, Subject> subjects = new SubjectDataAccessCsv().loadSubjects(subjectFilePath, fm);
+			Map<String, Subject> subjects = new SubjectDataAccessCsv().loadSubjects(subjectsFilePath, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading CLASSROOMS file...");
@@ -111,20 +125,29 @@ public class Program {
 			new AcademicWeeksDataAccessCsv().loadAcademicWeeks(weeksFilePath, groups, fm);
 			cli.showMessage(" DONE");
 
-			cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
 			AssignmentsDataAccess ada = new AssignmentDataAccessCsv();
-			Map<String, Assignment> assignments = ada.loadAssignments(assignmentsFilePath, groups, classrooms, fm);
-			cli.showMessage(" DONE");
+			Map<String, Assignment> assignments = new HashMap<String, Assignment>();
+			if (loadAssignments) {
+				cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
+				assignments = ada.loadAssignments(assignmentsFilePath, groups, classrooms, fm);
+				cli.showMessage(" DONE");
+			}
 
-			cli.showMessageWithoutNewLine("Loading PREFERENCES file...");
-			Map<String, Preference> preferences = new PreferencesDataAccessCsv().loadPreferences(preferencesFilePath,
-					classrooms, subjects, fm);
-			cli.showMessage(" DONE");
+			Map<String, Preference> preferences = null;
+			if (loadPreferences) {
+				cli.showMessageWithoutNewLine("Loading PREFERENCES file...");
+				preferences = new PreferencesDataAccessCsv().loadPreferences(preferencesFilePath, classrooms, subjects,
+						fm);
+				cli.showMessage(" DONE");
+			}
 
-			cli.showMessageWithoutNewLine("Loading RESTRICTIONS file...");
-			Map<String, List<Restriction>> restrictions = new RestrictionsDataAccessCsv()
-					.loadRestrictions(restrictionsFilePath, classrooms, groups, fm);
-			cli.showMessage(" DONE");
+			Map<String, List<Restriction>> restrictions = null;
+			if (loadRestrictions) {
+				cli.showMessageWithoutNewLine("Loading RESTRICTIONS file...");
+				restrictions = new RestrictionsDataAccessCsv().loadRestrictions(restrictionsFilePath, classrooms,
+						groups, fm);
+				cli.showMessage(" DONE");
+			}
 
 			List<Subject> subjectList = new ArrayList<Subject>(subjects.values());
 			List<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
@@ -172,7 +195,9 @@ public class Program {
 			// Classroom filters
 			classroomFilters.add(new ClassTypeFilter());
 			classroomFilters.add(new CapacityFilter());
-			classroomFilters.add(new RestrictionFilter(restrictions));
+
+			if (loadRestrictions)
+				classroomFilters.add(new RestrictionFilter(restrictions));
 
 			// Fitness values
 			fitnessValues.add(new CollisionsFitnessValue(collisionsFnWeight));
@@ -180,7 +205,9 @@ public class Program {
 			fitnessValues.add(new LanguageFitnessValue(languageFnWeight, subjectList));
 			fitnessValues.add(new SharedLabsFitnessValue(sharedLabsFnWeight, subjectList, classroomList));
 			fitnessValues.add(new SharedTheoryFitnessValue(sharedTheoryFnWeight, subjectList, classroomList));
-			fitnessValues.add(new PreferencesFitnessValue(prefsFnWeight, preferences, subjectList));
+
+			if (loadPreferences)
+				fitnessValues.add(new PreferencesFitnessValue(prefsFnWeight, preferences, subjectList));
 
 			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
 			CollisionManager cm = new CollisionManager();
