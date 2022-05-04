@@ -154,8 +154,8 @@ public class Program {
 			List<Group> groupList = new ArrayList<Group>(groups.values());
 
 			// Output
-			String outputFilePath = "files/usecases/semester/output/CU1_4_output.txt";
-			String outputAssignmentsFilePath = "files/usecases/semester/output/CU1_4_CSV_Asignaciones.csv";
+			String outputFilePath = "files/usecases/exam/output/CU3_2_output.txt";
+			String outputAssignmentsFilePath = "files/usecases/exam/output/CU3_2_CSV_Asignaciones.csv";
 
 			// Genetic parameters
 			int individualLength = groups.size();
