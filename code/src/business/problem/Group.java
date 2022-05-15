@@ -69,9 +69,8 @@ public class Group {
 
 	public boolean collidesWith(Group other) {
 		boolean schedulesCollide = false, weeksCollide = false;
-		
-		outerloop:
-		for (GroupSchedule ogs : other.getAllGroupSchedules()) {
+
+		outerloop: for (GroupSchedule ogs : other.getAllGroupSchedules()) {
 			for (GroupSchedule gs : getAllGroupSchedules()) {
 				if (ogs.overlapsWith(gs)) {
 					schedulesCollide = true;
@@ -79,17 +78,16 @@ public class Group {
 				}
 			}
 		}
-		
+
 		if (schedulesCollide) {
-			weekloop:
-			for (String w : getAcademicWeeks()) {
+			weekloop: for (String w : getAcademicWeeks()) {
 				if (other.getAcademicWeeks().contains(w)) {
-					weeksCollide = true; 
+					weeksCollide = true;
 					break weekloop;
 				}
 			}
 		}
-		
+
 		return schedulesCollide && weeksCollide;
 	}
 

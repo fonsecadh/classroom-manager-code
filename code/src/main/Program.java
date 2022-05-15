@@ -154,8 +154,8 @@ public class Program {
 			List<Group> groupList = new ArrayList<Group>(groups.values());
 
 			// Output
-			String outputFilePath = "files/usecases/exam/output/CU3_2_output.txt";
-			String outputAssignmentsFilePath = "files/usecases/exam/output/CU3_2_CSV_Asignaciones.csv";
+			String outputFolderPath = config.getProperty("OUTPUT_FOLDER_PATH");
+			String outputAssignmentsFilename = config.getProperty("OUTPUT_ASSIGNMENTS_FILENAME");
 
 			// Genetic parameters
 			int individualLength = groups.size();
@@ -235,9 +235,19 @@ public class Program {
 			List<Assignment> decoded = decoder.decode(bestIndividual);
 			Map<String, Assignment> assignmentsMap = greedyAlgo.greedyAlgorithm(decoded);
 
+			String outputAssignmentsFilePath = outputFolderPath + outputAssignmentsFilename;
 			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, assignmentsMap);
-			fm.writeToFile(outputFilePath, individualPrinter.getPrettyIndividual(bestIndividual));
-			ada.writeAssignments(outputAssignmentsFilePath, assignmentsMap, subjectList, fm);
+
+			// Assignments (Pretty format)
+			fm.writeToFile(outputAssignmentsFilePath + ".txt", individualPrinter.getPrettyIndividual());
+
+			// Assignments (CSV format)
+			ada.writeAssignments(outputAssignmentsFilePath + ".csv", assignmentsMap, subjectList, fm);
+
+			// Classroom timetables
+			for (Classroom c : classroomList) {
+				fm.writeToFile(outputFolderPath + c.getCode() + ".txt", individualPrinter.getTimetableFor(c));
+			}
 
 			// Business errors
 			if (errh.anyErrors()) {
