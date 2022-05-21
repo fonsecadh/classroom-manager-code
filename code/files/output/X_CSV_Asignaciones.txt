@@ -2,210 +2,210 @@ COURSE: 1
 =========
 SUBJECT: AL
 ===========
-AL.T.1 -> A-2-02
+AL.T.1 -> A-2-01
 AL.T.2 -> A-S-02
-AL.T.I-1 -> A-2-01
-AL.S.1 -> NO CLASS ASSIGNED!
-AL.S.2 -> A-S-02
-AL.S.3 -> A-2-02
-AL.S.I-1 -> A-B-02
-AL.S.I-2 -> A-2-01
-AL.L.1 -> L-12
-AL.L.2 -> L-31
-AL.L.3 -> L-12
-AL.L.4 -> L-31
-AL.L.5 -> L-05
-AL.L.6 -> L-31
-AL.L.7 -> L-12
-AL.L.8 -> L-31
+AL.T.I-1 -> A-2-02
+AL.S.1 -> A-2-01
+AL.S.2 -> NO CLASS ASSIGNED!
+AL.S.3 -> A-B-01
+AL.S.I-1 -> A-2-02
+AL.S.I-2 -> A-B-02
+AL.L.1 -> L-13
+AL.L.2 -> L-13
+AL.L.3 -> L-13
+AL.L.4 -> L-13
+AL.L.5 -> L-13
+AL.L.6 -> L-13
+AL.L.7 -> L-02
+AL.L.8 -> L-13
 AL.L.9 -> L-05
-AL.L.I-1 -> L-31
-AL.L.I-2 -> L-31
-AL.L.I-3 -> L-31
-AL.L.I-4 -> L-31
-AL.L.I-5 -> L-31
+AL.L.I-1 -> L-02
+AL.L.I-2 -> L-13
+AL.L.I-3 -> L-13
+AL.L.I-4 -> L-13
+AL.L.I-5 -> L-13
 
 SUBJECT: Cal
 ============
-Cal.T.1 -> A-2-02
+Cal.T.1 -> A-2-01
 Cal.T.2 -> A-S-02
-Cal.T.I-1 -> A-2-01
-Cal.S.1 -> NO CLASS ASSIGNED!
+Cal.T.I-1 -> A-2-02
+Cal.S.1 -> A-S-02
 Cal.S.2 -> A-S-02
-Cal.S.3 -> A-2-02
+Cal.S.3 -> A-B-01
 Cal.S.4 -> A-S-01
-Cal.S.I-1 -> A-B-02
-Cal.S.I-2 -> A-B-01
-Cal.L.1 -> NO CLASS ASSIGNED!
-Cal.L.2 -> NO CLASS ASSIGNED!
-Cal.L.3 -> NO CLASS ASSIGNED!
-Cal.L.4 -> NO CLASS ASSIGNED!
+Cal.S.I-1 -> A-2-02
+Cal.S.I-2 -> A-B-02
+Cal.L.1 -> L-05
+Cal.L.2 -> L-05
+Cal.L.3 -> L-05
+Cal.L.4 -> L-05
 Cal.L.5 -> L-05
-Cal.L.6 -> NO CLASS ASSIGNED!
-Cal.L.7 -> NO CLASS ASSIGNED!
-Cal.L.8 -> NO CLASS ASSIGNED!
+Cal.L.6 -> L-05
+Cal.L.7 -> L-05
+Cal.L.8 -> L-05
 Cal.L.9 -> L-05
-Cal.L.10 -> NO CLASS ASSIGNED!
+Cal.L.10 -> L-05
 Cal.L.11 -> L-05
-Cal.L.I-1 -> L-13
+Cal.L.I-1 -> L-12
 Cal.L.I-2 -> L-12
-Cal.L.I-3 -> L-12
-Cal.L.I-4 -> L-12
+Cal.L.I-3 -> L-S-01
+Cal.L.I-4 -> L-S-01
 Cal.L.I-5 -> L-12
 
 SUBJECT: Emp
 ============
-Emp.T.1 -> A-2-02
+Emp.T.1 -> A-2-01
 Emp.T.2 -> A-S-02
-Emp.T.I-1 -> A-2-01
+Emp.T.I-1 -> A-2-02
 Emp.S.1 -> NO CLASS ASSIGNED!
-Emp.S.2 -> A-S-02
-Emp.S.3 -> A-2-02
-Emp.S.I-1 -> A-B-02
-Emp.S.I-2 -> A-B-01
+Emp.S.2 -> NO CLASS ASSIGNED!
+Emp.S.3 -> A-B-01
+Emp.S.I-1 -> A-2-02
+Emp.S.I-2 -> A-B-02
 
 SUBJECT: FI
 ===========
-FI.T.1 -> A-2-02
+FI.T.1 -> A-2-01
 FI.T.2 -> A-S-02
-FI.T.I-1 -> A-2-01
-FI.L.1 -> L-04
+FI.T.I-1 -> A-2-02
+FI.L.1 -> L-31
 FI.L.2 -> L-04
 FI.L.3 -> L-04
 FI.L.4 -> L-04
 FI.L.5 -> L-04
 FI.L.6 -> L-04
-FI.L.7 -> L-04
-FI.L.I-1 -> L-S-01
-FI.L.I-2 -> L-S-01
-FI.L.I-3 -> L-S-02
-FI.L.I-4 -> L-S-01
+FI.L.7 -> L-31
+FI.L.I-1 -> L-01
+FI.L.I-2 -> L-05
+FI.L.I-3 -> L-04
+FI.L.I-4 -> L-04
 
 SUBJECT: IP
 ===========
-IP.T.1 -> NO CLASS ASSIGNED!
+IP.T.1 -> A-2-01
 IP.T.2 -> NO CLASS ASSIGNED!
-IP.T.I-1 -> A-2-01
-IP.S.1 -> NO CLASS ASSIGNED!
-IP.S.2 -> A-S-02
-IP.S.3 -> A-2-02
-IP.S.I-1 -> A-B-02
-IP.S.I-2 -> A-B-01
+IP.T.I-1 -> NO CLASS ASSIGNED!
+IP.S.1 -> A-S-02
+IP.S.2 -> NO CLASS ASSIGNED!
+IP.S.3 -> A-B-01
+IP.S.I-1 -> A-2-02
+IP.S.I-2 -> A-B-02
 IP.L.1 -> L-03
-IP.L.2 -> L-16
+IP.L.2 -> L-03
 IP.L.3 -> L-03
 IP.L.4 -> L-03
 IP.L.5 -> L-03
 IP.L.6 -> L-03
 IP.L.7 -> L-03
 IP.L.8 -> L-03
-IP.L.I-1 -> L-02
-IP.L.I-2 -> L-02
-IP.L.I-3 -> L-02
-IP.L.I-4 -> L-02
+IP.L.I-1 -> L-01
+IP.L.I-2 -> L-S-01
+IP.L.I-3 -> L-S-01
+IP.L.I-4 -> L-S-01
 
 COURSE: 2
 =========
 SUBJECT: AC
 ===========
-AC.T.1 -> A-B-01
-AC.T.2 -> A-2-01
-AC.T.I-1 -> A-B-02
-AC.S.1 -> A-B-02
-AC.S.2 -> A-2-01
-AC.S.3 -> A-B-01
-AC.S.I-1 -> A-B-01
-AC.S.I-2 -> A-B-02
-AC.L.1 -> L-13
-AC.L.2 -> L-13
-AC.L.3 -> L-13
+AC.T.1 -> A-S-01
+AC.T.2 -> A-B-01
+AC.T.I-1 -> A-B-01
+AC.S.1 -> A-B-01
+AC.S.2 -> A-S-02
+AC.S.3 -> A-B-02
+AC.S.I-1 -> A-S-01
+AC.S.I-2 -> A-B-01
+AC.L.1 -> L-S-01
+AC.L.2 -> L-12
+AC.L.3 -> L-31
 AC.L.4 -> L-05
-AC.L.5 -> L-13
-AC.L.6 -> L-13
-AC.L.7 -> L-13
+AC.L.5 -> L-12
+AC.L.6 -> L-12
+AC.L.7 -> L-12
 AC.L.I-1 -> L-05
-AC.L.I-2 -> L-13
-AC.L.I-3 -> L-S-01
-AC.L.I-4 -> L-S-01
+AC.L.I-2 -> L-31
+AC.L.I-3 -> L-11
+AC.L.I-4 -> L-11
 
 SUBJECT: CPM
 ============
-CPM.T.1 -> A-B-01
-CPM.T.2 -> A-2-01
+CPM.T.1 -> A-2-02
+CPM.T.2 -> A-B-01
 CPM.T.I-1 -> A-S-01
-CPM.S.1 -> A-B-02
-CPM.S.2 -> A-2-01
-CPM.S.3 -> A-B-01
-CPM.S.I-1 -> A-S-02
-CPM.S.I-2 -> A-B-02
-CPM.L.1 -> L-31
-CPM.L.2 -> L-31
-CPM.L.3 -> L-31
-CPM.L.4 -> L-31
+CPM.S.1 -> A-B-01
+CPM.S.2 -> A-2-02
+CPM.S.3 -> A-B-02
+CPM.S.I-1 -> A-S-01
+CPM.S.I-2 -> A-B-01
+CPM.L.1 -> L-03
+CPM.L.2 -> L-03
+CPM.L.3 -> L-03
+CPM.L.4 -> L-03
 CPM.L.5 -> L-03
-CPM.L.6 -> L-31
-CPM.L.7 -> L-31
-CPM.L.8 -> L-31
-CPM.L.I-1 -> L-01
-CPM.L.I-2 -> L-03
-CPM.L.I-3 -> L-31
-CPM.L.I-4 -> L-01
+CPM.L.6 -> L-03
+CPM.L.7 -> L-03
+CPM.L.8 -> L-03
+CPM.L.I-1 -> L-02
+CPM.L.I-2 -> L-02
+CPM.L.I-3 -> L-02
+CPM.L.I-4 -> L-02
 
 SUBJECT: Com
 ============
-Com.T.1 -> A-B-01
-Com.T.2 -> A-2-01
-Com.T.I-1 -> A-B-02
-Com.S.1 -> A-B-02
-Com.S.2 -> A-B-02
-Com.S.3 -> A-B-01
-Com.S.I-1 -> A-B-01
-Com.S.I-2 -> A-B-02
-Com.L.1 -> L-12
-Com.L.2 -> L-12
+Com.T.1 -> A-B-02
+Com.T.2 -> A-B-01
+Com.T.I-1 -> A-S-01
+Com.S.1 -> A-B-01
+Com.S.2 -> A-S-02
+Com.S.3 -> A-S-01
+Com.S.I-1 -> A-S-01
+Com.S.I-2 -> A-B-01
+Com.L.1 -> L-15
+Com.L.2 -> L-13
 Com.L.3 -> L-12
-Com.L.4 -> L-11
+Com.L.4 -> L-15
 Com.L.5 -> L-12
-Com.L.6 -> L-12
-Com.L.7 -> L-12
-Com.L.I-1 -> L-16
-Com.L.I-2 -> L-16
-Com.L.I-3 -> L-03
-Com.L.I-4 -> L-11
+Com.L.6 -> L-13
+Com.L.7 -> L-13
+Com.L.I-1 -> L-13
+Com.L.I-2 -> L-13
+Com.L.I-3 -> L-12
+Com.L.I-4 -> L-12
 
 SUBJECT: ED
 ===========
-ED.T.1 -> A-2-01
-ED.T.2 -> A-2-01
-ED.T.I-1 -> A-B-02
-ED.S.1 -> A-B-02
-ED.S.2 -> A-B-01
-ED.S.3 -> A-B-01
-ED.S.I-1 -> A-B-01
-ED.S.I-2 -> A-B-02
-ED.L.1 -> L-03
-ED.L.2 -> L-02
+ED.T.1 -> A-S-01
+ED.T.2 -> A-S-01
+ED.T.I-1 -> A-S-01
+ED.S.1 -> A-B-01
+ED.S.2 -> A-B-02
+ED.S.3 -> A-B-02
+ED.S.I-1 -> A-S-01
+ED.S.I-2 -> A-B-01
+ED.L.1 -> L-04
+ED.L.2 -> L-04
 ED.L.3 -> L-04
 ED.L.4 -> L-04
-ED.L.5 -> L-03
-ED.L.6 -> L-03
-ED.L.7 -> L-02
-ED.L.8 -> L-02
-ED.L.I-1 -> L-04
-ED.L.I-2 -> L-04
-ED.L.I-3 -> L-12
-ED.L.I-4 -> L-12
+ED.L.5 -> L-04
+ED.L.6 -> L-04
+ED.L.7 -> L-04
+ED.L.8 -> L-04
+ED.L.I-1 -> L-31
+ED.L.I-2 -> L-31
+ED.L.I-3 -> L-31
+ED.L.I-4 -> L-31
 
 SUBJECT: TEC
 ============
-TEC.T.1 -> A-B-01
-TEC.T.2 -> A-2-01
-TEC.T.I-1 -> A-B-02
-TEC.S.1 -> A-B-02
-TEC.S.2 -> A-2-01
-TEC.S.3 -> A-B-01
-TEC.S.I-1 -> A-B-01
-TEC.S.I-2 -> A-B-02
+TEC.T.1 -> A-B-02
+TEC.T.2 -> A-B-01
+TEC.T.I-1 -> A-S-01
+TEC.S.1 -> A-B-01
+TEC.S.2 -> A-S-02
+TEC.S.3 -> A-B-02
+TEC.S.I-1 -> A-S-01
+TEC.S.I-2 -> A-B-01
 TEC.L.1 -> L-16
 TEC.L.2 -> L-16
 TEC.L.3 -> L-16
@@ -224,10 +224,10 @@ SUBJECT: DS
 ===========
 DS.T.1 -> A-S-01
 DS.T.2 -> A-S-01
-DS.S.1 -> A-B-02
-DS.S.2 -> A-B-01
-DS.S.3 -> A-B-01
-DS.S.4 -> A-B-02
+DS.S.1 -> A-B-01
+DS.S.2 -> A-B-02
+DS.S.3 -> A-B-02
+DS.S.4 -> A-B-01
 DS.L.1 -> L-S-02
 DS.L.2 -> L-S-02
 DS.L.3 -> L-S-02
@@ -244,16 +244,16 @@ SUBJECT: IPS
 ============
 IPS.T.1 -> A-S-01
 IPS.T.2 -> A-S-01
-IPS.S.1 -> A-B-02
-IPS.S.2 -> A-B-02
-IPS.S.3 -> A-B-01
-IPS.L.1 -> L-13
-IPS.L.2 -> L-13
-IPS.L.3 -> L-13
-IPS.L.4 -> L-13
-IPS.L.5 -> L-13
+IPS.S.1 -> A-B-01
+IPS.S.2 -> A-B-01
+IPS.S.3 -> A-B-02
+IPS.L.1 -> L-02
+IPS.L.2 -> L-02
+IPS.L.3 -> L-02
+IPS.L.4 -> L-02
+IPS.L.5 -> L-02
 IPS.L.6 -> L-02
-IPS.L.7 -> L-13
+IPS.L.7 -> L-02
 IPS.L.8 -> L-02
 
 SUBJECT: RI
@@ -261,144 +261,144 @@ SUBJECT: RI
 RI.T.1 -> A-S-01
 RI.T.2 -> A-S-01
 RI.T.I-1 -> A-B-02
-RI.S.1 -> A-B-02
-RI.S.2 -> A-B-01
-RI.S.3 -> A-B-01
-RI.S.I-1 -> A-B-02
+RI.S.1 -> A-B-01
+RI.S.2 -> A-B-02
+RI.S.3 -> A-B-02
+RI.S.I-1 -> A-B-01
 RI.S.I-2 -> A-B-02
-RI.L.1 -> L-31
-RI.L.2 -> L-31
-RI.L.3 -> L-05
-RI.L.4 -> L-31
-RI.L.5 -> L-05
-RI.L.6 -> L-05
-RI.L.7 -> L-31
-RI.L.8 -> L-05
-RI.L.I-1 -> L-31
-RI.L.I-2 -> L-05
-RI.L.I-3 -> L-05
-RI.L.I-4 -> L-31
+RI.L.1 -> L-12
+RI.L.2 -> L-12
+RI.L.3 -> L-12
+RI.L.4 -> L-12
+RI.L.5 -> L-12
+RI.L.6 -> L-12
+RI.L.7 -> L-12
+RI.L.8 -> L-12
+RI.L.I-1 -> L-12
+RI.L.I-2 -> L-12
+RI.L.I-3 -> L-01
+RI.L.I-4 -> L-12
 
 SUBJECT: SEW
 ============
 SEW.T.1 -> A-S-01
 SEW.T.2 -> A-S-01
-SEW.S.1 -> A-B-02
-SEW.S.2 -> A-B-02
-SEW.S.3 -> A-B-01
-SEW.S.4 -> A-B-01
-SEW.L.1 -> L-11
-SEW.L.2 -> L-13
-SEW.L.3 -> L-11
-SEW.L.4 -> L-13
-SEW.L.5 -> L-12
-SEW.L.6 -> L-12
-SEW.L.7 -> L-11
-SEW.L.8 -> L-11
-SEW.L.9 -> L-13
-SEW.L.10 -> L-13
+SEW.S.1 -> A-B-01
+SEW.S.2 -> A-B-01
+SEW.S.3 -> A-B-02
+SEW.S.4 -> A-B-02
+SEW.L.1 -> L-31
+SEW.L.2 -> L-31
+SEW.L.3 -> L-31
+SEW.L.4 -> L-31
+SEW.L.5 -> L-31
+SEW.L.6 -> L-31
+SEW.L.7 -> L-31
+SEW.L.8 -> L-31
+SEW.L.9 -> L-31
+SEW.L.10 -> L-31
 
 COURSE: 4
 =========
 SUBJECT: CVVS
 =============
 CVVS.T.1 -> A-S-02
-CVVS.T.2 -> A-2-02
-CVVS.S.1 -> A-2-02
-CVVS.S.2 -> A-S-02
-CVVS.S.3 -> A-S-01
-CVVS.S.4 -> A-S-01
+CVVS.T.2 -> A-S-02
+CVVS.S.1 -> A-S-02
+CVVS.S.2 -> A-B-02
+CVVS.S.3 -> A-2-01
+CVVS.S.4 -> A-B-02
 CVVS.L.1 -> L-05
-CVVS.L.2 -> L-05
-CVVS.L.3 -> L-S-02
+CVVS.L.2 -> L-01
+CVVS.L.3 -> L-01
 CVVS.L.4 -> L-05
 CVVS.L.5 -> L-S-02
 CVVS.L.6 -> L-05
-CVVS.L.7 -> L-S-02
+CVVS.L.7 -> L-S-01
 CVVS.L.8 -> L-S-02
 CVVS.L.9 -> L-05
 
 SUBJECT: IR
 ===========
 IR.T.1 -> A-S-02
-IR.T.2 -> A-S-02
-IR.S.1 -> A-2-02
-IR.S.2 -> A-2-02
-IR.S.3 -> A-S-01
-IR.S.4 -> A-2-02
-IR.L.1 -> L-01
-IR.L.2 -> L-01
+IR.T.2 -> A-2-01
+IR.S.1 -> A-S-02
+IR.S.2 -> A-S-02
+IR.S.3 -> A-2-01
+IR.S.4 -> A-2-01
+IR.L.1 -> L-13
+IR.L.2 -> L-11
 IR.L.3 -> L-S-02
 IR.L.4 -> L-S-02
-IR.L.5 -> L-S-02
-IR.L.6 -> L-01
-IR.L.7 -> L-01
-IR.L.8 -> L-01
-IR.L.9 -> L-S-02
+IR.L.5 -> L-S-01
+IR.L.6 -> L-S-02
+IR.L.7 -> L-02
+IR.L.8 -> L-S-01
+IR.L.9 -> L-S-01
 
 SUBJECT: SI
 ===========
 SI.T.1 -> A-S-02
-SI.T.2 -> A-2-02
-SI.S.1 -> A-S-01
-SI.S.2 -> A-S-02
-SI.S.3 -> A-S-02
+SI.T.2 -> A-2-01
+SI.S.1 -> A-2-01
+SI.S.2 -> A-B-02
+SI.S.3 -> A-B-02
 SI.S.4 -> A-S-02
 SI.L.1 -> L-32
-SI.L.2 -> L-32
-SI.L.3 -> L-32
-SI.L.4 -> L-32
-SI.L.5 -> L-32
-SI.L.6 -> L-13
-SI.L.7 -> L-32
-SI.L.8 -> L-32
-SI.L.9 -> L-13
+SI.L.2 -> L-01
+SI.L.3 -> L-01
+SI.L.4 -> L-01
+SI.L.5 -> L-01
+SI.L.6 -> L-01
+SI.L.7 -> L-01
+SI.L.8 -> L-01
+SI.L.9 -> L-32
 
 COURSE: O
 =========
 SUBJECT: IA
 ===========
 IA.T.1 -> A-S-02
-IA.S.1 -> A-B-01
+IA.S.1 -> A-S-02
 IA.L.1 -> L-S-02
 IA.L.2 -> L-S-02
 
 SUBJECT: IAE
 ============
 IAE.T.1 -> A-S-02
-IAE.S.1 -> A-B-01
+IAE.S.1 -> A-S-02
 IAE.L.1 -> L-31
 IAE.L.2 -> L-16
 
 SUBJECT: IFA
 ============
 IFA.T.1 -> A-S-02
-IFA.S.1 -> A-B-01
-IFA.L.1 -> L-S-01
-IFA.L.2 -> L-S-01
-IFA.L.3 -> L-S-01
+IFA.S.1 -> A-S-02
+IFA.L.1 -> L-11
+IFA.L.2 -> L-11
+IFA.L.3 -> L-11
 
 SUBJECT: RAA
 ============
 RAA.T.1 -> A-S-02
-RAA.S.1 -> A-B-01
+RAA.S.1 -> A-S-02
 RAA.L.1 -> L-S-02
 RAA.L.2 -> L-S-02
 
 SUBJECT: SDM
 ============
-SDM.T.1 -> A-B-01
-SDM.S.1 -> A-B-01
+SDM.T.1 -> A-S-02
+SDM.S.1 -> A-S-02
 SDM.L.1 -> L-14
-SDM.L.2 -> L-03
-SDM.L.3 -> L-03
-SDM.L.4 -> L-03
+SDM.L.2 -> L-13
+SDM.L.3 -> L-16
+SDM.L.4 -> L-13
 
 SUBJECT: SEV
 ============
 SEV.T.1 -> A-S-02
-SEV.S.1 -> A-B-01
-SEV.S.2 -> A-S-02
+SEV.S.1 -> A-S-02
+SEV.S.2 -> A-B-02
 SEV.L.1 -> L-S-02
 SEV.L.2 -> L-S-02
 SEV.L.3 -> L-S-02
@@ -408,17 +408,17 @@ SEV.L.5 -> L-S-02
 SUBJECT: SIW
 ============
 SIW.T.1 -> A-S-02
-SIW.S.1 -> S-3-02
-SIW.L.1 -> L-12
+SIW.S.1 -> A-S-02
+SIW.L.1 -> L-31
 
 SUBJECT: SR
 ===========
 SR.T.1 -> A-S-02
-SR.S.1 -> A-B-01
-SR.S.2 -> A-S-02
-SR.L.1 -> L-02
-SR.L.2 -> L-02
-SR.L.3 -> L-02
-SR.L.4 -> L-02
-SR.L.5 -> L-02
+SR.S.1 -> A-S-02
+SR.S.2 -> A-B-02
+SR.L.1 -> L-S-01
+SR.L.2 -> L-S-01
+SR.L.3 -> L-S-01
+SR.L.4 -> L-S-01
+SR.L.5 -> L-S-01
 

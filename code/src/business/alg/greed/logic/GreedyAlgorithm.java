@@ -110,15 +110,18 @@ public class GreedyAlgorithm {
 	 */
 	public Map<String, Assignment> greedyAlgorithm(List<Assignment> assignments) {
 
-		List<Assignment> preproc, repairs;
-		preproc = preprocess(assignments);
-		repairs = new ArrayList<Assignment>();
+		clearMaps();
 
-		Map<String, Assignment> result = preproc.stream()
+		Map<String, Assignment> result = assignments.stream()
 				.collect(Collectors.toMap(a -> a.getGroup().getCode(), a -> a));
+
+		List<Assignment> preproc, repairs;
+		preproc = preprocess(assignments, result);
+		repairs = new ArrayList<Assignment>();
 
 		createMaps(result);
 
+		// The assignments are made
 		for (Assignment a : preproc) {
 
 			if (!a.isAssigned()) {
@@ -154,17 +157,80 @@ public class GreedyAlgorithm {
 			}
 		}
 
-		// TODO: Repair assignments
+		// Repairing process
+		for (Assignment a : repairs) {
+
+			List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
+
+			classroomloop: for (Classroom c : filteredClassrooms) {
+
+				List<Group> collisions = collisionsFor(a.getGroup(), c);
+
+				for (Group g : collisions) {
+
+					Assignment a2 = result.get(g.getCode());
+
+					removeClassroomFromGroup(c, a2, result);
+					assignClassroomToGroup(c, a, result);
+
+					Classroom c2 = bestClassroomFor(a2);
+
+					if (c2 != null) {
+
+						// Assignment repaired
+						assignClassroomToGroup(c2, a2, result);
+						break classroomloop;
+
+					} else {
+
+						// Assignment could not be repaired
+						removeClassroomFromGroup(c, a, result);
+						assignClassroomToGroup(c, a2, result);
+
+					}
+
+				}
+
+			}
+
+		}
 
 		return new HashMap<String, Assignment>(result);
 
 	}
 
-	private List<Assignment> preprocess(List<Assignment> assignments) {
+	private List<Assignment> preprocess(List<Assignment> assignments, Map<String, Assignment> result) {
+
+		for (Assignment a : assignments) {
+
+			if (!a.isAssigned()) {
+
+				List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
+
+				if (filteredClassrooms.size() == 1) {
+
+					Classroom c = bestClassroomFor(a);
+
+					if (c != null) {
+
+						assignClassroomToGroup(c, a, result);
+
+					}
+
+				}
+
+			}
+
+		}
+
+		return new ArrayList<Assignment>(assignments);
+
+	}
+
+	private void clearMaps() {
 		subjectAssignmentsMap.clear();
 		courseAssignmentsMap.clear();
 		assignedGroupsToClassrooms.clear();
-		return new ArrayList<Assignment>(assignments);
 	}
 
 	private void createMaps(Map<String, Assignment> aMap) {
@@ -215,6 +281,15 @@ public class GreedyAlgorithm {
 		return gSet.stream().anyMatch(other -> cm.groupsCollide(g, other));
 	}
 
+	private List<Group> collisionsFor(Group g, Classroom c) {
+		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
+
+		if (gSet == null || gSet.size() == 0)
+			return new ArrayList<Group>();
+
+		return gSet.stream().filter(other -> cm.groupsCollide(g, other)).collect(Collectors.toList());
+	}
+
 	private void assignClassroomToGroup(Classroom c, Assignment a, Map<String, Assignment> result) {
 
 		List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
@@ -230,6 +305,18 @@ public class GreedyAlgorithm {
 			assignedGroupsToClassrooms.put(c.getCode(), gSet);
 
 		}
+
+	}
+
+	private void removeClassroomFromGroup(Classroom c, Assignment a, Map<String, Assignment> result) {
+
+		a.setClassroom(null);
+		result.put(a.getGroup().getCode(), a);
+		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
+		if (gSet == null)
+			gSet = new HashSet<Group>();
+		gSet.remove(a.getGroup());
+		assignedGroupsToClassrooms.put(c.getCode(), gSet);
 
 	}
 
