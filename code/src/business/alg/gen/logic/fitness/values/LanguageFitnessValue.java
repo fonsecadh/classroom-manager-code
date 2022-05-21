@@ -93,10 +93,16 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 		if (assignments.get(g.getCode()) == null)
 			return;
 
-		if (ProblemUtils.isEnglishGroup(g))
-			en.add(assignments.get(g.getCode()).getClassroom());
-		else
-			es.add(assignments.get(g.getCode()).getClassroom());
+		Assignment a = assignments.get(g.getCode());
+		if (a.getClassroom() == null) {
+			return;
+		}
+
+		if (ProblemUtils.isEnglishGroup(g)) {
+			en.add(a.getClassroom());
+		} else {
+			es.add(a.getClassroom());
+		}
 
 	}
 

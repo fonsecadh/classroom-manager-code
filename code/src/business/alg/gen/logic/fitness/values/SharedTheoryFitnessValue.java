@@ -22,7 +22,7 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 	public SharedTheoryFitnessValue(double weight, List<Subject> subjects, List<Classroom> classrooms) {
 		super(weight);
 		this.subjects = new ArrayList<Subject>(subjects);
-		this.theory = new ArrayList<Classroom>(classrooms).stream().filter(c -> !ProblemUtils.isLabClassroom(c))
+		this.theory = new ArrayList<Classroom>(classrooms).stream().filter(c -> ProblemUtils.isTheoryClassroom(c))
 				.collect(Collectors.toList());
 	}
 
@@ -60,7 +60,7 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 			assignedTheoryEs.clear();
 
 			List<String> groupNames = courseAssignmentsMap.get(course).stream()
-					.map(a -> a.getGroup().getGroupNameFromCode()).collect(Collectors.toList());
+					.map(a -> a.getGroup().getNameFromCode()).collect(Collectors.toList());
 
 			for (String groupName : groupNames) {
 
@@ -71,7 +71,7 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 
 					Group g = a.getGroup();
 
-					if (!ProblemUtils.isLabGroup(g)) {
+					if (ProblemUtils.isTheoryGroup(g)) {
 						if (assignments.get(g.getCode()) != null) {
 							if (ProblemUtils.isEnglishGroup(g)) {
 								assignedTheoryEn.add(assignments.get(g.getCode()).getClassroom());

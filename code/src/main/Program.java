@@ -152,7 +152,7 @@ public class Program {
 			if (loadRestrictions) {
 				cli.showMessageWithoutNewLine("Loading RESTRICTIONS file...");
 				restrictions = new RestrictionsDataAccessCsv().loadRestrictions(restrictionsFilePath, classrooms,
-						groups, fm);
+						groups, subjects, fm);
 				cli.showMessage(" DONE");
 			}
 

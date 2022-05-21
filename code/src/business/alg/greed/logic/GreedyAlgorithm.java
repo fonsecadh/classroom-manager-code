@@ -197,12 +197,10 @@ public class GreedyAlgorithm {
 		Classroom selected = null;
 		List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
 
-		boolean stop = false;
-		while (filteredClassrooms.size() > 0 && !stop) {
-			selected = filteredClassrooms.get(0);
-			filteredClassrooms.remove(selected);
+		selectionloop: for (int i = 0; i < filteredClassrooms.size(); i++) {
+			selected = filteredClassrooms.get(i);
 			if (!collisionsExistFor(a.getGroup(), selected))
-				stop = true;
+				break selectionloop;
 		}
 
 		return selected;
@@ -219,13 +217,19 @@ public class GreedyAlgorithm {
 
 	private void assignClassroomToGroup(Classroom c, Assignment a, Map<String, Assignment> result) {
 
-		a.setClassroom(c);
-		result.put(a.getGroup().getCode(), a);
-		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
-		if (gSet == null)
-			gSet = new HashSet<Group>();
-		gSet.add(a.getGroup());
-		assignedGroupsToClassrooms.put(c.getCode(), gSet);
+		List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
+
+		if (filteredClassrooms.contains(c) && !collisionsExistFor(a.getGroup(), c)) {
+
+			a.setClassroom(c);
+			result.put(a.getGroup().getCode(), a);
+			Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
+			if (gSet == null)
+				gSet = new HashSet<Group>();
+			gSet.add(a.getGroup());
+			assignedGroupsToClassrooms.put(c.getCode(), gSet);
+
+		}
 
 	}
 
@@ -238,9 +242,7 @@ public class GreedyAlgorithm {
 
 			if (!assignment.isAssigned() && ProblemUtils.isLabGroup(assignment.getGroup())) {
 
-				if (!collisionsExistFor(assignment.getGroup(), c)) {
-					assignClassroomToGroup(c, assignment, result);
-				}
+				assignClassroomToGroup(c, assignment, result);
 
 			}
 
@@ -254,12 +256,10 @@ public class GreedyAlgorithm {
 
 		for (Assignment assignment : aList) {
 
-			if (!assignment.isAssigned() && !ProblemUtils.isLabGroup(assignment.getGroup())
-					&& assignment.getGroup().sameGroupNameAs(a.getGroup())) {
+			if (!assignment.isAssigned() && ProblemUtils.isTheoryGroup(assignment.getGroup())
+					&& assignment.getGroup().sameTypeAndGroupNameAs(a.getGroup())) {
 
-				if (!collisionsExistFor(assignment.getGroup(), c)) {
-					assignClassroomToGroup(c, assignment, result);
-				}
+				assignClassroomToGroup(c, assignment, result);
 
 			}
 

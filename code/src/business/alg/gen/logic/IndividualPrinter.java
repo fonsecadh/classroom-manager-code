@@ -155,6 +155,7 @@ public class IndividualPrinter {
 		String str = "";
 
 		List<Group> gList = assignmentsMap.values().stream()
+				.filter(a -> a.getClassroom() != null)
 				.filter(a -> a.getClassroom().getCode().equalsIgnoreCase(c.getCode())).map(a -> a.getGroup())
 				.filter(g -> g.getAllGroupSchedules().stream()
 						.anyMatch(s -> s.getDay().equals(d) && s.overlapsWith(start, end)))

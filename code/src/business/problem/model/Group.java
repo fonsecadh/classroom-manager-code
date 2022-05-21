@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import business.problem.model.schedule.GroupSchedule;
+import business.problem.utils.ProblemUtils;
 
 public class Group {
 
@@ -23,8 +24,16 @@ public class Group {
 		return code;
 	}
 
-	public String getGroupNameFromCode() {
-		return code.split("\\.")[2];
+	public String getNameFromCode() {
+		return ProblemUtils.getNameFromGroupCode(code);
+	}
+
+	public String getTypeFromCode() {
+		return ProblemUtils.getTypeFromGroupCode(code);
+	}
+
+	public String getSubjectFromCode() {
+		return ProblemUtils.getSubjectFromGroupCode(code);
 	}
 
 	public int getNumberOfStudents() {
@@ -97,20 +106,55 @@ public class Group {
 
 	public boolean sameGroupNameAs(Group other) {
 
-		if (getGroupNameFromCode().equalsIgnoreCase(other.getGroupNameFromCode())) {
+		if (getNameFromCode().equalsIgnoreCase(other.getNameFromCode())) {
 			return true;
 		}
 		return false;
 
 	}
-	
+
 	public boolean sameGroupNameAs(String groupName) {
-		
-		if (getGroupNameFromCode().equalsIgnoreCase(groupName)) {
+
+		if (getNameFromCode().equalsIgnoreCase(groupName)) {
 			return true;
 		}
 		return false;
-		
+
+	}
+
+	public boolean sameTypeAndGroupNameAs(Group other) {
+
+		if (getNameFromCode().equalsIgnoreCase(other.getNameFromCode())
+				&& getTypeFromCode().equalsIgnoreCase(other.getTypeFromCode())) {
+			return true;
+		}
+		return false;
+
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Group other = (Group) obj;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
+		return true;
 	}
 
 }
