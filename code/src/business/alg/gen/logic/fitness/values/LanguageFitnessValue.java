@@ -5,11 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import business.alg.greed.model.Assignment;
-import business.problem.Classroom;
-import business.problem.ClassroomType;
-import business.problem.Group;
-import business.problem.GroupLanguage;
-import business.problem.Subject;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
+import business.problem.model.Subject;
+import business.problem.utils.ProblemUtils;
 
 public class LanguageFitnessValue extends AbstractFitnessValue {
 
@@ -82,7 +81,7 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 	private void addClassrooms(Map<String, Assignment> assignments, List<Classroom> enTheory, List<Classroom> enLab,
 			List<Classroom> esTheory, List<Classroom> esLab, Group g) {
 
-		if (g.getClassroomType().equals(ClassroomType.LABORATORY))
+		if (ProblemUtils.isLabGroup(g))
 			addClassroom(assignments, enLab, esLab, g);
 		else
 			addClassroom(assignments, enTheory, esTheory, g);
@@ -94,7 +93,7 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 		if (assignments.get(g.getCode()) == null)
 			return;
 
-		if (g.getGroupLanguage().equals(GroupLanguage.ENGLISH))
+		if (ProblemUtils.isEnglishGroup(g))
 			en.add(assignments.get(g.getCode()).getClassroom());
 		else
 			es.add(assignments.get(g.getCode()).getClassroom());

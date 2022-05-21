@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import business.problem.Classroom;
-import business.problem.Group;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
 
 public class ClassroomFilterManager {
 

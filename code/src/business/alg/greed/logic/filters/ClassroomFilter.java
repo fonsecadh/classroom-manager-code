@@ -2,8 +2,8 @@ package business.alg.greed.logic.filters;
 
 import java.util.List;
 
-import business.problem.Classroom;
-import business.problem.Group;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
 
 public interface ClassroomFilter {
 	

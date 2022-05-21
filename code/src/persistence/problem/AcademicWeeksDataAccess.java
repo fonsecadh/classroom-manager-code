@@ -4,7 +4,7 @@ import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.problem.Group;
+import business.problem.model.Group;
 import persistence.filemanager.FileManager;
 
 public interface AcademicWeeksDataAccess {

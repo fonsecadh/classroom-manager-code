@@ -3,7 +3,7 @@ package business.alg.greed.logic.collisions;
 import java.util.HashMap;
 import java.util.Map;
 
-import business.problem.Group;
+import business.problem.model.Group;
 
 public class CollisionManager {
 

@@ -36,9 +36,9 @@ import business.config.Config;
 import business.errorhandler.logic.ErrorHandler;
 import business.errorhandler.model.ErrorType;
 import business.loghandler.LogHandler;
-import business.problem.Classroom;
-import business.problem.Group;
-import business.problem.Subject;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
+import business.problem.model.Subject;
 import persistence.filemanager.FileManager;
 import persistence.problem.AssignmentsDataAccess;
 import persistence.problem.csv.AcademicWeeksDataAccessCsv;
@@ -105,16 +105,23 @@ public class Program {
 
 			// Load files
 
+			Map<String, Subject> subjects;
+			Map<String, Classroom> classrooms;
+			Map<String, Group> groups;
+			Map<String, Assignment> assignments;
+			Map<String, Preference> preferences;
+			Map<String, List<Restriction>> restrictions;
+
 			cli.showMessageWithoutNewLine("Loading SUBJECTS file...");
-			Map<String, Subject> subjects = new SubjectDataAccessCsv().loadSubjects(subjectsFilePath, fm);
+			subjects = new SubjectDataAccessCsv().loadSubjects(subjectsFilePath, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading CLASSROOMS file...");
-			Map<String, Classroom> classrooms = new ClassroomsDataAccessCsv().loadClassrooms(classroomsFilePath, fm);
+			classrooms = new ClassroomsDataAccessCsv().loadClassrooms(classroomsFilePath, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading GROUPS file...");
-			Map<String, Group> groups = new GroupsDataAccessCsv().loadGroups(groupsFilePath, subjects, fm);
+			groups = new GroupsDataAccessCsv().loadGroups(groupsFilePath, subjects, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading GROUPSCHEDULE file...");
@@ -126,14 +133,14 @@ public class Program {
 			cli.showMessage(" DONE");
 
 			AssignmentsDataAccess ada = new AssignmentDataAccessCsv();
-			Map<String, Assignment> assignments = new HashMap<String, Assignment>();
+			assignments = new HashMap<String, Assignment>();
 			if (loadAssignments) {
 				cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
 				assignments = ada.loadAssignments(assignmentsFilePath, groups, classrooms, fm);
 				cli.showMessage(" DONE");
 			}
 
-			Map<String, Preference> preferences = null;
+			preferences = null;
 			if (loadPreferences) {
 				cli.showMessageWithoutNewLine("Loading PREFERENCES file...");
 				preferences = new PreferencesDataAccessCsv().loadPreferences(preferencesFilePath, classrooms, subjects,
@@ -141,7 +148,7 @@ public class Program {
 				cli.showMessage(" DONE");
 			}
 
-			Map<String, List<Restriction>> restrictions = null;
+			restrictions = null;
 			if (loadRestrictions) {
 				cli.showMessageWithoutNewLine("Loading RESTRICTIONS file...");
 				restrictions = new RestrictionsDataAccessCsv().loadRestrictions(restrictionsFilePath, classrooms,
@@ -209,10 +216,6 @@ public class Program {
 			if (loadPreferences)
 				fitnessValues.add(new PreferencesFitnessValue(prefsFnWeight, preferences, subjectList));
 
-			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
-			CollisionManager cm = new CollisionManager();
-			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm);
-
 			Decoder decoder = new Decoder();
 			for (Group g : groupList) {
 				if (assignments.get(g.getCode()) != null)
@@ -220,6 +223,18 @@ public class Program {
 				else
 					decoder.putMasterAssignment(g.getCode(), new Assignment(g));
 			}
+
+			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
+			CollisionManager cm = new CollisionManager();
+
+			Map<String, Subject> groupSubjectMap = new HashMap<String, Subject>();
+			for (Subject s : subjectList) {
+				for (Group g : s.getGroups()) {
+					groupSubjectMap.put(g.getCode(), s);
+				}
+			}
+
+			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm, groupSubjectMap, subjectList);
 
 			FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
 

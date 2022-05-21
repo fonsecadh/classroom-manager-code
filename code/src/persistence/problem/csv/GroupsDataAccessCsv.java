@@ -6,10 +6,10 @@ import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.problem.ClassroomType;
-import business.problem.Group;
-import business.problem.GroupLanguage;
-import business.problem.Subject;
+import business.problem.model.ClassroomType;
+import business.problem.model.Group;
+import business.problem.model.GroupLanguage;
+import business.problem.model.Subject;
 import persistence.filemanager.FileManager;
 import persistence.problem.GroupsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;

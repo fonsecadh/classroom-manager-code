@@ -1,9 +1,9 @@
-package business.problem;
+package business.problem.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import business.problem.schedule.GroupSchedule;
+import business.problem.model.schedule.GroupSchedule;
 
 public class Group {
 
@@ -21,6 +21,10 @@ public class Group {
 
 	public String getCode() {
 		return code;
+	}
+
+	public String getGroupNameFromCode() {
+		return code.split("\\.")[2];
 	}
 
 	public int getNumberOfStudents() {
@@ -89,6 +93,24 @@ public class Group {
 		}
 
 		return schedulesCollide && weeksCollide;
+	}
+
+	public boolean sameGroupNameAs(Group other) {
+
+		if (getGroupNameFromCode().equalsIgnoreCase(other.getGroupNameFromCode())) {
+			return true;
+		}
+		return false;
+
+	}
+	
+	public boolean sameGroupNameAs(String groupName) {
+		
+		if (getGroupNameFromCode().equalsIgnoreCase(groupName)) {
+			return true;
+		}
+		return false;
+		
 	}
 
 }

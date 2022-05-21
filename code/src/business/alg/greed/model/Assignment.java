@@ -1,7 +1,7 @@
 package business.alg.greed.model;
 
-import business.problem.Classroom;
-import business.problem.Group;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
 
 public class Assignment {
 

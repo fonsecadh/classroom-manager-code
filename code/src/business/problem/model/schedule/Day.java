@@ -1,4 +1,4 @@
-package business.problem.schedule;
+package business.problem.model.schedule;
 
 public enum Day {
 	MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY

@@ -6,7 +6,7 @@ import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.problem.Subject;
+import business.problem.model.Subject;
 import persistence.filemanager.FileManager;
 import persistence.problem.SubjectDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;

@@ -3,7 +3,7 @@ package business.alg.gen.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import business.problem.Group;
+import business.problem.model.Group;
 
 /**
  * Models an individual. An individual is a list of strings, each strings

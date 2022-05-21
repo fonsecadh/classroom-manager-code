@@ -7,9 +7,9 @@ import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.problem.Group;
-import business.problem.schedule.Day;
-import business.problem.schedule.GroupSchedule;
+import business.problem.model.Group;
+import business.problem.model.schedule.Day;
+import business.problem.model.schedule.GroupSchedule;
 import persistence.filemanager.FileManager;
 import persistence.problem.GroupScheduleDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;

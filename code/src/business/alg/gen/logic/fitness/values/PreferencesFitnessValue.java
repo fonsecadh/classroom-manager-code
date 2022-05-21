@@ -7,10 +7,9 @@ import java.util.Map;
 
 import business.alg.gen.model.Preference;
 import business.alg.greed.model.Assignment;
-import business.problem.ClassroomType;
-import business.problem.Group;
-import business.problem.GroupLanguage;
-import business.problem.Subject;
+import business.problem.model.Group;
+import business.problem.model.Subject;
+import business.problem.utils.ProblemUtils;
 
 public class PreferencesFitnessValue extends AbstractFitnessValue {
 
@@ -106,8 +105,8 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 
 		boolean enLang, labType;
 
-		enLang = g.getGroupLanguage().equals(GroupLanguage.ENGLISH);
-		labType = g.getClassroomType().equals(ClassroomType.LABORATORY);
+		enLang = ProblemUtils.isEnglishGroup(g);
+		labType = ProblemUtils.isLabGroup(g);
 
 		if (enLang) {
 

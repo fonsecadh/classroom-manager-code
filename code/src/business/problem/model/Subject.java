@@ -1,4 +1,4 @@
-package business.problem;
+package business.problem.model;
 
 import java.util.ArrayList;
 import java.util.List;

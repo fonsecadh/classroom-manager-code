@@ -12,10 +12,10 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import business.alg.greed.model.Assignment;
-import business.problem.Classroom;
-import business.problem.Group;
-import business.problem.Subject;
-import business.problem.schedule.Day;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
+import business.problem.model.Subject;
+import business.problem.model.schedule.Day;
 
 public class IndividualPrinter {
 

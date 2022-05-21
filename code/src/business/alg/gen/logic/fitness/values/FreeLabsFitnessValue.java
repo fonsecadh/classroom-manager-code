@@ -6,10 +6,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import business.alg.greed.model.Assignment;
-import business.problem.ClassroomType;
-import business.problem.Group;
-import business.problem.schedule.Day;
-import business.problem.schedule.GroupSchedule;
+import business.problem.model.Group;
+import business.problem.model.schedule.Day;
+import business.problem.model.schedule.GroupSchedule;
+import business.problem.utils.ProblemUtils;
 
 public class FreeLabsFitnessValue extends AbstractFitnessValue {
 
@@ -27,8 +27,7 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 		this.counter = new FreeLabsCounter();
 
 		List<Assignment> filtered = assignments.values().stream()
-				.filter(a -> a.isAssigned() && a.getGroup().getClassroomType() == ClassroomType.LABORATORY)
-				.collect(Collectors.toList());
+				.filter(a -> a.isAssigned() && ProblemUtils.isLabGroup(a.getGroup())).collect(Collectors.toList());
 
 		for (Assignment a : filtered) {
 			Group g = a.getGroup();

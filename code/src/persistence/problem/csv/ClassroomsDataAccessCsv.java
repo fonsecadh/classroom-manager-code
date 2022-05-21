@@ -6,8 +6,8 @@ import java.util.Map;
 
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.problem.Classroom;
-import business.problem.ClassroomType;
+import business.problem.model.Classroom;
+import business.problem.model.ClassroomType;
 import persistence.filemanager.FileManager;
 import persistence.problem.ClassroomsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;

@@ -8,8 +8,8 @@ import java.util.stream.Collectors;
 
 import business.alg.greed.model.Restriction;
 import business.alg.greed.model.RestrictionType;
-import business.problem.Classroom;
-import business.problem.Group;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
 
 public class RestrictionFilter implements ClassroomFilter {
 

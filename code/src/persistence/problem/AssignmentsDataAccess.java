@@ -6,9 +6,9 @@ import java.util.Map;
 import business.alg.greed.model.Assignment;
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
-import business.problem.Classroom;
-import business.problem.Group;
-import business.problem.Subject;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
+import business.problem.model.Subject;
 import persistence.filemanager.FileManager;
 
 public interface AssignmentsDataAccess {

@@ -1,4 +1,4 @@
-package business.problem;
+package business.problem.model;
 
 public class Classroom {
 

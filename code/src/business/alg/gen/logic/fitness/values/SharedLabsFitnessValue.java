@@ -8,11 +8,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import business.alg.greed.model.Assignment;
-import business.problem.Classroom;
-import business.problem.ClassroomType;
-import business.problem.Group;
-import business.problem.GroupLanguage;
-import business.problem.Subject;
+import business.problem.model.Classroom;
+import business.problem.model.Group;
+import business.problem.model.Subject;
+import business.problem.utils.ProblemUtils;
 
 public class SharedLabsFitnessValue extends AbstractFitnessValue {
 
@@ -22,8 +21,8 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 	public SharedLabsFitnessValue(double weight, List<Subject> subjects, List<Classroom> classrooms) {
 		super(weight);
 		this.subjects = new ArrayList<Subject>(subjects);
-		this.labs = new ArrayList<Classroom>(classrooms).stream()
-				.filter(c -> c.getType().equals(ClassroomType.LABORATORY)).collect(Collectors.toList());
+		this.labs = new ArrayList<Classroom>(classrooms).stream().filter(c -> ProblemUtils.isLabClassroom(c))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -41,9 +40,9 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 			assignedLabsEs.clear();
 
 			for (Group g : s.getGroups()) {
-				if (g.getClassroomType().equals(ClassroomType.LABORATORY)) {
+				if (ProblemUtils.isLabGroup(g)) {
 					if (assignments.get(g.getCode()) != null) {
-						if (g.getGroupLanguage().equals(GroupLanguage.ENGLISH)) {
+						if (ProblemUtils.isEnglishGroup(g)) {
 							assignedLabsEn.add(assignments.get(g.getCode()).getClassroom());
 						} else {
 							assignedLabsEs.add(assignments.get(g.getCode()).getClassroom());

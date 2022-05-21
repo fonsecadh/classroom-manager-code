@@ -1,6 +1,6 @@
 package business.alg.greed.model;
 
-import business.problem.Classroom;
+import business.problem.model.Classroom;
 
 public class Restriction {
 
