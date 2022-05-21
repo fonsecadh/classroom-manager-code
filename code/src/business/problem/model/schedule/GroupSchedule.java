@@ -43,11 +43,13 @@ public class GroupSchedule {
 	}
 
 	public boolean overlapsWith(LocalTime start, LocalTime finish) {
-		return getStart().isBefore(finish) && getFinish().isAfter(start);
+		return (getStart().isBefore(finish) && !getStart().equals(finish))
+				&& (getFinish().isAfter(start) && !getFinish().equals(start));
 	}
 
 	private boolean intervalOverlap(GroupSchedule other) {
-		return getStart().isBefore(other.getFinish()) && getFinish().isAfter(other.getStart());
+		return (getStart().isBefore(other.getFinish()) && !getStart().equals(other.getFinish()))
+				&& (getFinish().isAfter(other.getStart()) && !getFinish().equals(other.getStart()));
 	}
 
 	private boolean sameDay(GroupSchedule other) {

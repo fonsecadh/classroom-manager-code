@@ -166,28 +166,32 @@ public class GreedyAlgorithm {
 
 				List<Group> collisions = collisionsFor(a.getGroup(), c);
 
-				for (Group g : collisions) {
+				if (collisions.size() > 1) {
 
-					Assignment a2 = result.get(g.getCode());
+					// Assignment could not be repaired
+					break classroomloop;
 
-					removeClassroomFromGroup(c, a2, result);
-					assignClassroomToGroup(c, a, result);
+				}
 
-					Classroom c2 = bestClassroomFor(a2);
+				Group g = collisions.get(0);
 
-					if (c2 != null) {
+				Assignment a2 = result.get(g.getCode());
 
-						// Assignment repaired
-						assignClassroomToGroup(c2, a2, result);
-						break classroomloop;
+				removeClassroomFromGroup(c, a2, result);
+				assignClassroomToGroup(c, a, result);
 
-					} else {
+				Classroom c2 = bestClassroomFor(a2);
 
-						// Assignment could not be repaired
-						removeClassroomFromGroup(c, a, result);
-						assignClassroomToGroup(c, a2, result);
+				if (c2 != null) {
 
-					}
+					// Assignment repaired
+					assignClassroomToGroup(c2, a2, result);
+
+				} else {
+
+					// Assignment could not be repaired
+					removeClassroomFromGroup(c, a, result);
+					assignClassroomToGroup(c, a2, result);
 
 				}
 
@@ -223,7 +227,7 @@ public class GreedyAlgorithm {
 
 		}
 
-		return new ArrayList<Assignment>(assignments);
+		return assignments;
 
 	}
 
@@ -267,6 +271,7 @@ public class GreedyAlgorithm {
 			selected = filteredClassrooms.get(i);
 			if (!collisionsExistFor(a.getGroup(), selected))
 				break selectionloop;
+			selected = null;
 		}
 
 		return selected;
@@ -294,7 +299,10 @@ public class GreedyAlgorithm {
 
 		List<Classroom> filteredClassrooms = cfm.filterClassroomsFor(a.getGroup());
 
-		if (filteredClassrooms.contains(c) && !collisionsExistFor(a.getGroup(), c)) {
+		boolean validClassroom = filteredClassrooms.contains(c);
+		boolean noCollisions = !collisionsExistFor(a.getGroup(), c);
+
+		if (validClassroom && noCollisions) {
 
 			a.setClassroom(c);
 			result.put(a.getGroup().getCode(), a);
