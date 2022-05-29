@@ -1,5 +1,6 @@
 package business.problem.utils;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -9,17 +10,14 @@ import business.problem.model.Classroom;
 import business.problem.model.ClassroomType;
 import business.problem.model.Group;
 import business.problem.model.GroupLanguage;
+import business.problem.model.schedule.Day;
 
 public class ProblemUtils {
 	public static List<String> getAcademicWeeks(LocalDate start,
 			LocalDate end)
 	{
-		WeekFields weekFields = WeekFields.ISO;
-
-		int startWeekNumber = start
-				.get(weekFields.weekOfWeekBasedYear());
-		int endWeekNumber = end.get(weekFields.weekOfWeekBasedYear());
-
+		int startWeekNumber = getAcademicWeekAsNumber(start);
+		int endWeekNumber = getAcademicWeekAsNumber(end);
 		List<String> weeks = new ArrayList<String>();
 		for (int i = startWeekNumber; i <= endWeekNumber; i++) {
 			weeks.add(String.format("S%d", i));
@@ -29,11 +27,40 @@ public class ProblemUtils {
 
 	public static String getAcademicWeek(LocalDate date)
 	{
-		WeekFields weekFields = WeekFields.ISO;
-
-		int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
-
+		int weekNumber = getAcademicWeekAsNumber(date);
 		return String.format("S%d", weekNumber);
+	}
+
+	public static int getAcademicWeekAsNumber(LocalDate date)
+	{
+		WeekFields weekFields = WeekFields.ISO;
+		return date.get(weekFields.weekOfWeekBasedYear());
+	}
+
+	public static Day getDay(LocalDate date)
+	{
+		DayOfWeek dow = date.getDayOfWeek();
+		Day d = null;
+		switch (dow) {
+		case MONDAY:
+			d = Day.MONDAY;
+			break;
+		case TUESDAY:
+			d = Day.TUESDAY;
+			break;
+		case WEDNESDAY:
+			d = Day.WEDNESDAY;
+			break;
+		case THURSDAY:
+			d = Day.THURSDAY;
+			break;
+		case FRIDAY:
+			d = Day.FRIDAY;
+			break;
+		default:
+			break;
+		}
+		return d;
 	}
 
 	public static ClassroomType getClassroomTypeFromGroupCode(String code)

@@ -3,9 +3,13 @@ package business.classfinder.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import business.problem.model.ClassroomType;
+import business.problem.model.schedule.Day;
 import business.problem.utils.ProblemUtils;
 
 public class ClassfinderQuery {
@@ -17,6 +21,13 @@ public class ClassfinderQuery {
 	private int numberOfAttendants;
 	private ClassroomType classroomType;
 	private int numberOfResults;
+	private List<String> weeks;
+	private Map<String, List<Day>> weekDaysMap;
+
+	public ClassfinderQuery() {
+		initialiseWeekList();
+		initialiseWeekDaysMap();
+	}
 
 	public LocalDate getStartDate()
 	{
@@ -48,6 +59,16 @@ public class ClassfinderQuery {
 		return numberOfAttendants;
 	}
 
+	public List<String> getAcademicWeeks()
+	{
+		return new ArrayList<String>(weeks);
+	}
+
+	public Map<String, List<Day>> getWeekDaysToMap()
+	{
+		return new HashMap<String, List<Day>>(weekDaysMap);
+	}
+
 	public ClassroomType getClassroomType()
 	{
 		return classroomType;
@@ -56,11 +77,6 @@ public class ClassfinderQuery {
 	public int getNumberOfResults()
 	{
 		return numberOfResults;
-	}
-
-	public List<String> getAcademicWeeks()
-	{
-		return ProblemUtils.getAcademicWeeks(startDate, endDate);
 	}
 
 	public void setStartDate(LocalDate startDate)
@@ -101,6 +117,35 @@ public class ClassfinderQuery {
 	public void setNumberOfResults(int numberOfResults)
 	{
 		this.numberOfResults = numberOfResults;
+	}
+
+	private void initialiseWeekList()
+	{
+		List<String> weeks = ProblemUtils.getAcademicWeeks(startDate,
+				endDate);
+		this.weeks = new ArrayList<String>(weeks);
+	}
+
+	private void initialiseWeekDaysMap()
+	{
+		Map<String, List<Day>> result = new HashMap<String, List<Day>>();
+		List<LocalDate> dateList = new ArrayList<LocalDate>();
+		LocalDate start = LocalDate.from(startDate);
+		LocalDate end = LocalDate.from(endDate);
+		while (!start.isAfter(end)) {
+			dateList.add(start);
+			start = start.plusDays(1);
+		}
+		for (LocalDate d : dateList) {
+			String week = ProblemUtils.getAcademicWeek(d);
+			List<Day> days = null;
+			if (result.get(week) == null)
+				days = new ArrayList<Day>();
+			Day day = ProblemUtils.getDay(d);
+			if (day != null)
+				days.add(day);
+		}
+		this.weekDaysMap = new HashMap<String, List<Day>>(result);
 	}
 
 	@Override
