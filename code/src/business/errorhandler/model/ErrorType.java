@@ -18,15 +18,18 @@ public class ErrorType {
 		this.e = e;
 	}
 
-	public String getCustomMessage() {
+	public String getCustomMessage()
+	{
 		return customMsg;
 	}
 
-	public Exception getException() {
+	public Exception getException()
+	{
 		return e;
 	}
 
-	private String getMsgForExceptionType(Exception e) {
+	private String getMsgForExceptionType(Exception e)
+	{
 		if (e instanceof InputValidationException)
 			return e.getMessage();
 		else if (e instanceof PersistenceException)

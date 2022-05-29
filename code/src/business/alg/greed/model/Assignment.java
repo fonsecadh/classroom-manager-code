@@ -17,32 +17,39 @@ public class Assignment {
 		this.group = group;
 	}
 
-	public Group getGroup() {
+	public Group getGroup()
+	{
 		return group;
 	}
 
-	public Classroom getClassroom() {
+	public Classroom getClassroom()
+	{
 		return classroom;
 	}
 
-	public void setClassroom(Classroom classroom) {
+	public void setClassroom(Classroom classroom)
+	{
 		this.classroom = classroom;
 	}
 
-	public boolean isAssigned() {
+	public boolean isAssigned()
+	{
 		return classroom != null;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((group == null) ? 0 : group.hashCode());
+		result = prime * result
+				+ ((group == null) ? 0 : group.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

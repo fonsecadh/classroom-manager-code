@@ -11,8 +11,10 @@ public class CollisionsFitnessValue extends AbstractFitnessValue {
 	}
 
 	@Override
-	public double getValue(Map<String, Assignment> assignments) {
-		double nCollisions = assignments.values().stream().filter(a -> !a.isAssigned()).count();
+	public double getValue(Map<String, Assignment> assignments)
+	{
+		double nCollisions = assignments.values().stream()
+				.filter(a -> !a.isAssigned()).count();
 		double nAssignments = assignments.size();
 		return 100 - (nCollisions * 100 / nAssignments);
 	}

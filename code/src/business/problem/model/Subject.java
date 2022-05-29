@@ -14,48 +14,59 @@ public class Subject {
 		this.groups = new ArrayList<Group>();
 	}
 
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
 	}
 
-	public String getCourse() {
+	public String getCourse()
+	{
 		return course;
 	}
 
-	public String getSemester() {
+	public String getSemester()
+	{
 		return semester;
 	}
 
-	public List<Group> getGroups() {
+	public List<Group> getGroups()
+	{
 		return new ArrayList<Group>(groups);
 	}
 
-	public void setCode(String code) {
+	public void setCode(String code)
+	{
 		this.code = code;
 	}
 
-	public void setCourse(String course) {
+	public void setCourse(String course)
+	{
 		this.course = course;
 	}
 
-	public void setSemester(String semester) {
+	public void setSemester(String semester)
+	{
 		this.semester = semester;
 	}
 
-	public void addGroup(Group group) {
+	public void addGroup(Group group)
+	{
 		this.groups.add(group);
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result
+				+ ((code == null) ? 0 : code.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

@@ -20,11 +20,13 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 	}
 
 	@Override
-	public double getValue(Map<String, Assignment> assignments) {
+	public double getValue(Map<String, Assignment> assignments)
+	{
 
 		double value = 0.0;
 
-		List<Classroom> enTheory, enLab, esTheory, esLab, theoryIntersec, labIntersec;
+		List<Classroom> enTheory, enLab, esTheory, esLab,
+				theoryIntersec, labIntersec;
 		enTheory = new ArrayList<Classroom>();
 		enLab = new ArrayList<Classroom>();
 		esTheory = new ArrayList<Classroom>();
@@ -33,9 +35,11 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 		labIntersec = new ArrayList<Classroom>();
 
 		for (Subject s : subjects) {
-			clearLists(enTheory, enLab, esTheory, esLab, theoryIntersec, labIntersec);
+			clearLists(enTheory, enLab, esTheory, esLab,
+					theoryIntersec, labIntersec);
 			for (Group g : s.getGroups()) {
-				addClassrooms(assignments, enTheory, enLab, esTheory, esLab, g);
+				addClassrooms(assignments, enTheory, enLab,
+						esTheory, esLab, g);
 			}
 
 			theoryIntersec = intersection(enTheory, esTheory);
@@ -45,12 +49,16 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 			int langCounter = 0;
 
 			if (enTheory.size() + esTheory.size() > 0) {
-				theoryValue = 100 - (theoryIntersec.size() * 100 / (enTheory.size() + esTheory.size()));
+				theoryValue = 100 - (theoryIntersec.size() * 100
+						/ (enTheory.size() + esTheory
+								.size()));
 				++langCounter;
 			}
 
 			if (enLab.size() + esLab.size() > 0) {
-				labValue = 100 - (labIntersec.size() * 100 / (enLab.size() + esLab.size()));
+				labValue = 100 - (labIntersec.size() * 100
+						/ (enLab.size() + esLab
+								.size()));
 				++langCounter;
 			}
 
@@ -66,7 +74,9 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 
 	}
 
-	private List<Classroom> intersection(List<Classroom> l1, List<Classroom> l2) {
+	private List<Classroom> intersection(List<Classroom> l1,
+			List<Classroom> l2)
+	{
 		List<Classroom> intersection = new ArrayList<Classroom>();
 
 		for (Classroom c1 : l1)
@@ -78,8 +88,11 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 
 	}
 
-	private void addClassrooms(Map<String, Assignment> assignments, List<Classroom> enTheory, List<Classroom> enLab,
-			List<Classroom> esTheory, List<Classroom> esLab, Group g) {
+	private void addClassrooms(Map<String, Assignment> assignments,
+			List<Classroom> enTheory, List<Classroom> enLab,
+			List<Classroom> esTheory, List<Classroom> esLab,
+			Group g)
+	{
 
 		if (ProblemUtils.isLabGroup(g))
 			addClassroom(assignments, enLab, esLab, g);
@@ -88,7 +101,9 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 
 	}
 
-	private void addClassroom(Map<String, Assignment> assignments, List<Classroom> en, List<Classroom> es, Group g) {
+	private void addClassroom(Map<String, Assignment> assignments,
+			List<Classroom> en, List<Classroom> es, Group g)
+	{
 
 		if (assignments.get(g.getCode()) == null)
 			return;
@@ -106,8 +121,11 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 
 	}
 
-	private void clearLists(List<Classroom> enTheory, List<Classroom> enLab, List<Classroom> esTheory,
-			List<Classroom> esLab, List<Classroom> theoryIntersec, List<Classroom> labIntersec) {
+	private void clearLists(List<Classroom> enTheory, List<Classroom> enLab,
+			List<Classroom> esTheory, List<Classroom> esLab,
+			List<Classroom> theoryIntersec,
+			List<Classroom> labIntersec)
+	{
 
 		enTheory.clear();
 		enLab.clear();

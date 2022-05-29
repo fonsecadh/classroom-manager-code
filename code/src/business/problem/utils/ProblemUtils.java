@@ -1,5 +1,8 @@
 package business.problem.utils;
 
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+
 import business.problem.model.Classroom;
 import business.problem.model.ClassroomType;
 import business.problem.model.Group;
@@ -7,7 +10,19 @@ import business.problem.model.GroupLanguage;
 
 public class ProblemUtils {
 
-	public static ClassroomType getClassroomTypeFromGroupCode(String code) {
+	public String getAcademicWeek(LocalDate date)
+	{
+
+		WeekFields weekFields = WeekFields.ISO;
+
+		int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
+
+		return String.format("S%d", weekNumber);
+
+	}
+
+	public static ClassroomType getClassroomTypeFromGroupCode(String code)
+	{
 
 		ClassroomType ct = null;
 
@@ -28,7 +43,8 @@ public class ProblemUtils {
 
 	}
 
-	public static String getNameFromGroupCode(String code) {
+	public static String getNameFromGroupCode(String code)
+	{
 
 		String[] splittedStr = code.split("\\.");
 		if (splittedStr.length == 3) {
@@ -38,7 +54,8 @@ public class ProblemUtils {
 
 	}
 
-	public static String getTypeFromGroupCode(String code) {
+	public static String getTypeFromGroupCode(String code)
+	{
 
 		String[] splittedStr = code.split("\\.");
 		if (splittedStr.length == 3) {
@@ -48,7 +65,8 @@ public class ProblemUtils {
 
 	}
 
-	public static String getSubjectFromGroupCode(String code) {
+	public static String getSubjectFromGroupCode(String code)
+	{
 
 		String[] splittedStr = code.split("\\.");
 		if (splittedStr.length == 3) {
@@ -58,7 +76,8 @@ public class ProblemUtils {
 
 	}
 
-	public static boolean isLabClassroom(Classroom c) {
+	public static boolean isLabClassroom(Classroom c)
+	{
 
 		if (c.getType().equals(ClassroomType.LABORATORY)) {
 			return true;
@@ -67,7 +86,8 @@ public class ProblemUtils {
 
 	}
 
-	public static boolean isTheoryClassroom(Classroom c) {
+	public static boolean isTheoryClassroom(Classroom c)
+	{
 
 		if (c.getType().equals(ClassroomType.THEORY)) {
 			return true;
@@ -76,7 +96,8 @@ public class ProblemUtils {
 
 	}
 
-	public static boolean isLabGroup(Group g) {
+	public static boolean isLabGroup(Group g)
+	{
 
 		if (g.getClassroomType().equals(ClassroomType.LABORATORY)) {
 			return true;
@@ -85,7 +106,8 @@ public class ProblemUtils {
 
 	}
 
-	public static boolean isTheoryGroup(Group g) {
+	public static boolean isTheoryGroup(Group g)
+	{
 
 		if (g.getClassroomType().equals(ClassroomType.THEORY)) {
 			return true;
@@ -94,7 +116,8 @@ public class ProblemUtils {
 
 	}
 
-	public static boolean isEnglishGroup(Group g) {
+	public static boolean isEnglishGroup(Group g)
+	{
 
 		if (g.getGroupLanguage().equals(GroupLanguage.ENGLISH)) {
 			return true;
@@ -103,7 +126,8 @@ public class ProblemUtils {
 
 	}
 
-	public static boolean isSpanishGroup(Group g) {
+	public static boolean isSpanishGroup(Group g)
+	{
 
 		if (g.getGroupLanguage().equals(GroupLanguage.SPANISH)) {
 			return true;

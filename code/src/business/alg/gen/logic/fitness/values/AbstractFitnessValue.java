@@ -13,7 +13,8 @@ public abstract class AbstractFitnessValue implements FitnessValue {
 	}
 
 	@Override
-	public double getWeight() {
+	public double getWeight()
+	{
 		return weight;
 	}
 

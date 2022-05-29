@@ -15,8 +15,10 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 	public static final String CSVNAME = "WEEKS";
 
 	@Override
-	public void loadAcademicWeeks(String filename, Map<String, Group> groups, FileManager fileManager)
-			throws PersistenceException, InputValidationException {
+	public void loadAcademicWeeks(String filename,
+			Map<String, Group> groups, FileManager fileManager)
+			throws PersistenceException, InputValidationException
+	{
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
@@ -29,12 +31,17 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 
 	}
 
-	private void addWeeksToGroup(String line, int lineNumber, Map<String, Group> groups, String[] header)
-			throws InputValidationException {
+	private void addWeeksToGroup(String line, int lineNumber,
+			Map<String, Group> groups, String[] header)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
-		ValidationUtils.validateColumns(fields, header.length, CSVNAME, lineNumber);
+		ValidationUtils.validateColumns(fields, header.length, CSVNAME,
+				lineNumber);
 
 		String groupCode = fields[0].trim();
 		ValidationUtils.validateString(groupCode, CSVNAME, lineNumber);
@@ -42,8 +49,9 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 		// Add weeks to group
 		Group g = groups.get(groupCode);
 		if (g == null) {
-			String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME, groupCode,
-					lineNumber);
+			String msg = String.format(
+					"Non existing code for group in %s csv file (%s), line %d",
+					CSVNAME, groupCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
 
@@ -55,9 +63,14 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 
 	}
 
-	private void validateHeader(String header) throws InputValidationException {
+	private void validateHeader(String header)
+			throws InputValidationException
+	{
 
-		String[] fields = header.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = header.split(";", -1); // -1 allows empty
+							 // strings to be
+							 // included in the
+							 // array
 
 		for (String f : fields) {
 			ValidationUtils.validateString(f, CSVNAME, 0);

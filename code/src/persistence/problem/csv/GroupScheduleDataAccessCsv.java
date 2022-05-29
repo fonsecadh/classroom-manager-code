@@ -19,24 +19,31 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 	public static final String CSVNAME = "GROUPSCHEDULE";
 
 	@Override
-	public List<GroupSchedule> loadGroupSchedule(String filename, Map<String, Group> groups, FileManager fileManager)
-			throws PersistenceException, InputValidationException {
+	public List<GroupSchedule> loadGroupSchedule(String filename,
+			Map<String, Group> groups, FileManager fileManager)
+			throws PersistenceException, InputValidationException
+	{
 
 		List<GroupSchedule> groupSchedule = new ArrayList<GroupSchedule>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) // Ignore header
-			groupSchedule.add(lineToGroupSchedule(lines.get(i), i, groups));
+			groupSchedule.add(lineToGroupSchedule(lines.get(i), i,
+					groups));
 
 		return groupSchedule;
 
 	}
 
-	private GroupSchedule lineToGroupSchedule(String line, int lineNumber, Map<String, Group> groups)
-			throws InputValidationException {
+	private GroupSchedule lineToGroupSchedule(String line, int lineNumber,
+			Map<String, Group> groups)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
 		ValidationUtils.validateColumns(fields, 4, CSVNAME, lineNumber);
 
@@ -75,8 +82,10 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		String etHour = etFields[0];
 		String etMin = etFields[1];
 
-		LocalTime st = LocalTime.of(Integer.parseInt(stHour), Integer.parseInt(stMin));
-		LocalTime et = LocalTime.of(Integer.parseInt(etHour), Integer.parseInt(etMin));
+		LocalTime st = LocalTime.of(Integer.parseInt(stHour),
+				Integer.parseInt(stMin));
+		LocalTime et = LocalTime.of(Integer.parseInt(etHour),
+				Integer.parseInt(etMin));
 
 		GroupSchedule gs = new GroupSchedule();
 		gs.setDay(d);
@@ -85,8 +94,9 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 
 		Group g = groups.get(groupCode);
 		if (g == null) {
-			String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME, groupCode,
-					lineNumber);
+			String msg = String.format(
+					"Non existing code for group in %s csv file (%s), line %d",
+					CSVNAME, groupCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
 
@@ -97,8 +107,10 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 
 	}
 
-	private void validate(String groupCode, String day, String startTime, String endTime, int lineNumber)
-			throws InputValidationException {
+	private void validate(String groupCode, String day, String startTime,
+			String endTime, int lineNumber)
+			throws InputValidationException
+	{
 
 		String csvName = CSVNAME;
 
@@ -109,7 +121,8 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		ValidationUtils.validateString(day, csvName, lineNumber);
 
 		String[] values = { "L", "M", "X", "J", "V" };
-		ValidationUtils.validateStringValues(day, csvName, values, lineNumber);
+		ValidationUtils.validateStringValues(day, csvName, values,
+				lineNumber);
 
 		// Start time
 		ValidationUtils.validateString(startTime, csvName, lineNumber);

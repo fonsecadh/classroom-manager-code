@@ -17,35 +17,43 @@ public class Preference {
 		this.esLab = new ArrayList<String>();
 	}
 
-	public List<String> getEnglishTheoryPreferences() {
+	public List<String> getEnglishTheoryPreferences()
+	{
 		return new ArrayList<String>(enTheory);
 	}
 
-	public List<String> getEnglishLabPreferences() {
+	public List<String> getEnglishLabPreferences()
+	{
 		return new ArrayList<String>(enLab);
 	}
 
-	public List<String> getSpanishTheoryPreferences() {
+	public List<String> getSpanishTheoryPreferences()
+	{
 		return new ArrayList<String>(esTheory);
 	}
 
-	public List<String> getSpanishLabPreferences() {
+	public List<String> getSpanishLabPreferences()
+	{
 		return new ArrayList<String>(esLab);
 	}
 
-	public void addEnglishTheoryPreference(String classroomCode) {
+	public void addEnglishTheoryPreference(String classroomCode)
+	{
 		this.enTheory.add(classroomCode);
 	}
 
-	public void addEnglishLabPreference(String classroomCode) {
+	public void addEnglishLabPreference(String classroomCode)
+	{
 		this.enLab.add(classroomCode);
 	}
 
-	public void addSpanishTheoryPreference(String classroomCode) {
+	public void addSpanishTheoryPreference(String classroomCode)
+	{
 		this.esTheory.add(classroomCode);
 	}
 
-	public void addSpanishLabPreference(String classroomCode) {
+	public void addSpanishLabPreference(String classroomCode)
+	{
 		this.esLab.add(classroomCode);
 	}
 

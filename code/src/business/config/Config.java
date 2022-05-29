@@ -20,27 +20,38 @@ public class Config {
 		this.prop = new Properties();
 	}
 
-	public static Config getInstance() {
+	public static Config getInstance()
+	{
 		return INSTANCE;
 	}
 
-	public void load(String filename) throws PersistenceException {
+	public void load(String filename) throws PersistenceException
+	{
 		try {
-			this.prop.load(new BufferedReader(new FileReader(filename)));
+			this.prop.load(new BufferedReader(
+					new FileReader(filename)));
 		} catch (FileNotFoundException e) {
-			LogHandler.getInstance().log(Level.SEVERE, Config.class.getName(), "load", e.getLocalizedMessage(), e);
-			throw new PersistenceException("CONFIG csv file not found");
+			LogHandler.getInstance().log(Level.SEVERE,
+					Config.class.getName(), "load",
+					e.getLocalizedMessage(), e);
+			throw new PersistenceException(
+					"CONFIG csv file not found");
 		} catch (IOException e) {
-			LogHandler.getInstance().log(Level.SEVERE, Config.class.getName(), "load", e.getLocalizedMessage(), e);
-			throw new PersistenceException("Error encountered while loading the CONFIG file.");
+			LogHandler.getInstance().log(Level.SEVERE,
+					Config.class.getName(), "load",
+					e.getLocalizedMessage(), e);
+			throw new PersistenceException(
+					"Error encountered while loading the CONFIG file.");
 		}
 	}
 
-	public void addProperty(String key, String value) {
+	public void addProperty(String key, String value)
+	{
 		this.prop.put(key, value);
 	}
 
-	public String getProperty(String key) {
+	public String getProperty(String key)
+	{
 		return this.prop.getProperty(key);
 	}
 

@@ -40,7 +40,8 @@ public class GeneticAlgorithm {
 	/**
 	 * Creates a Genetic Algorithm given its parameters.
 	 * 
-	 * @param individualLength     Length of the individual ({@link Individual}).
+	 * @param individualLength     Length of the individual
+	 *                             ({@link Individual}).
 	 * @param populationSize       Size of the population.
 	 * @param mutationProbability  The mutation probability.
 	 * @param crossoverProbability The crossover probability.
@@ -48,14 +49,17 @@ public class GeneticAlgorithm {
 	 *                             algorithm, in milliseconds.
 	 * @param numberOfGenerations  The maximum number of generations for the
 	 *                             execution of the algorithm.
-	 * @param fitnessFunction      The fitness function ({@link FitnessFunction}) of
-	 *                             the algorithm.
-	 * @param individualManager    A manager ({@link IndividualManager}) for the
-	 *                             individual operations.
+	 * @param fitnessFunction      The fitness function
+	 *                             ({@link FitnessFunction}) of the
+	 *                             algorithm.
+	 * @param individualManager    A manager ({@link IndividualManager}) for
+	 *                             the individual operations.
 	 */
-	public GeneticAlgorithm(int individualLength, int populationSize, double mutationProbability,
-			double crossoverProbability, long maxTimeMilliseconds, int numberOfGenerations,
-			FitnessFunction fitnessFunction, IndividualManager individualManager) {
+	public GeneticAlgorithm(int individualLength, int populationSize,
+			double mutationProbability, double crossoverProbability,
+			long maxTimeMilliseconds, int numberOfGenerations,
+			FitnessFunction fitnessFunction,
+			IndividualManager individualManager) {
 		this.individualLength = individualLength;
 		this.popSize = populationSize;
 		this.mutationProb = mutationProbability;
@@ -69,31 +73,43 @@ public class GeneticAlgorithm {
 	}
 
 	/**
-	 * The objective of this algorithm is to generate a given number of generations
-	 * of individuals and return the individual with the greatest fitness value at
-	 * the end of the execution.
+	 * The objective of this algorithm is to generate a given number of
+	 * generations of individuals and return the individual with the
+	 * greatest fitness value at the end of the execution.
 	 * 
-	 * @return The individual ({@link Individual}) with the best fitness value.
+	 * @return The individual ({@link Individual}) with the best fitness
+	 *         value.
 	 */
-	public Individual geneticAlgorithm() {
+	public Individual geneticAlgorithm()
+	{
 
 		// CLI and LOG
 		CommandLineInterface cli = CommandLineInterface.getInstance();
 		LogHandler logh = LogHandler.getInstance();
 
-		String parametersMsg = "Parameters: \n" + "\n\t-> Max number of generations: " + nGenerations
-				+ "\n\t-> Max time (ms): " + maxTimeMs + "\n\t-> Mutation probability: " + mutationProb
-				+ "\n\t-> Crossover probability: " + crossoverProb + "\n\t-> Population size: " + popSize;
-		String parametersMsgExtended = parametersMsg + "\n\t-> Fitness function: " + fn.getClass().getName()
-				+ "\n\t-> Individual length: " + individualLength;
+		String parametersMsg = "Parameters: \n"
+				+ "\n\t-> Max number of generations: "
+				+ nGenerations + "\n\t-> Max time (ms): "
+				+ maxTimeMs + "\n\t-> Mutation probability: "
+				+ mutationProb
+				+ "\n\t-> Crossover probability: "
+				+ crossoverProb + "\n\t-> Population size: "
+				+ popSize;
+		String parametersMsgExtended = parametersMsg
+				+ "\n\t-> Fitness function: "
+				+ fn.getClass().getName()
+				+ "\n\t-> Individual length: "
+				+ individualLength;
 
 		cli.showMessage("START Executing Genetic Algorithm...");
 		cli.showNewLine();
 		cli.showMessage(parametersMsg);
 		cli.showNewLine();
 
-		logh.log(Level.FINE, GeneticAlgorithm.class.getName(), "geneticAlgorithm", "START Genetic Algorithm");
-		logh.log(Level.FINER, GeneticAlgorithm.class.getName(), "geneticAlgorithm", parametersMsgExtended);
+		logh.log(Level.FINE, GeneticAlgorithm.class.getName(),
+				"geneticAlgorithm", "START Genetic Algorithm");
+		logh.log(Level.FINER, GeneticAlgorithm.class.getName(),
+				"geneticAlgorithm", parametersMsgExtended);
 
 		// Time variables
 		long startTime = System.currentTimeMillis();
@@ -102,7 +118,8 @@ public class GeneticAlgorithm {
 		long genTime;
 
 		// The algorithm starts
-		List<Individual> population = new ArrayList<Individual>(initialPopulation());
+		List<Individual> population = new ArrayList<Individual>(
+				initialPopulation());
 		Individual bestIndividual = bestIndividual(population);
 
 		int gen = 0;
@@ -122,8 +139,13 @@ public class GeneticAlgorithm {
 
 			// Metrics for the command line interface
 			if (gen == 1 || gen % 10 == 0)
-				cli.showMessage(String.format("Generation = %d, best fitness = %.2f, average fitness = %.2f", gen,
-						metrics.getDouble("BEST_FITNESS"), metrics.getDouble("AVG_FITNESS")));
+				cli.showMessage(String.format(
+						"Generation = %d, best fitness = %.2f, average fitness = %.2f",
+						gen,
+						metrics.getDouble(
+								"BEST_FITNESS"),
+						metrics.getDouble(
+								"AVG_FITNESS")));
 
 		} while (gen < nGenerations && totalTime < maxTimeMs);
 
@@ -131,13 +153,15 @@ public class GeneticAlgorithm {
 		cli.showNewLine();
 		cli.showMessage("END Genetic Algorithm");
 		cli.showNewLine();
-		logh.log(Level.FINE, GeneticAlgorithm.class.getName(), "geneticAlgorithm", "END Genetic Algorithm");
+		logh.log(Level.FINE, GeneticAlgorithm.class.getName(),
+				"geneticAlgorithm", "END Genetic Algorithm");
 
 		return bestIndividual;
 
 	}
 
-	private Individual bestIndividual(List<Individual> population) {
+	private Individual bestIndividual(List<Individual> population)
+	{
 		Individual bestIndividual = null;
 		double bestFitness = Double.NEGATIVE_INFINITY;
 		double avgFitness = 0.0;
@@ -158,7 +182,8 @@ public class GeneticAlgorithm {
 		return bestIndividual;
 	}
 
-	private List<Individual> nextGeneration(List<Individual> population) {
+	private List<Individual> nextGeneration(List<Individual> population)
+	{
 
 		List<Individual> newPopulation, oldPopulation;
 		newPopulation = new ArrayList<Individual>();
@@ -198,11 +223,13 @@ public class GeneticAlgorithm {
 		return newPopulation;
 	}
 
-	private double fitnessFunction(Individual individual) {
+	private double fitnessFunction(Individual individual)
+	{
 		return fn.fitnessFunction(individual);
 	}
 
-	private Set<Individual> initialPopulation() {
+	private Set<Individual> initialPopulation()
+	{
 		Set<Individual> p = new HashSet<Individual>();
 		while (p.size() < popSize) {
 			p.add(im.generateRandomIndividual());
@@ -210,14 +237,17 @@ public class GeneticAlgorithm {
 		return p;
 	}
 
-	private Individual selection(List<Individual> population) {
+	private Individual selection(List<Individual> population)
+	{
 		int index = random.nextInt(population.size());
 		Individual selected = population.get(index);
 		population.remove(index);
 		return selected;
 	}
 
-	private Individual crossover(Individual firstParent, Individual secondParent) {
+	private Individual crossover(Individual firstParent,
+			Individual secondParent)
+	{
 		int p1 = randomOffset(individualLength);
 		int p2 = randomOffset(individualLength);
 
@@ -225,31 +255,38 @@ public class GeneticAlgorithm {
 		List<String> yArray = secondParent.getRepresentation();
 		List<String> offArray = new ArrayList<String>(xArray);
 
-		// Keep the substring from p1 to p2-1 to the offspring, order and position
-		// The remaining genes, p2 to p1-1, from the second parent, relative order
+		// Keep the substring from p1 to p2-1 to the offspring, order
+		// and position
+		// The remaining genes, p2 to p1-1, from the second parent,
+		// relative order
 		int k = p2;
 		for (int i = 0; i < individualLength; i++) {
 			int j = p1;
-			while (j < p2 + (p2 <= p1 ? individualLength : 0) && yArray.get(i) != xArray.get(j % individualLength)) {
+			while (j < p2 + (p2 <= p1 ? individualLength : 0)
+					&& yArray.get(i) != xArray.get(
+							j % individualLength)) {
 				j++;
 			}
 			if (j == p2 + (p2 <= p1 ? individualLength : 0)) {
 				// yArray[i] is not in offArray from p1 to p2-1
-				offArray.set(k % individualLength, yArray.get(i));
+				offArray.set(k % individualLength,
+						yArray.get(i));
 				k++;
 			}
 		}
 		return new Individual(offArray);
 	}
 
-	private Individual mutation(Individual child) {
+	private Individual mutation(Individual child)
+	{
 		int p1 = randomOffset(individualLength - 1);
 		int p2 = randomOffset(individualLength - 1);
 		while (p1 == p2) {
 			p2 = randomOffset(individualLength);
 		}
 
-		List<String> mutatedRepresentation = new ArrayList<String>(child.getRepresentation());
+		List<String> mutatedRepresentation = new ArrayList<String>(
+				child.getRepresentation());
 
 		// We swap two random points
 		String tmp = mutatedRepresentation.get(p1);
@@ -259,7 +296,9 @@ public class GeneticAlgorithm {
 		return new Individual(mutatedRepresentation);
 	}
 
-	private Individual[] tournament(Individual a, Individual b, Individual c, Individual d) {
+	private Individual[] tournament(Individual a, Individual b,
+			Individual c, Individual d)
+	{
 		List<Individual> iList = new ArrayList<Individual>();
 
 		iList.add(a);
@@ -267,13 +306,15 @@ public class GeneticAlgorithm {
 		iList.add(c);
 		iList.add(d);
 
-		iList.sort((i1, i2) -> Double.compare(fitnessFunction(i2), fitnessFunction(i1)));
+		iList.sort((i1, i2) -> Double.compare(fitnessFunction(i2),
+				fitnessFunction(i1)));
 
 		Individual[] best = { iList.get(0), iList.get(1) };
 		return best;
 	}
 
-	private int randomOffset(int length) {
+	private int randomOffset(int length)
+	{
 		return random.nextInt(length);
 	}
 

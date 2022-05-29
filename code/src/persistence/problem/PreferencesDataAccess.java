@@ -11,7 +11,8 @@ import persistence.filemanager.FileManager;
 
 public interface PreferencesDataAccess {
 
-	Map<String, Preference> loadPreferences(String filename, Map<String, Classroom> classrooms,
+	Map<String, Preference> loadPreferences(String filename,
+			Map<String, Classroom> classrooms,
 			Map<String, Subject> subjects, FileManager fileManager)
 			throws PersistenceException, InputValidationException;
 

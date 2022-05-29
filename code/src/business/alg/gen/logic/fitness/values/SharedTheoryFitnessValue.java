@@ -19,15 +19,18 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 	private List<Subject> subjects;
 	private List<Classroom> theory;
 
-	public SharedTheoryFitnessValue(double weight, List<Subject> subjects, List<Classroom> classrooms) {
+	public SharedTheoryFitnessValue(double weight, List<Subject> subjects,
+			List<Classroom> classrooms) {
 		super(weight);
 		this.subjects = new ArrayList<Subject>(subjects);
-		this.theory = new ArrayList<Classroom>(classrooms).stream().filter(c -> ProblemUtils.isTheoryClassroom(c))
+		this.theory = new ArrayList<Classroom>(classrooms).stream()
+				.filter(c -> ProblemUtils.isTheoryClassroom(c))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public double getValue(Map<String, Assignment> assignments) {
+	public double getValue(Map<String, Assignment> assignments)
+	{
 
 		double value = 0.0;
 
@@ -40,7 +43,8 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 
 			for (Group g : s.getGroups()) {
 
-				List<Assignment> caList = courseAssignmentsMap.get(s.getCourse());
+				List<Assignment> caList = courseAssignmentsMap
+						.get(s.getCourse());
 				if (caList == null)
 					caList = new ArrayList<Assignment>();
 				caList.add(assignments.get(g.getCode()));
@@ -59,24 +63,39 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 			assignedTheoryEn.clear();
 			assignedTheoryEs.clear();
 
-			List<String> groupNames = courseAssignmentsMap.get(course).stream()
-					.map(a -> a.getGroup().getNameFromCode()).collect(Collectors.toList());
+			List<String> groupNames = courseAssignmentsMap
+					.get(course).stream()
+					.map(a -> a.getGroup()
+							.getNameFromCode())
+					.collect(Collectors.toList());
 
 			for (String groupName : groupNames) {
 
-				List<Assignment> assignmentsForGroupName = courseAssignmentsMap.get(course).stream()
-						.filter(a -> a.getGroup().sameGroupNameAs(groupName)).collect(Collectors.toList());
+				List<Assignment> assignmentsForGroupName = courseAssignmentsMap
+						.get(course).stream()
+						.filter(a -> a.getGroup()
+								.sameGroupNameAs(
+										groupName))
+						.collect(Collectors.toList());
 
 				for (Assignment a : assignmentsForGroupName) {
 
 					Group g = a.getGroup();
 
 					if (ProblemUtils.isTheoryGroup(g)) {
-						if (assignments.get(g.getCode()) != null) {
-							if (ProblemUtils.isEnglishGroup(g)) {
-								assignedTheoryEn.add(assignments.get(g.getCode()).getClassroom());
+						if (assignments.get(g
+								.getCode()) != null) {
+							if (ProblemUtils.isEnglishGroup(
+									g)) {
+								assignedTheoryEn.add(
+										assignments.get(g
+												.getCode())
+												.getClassroom());
 							} else {
-								assignedTheoryEs.add(assignments.get(g.getCode()).getClassroom());
+								assignedTheoryEs.add(
+										assignments.get(g
+												.getCode())
+												.getClassroom());
 							}
 						}
 					}
@@ -87,25 +106,31 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 
 				int langCounter = 0;
 				int uniqueTheoEn = 0, uniqueTheoEs = 0;
-				double groupNameValue = 0.0, enValue = 0.0, esValue = 0.0;
+				double groupNameValue = 0.0, enValue = 0.0,
+						esValue = 0.0;
 
 				if (assignedTheoryEn.size() > 0) {
-					theoSetEn = new HashSet<Classroom>(assignedTheoryEn);
+					theoSetEn = new HashSet<Classroom>(
+							assignedTheoryEn);
 					uniqueTheoEn = theoSetEn.size();
-					enValue = 100 - (uniqueTheoEn * 100 / theory.size());
+					enValue = 100 - (uniqueTheoEn * 100
+							/ theory.size());
 					++langCounter;
 				}
 
 				if (assignedTheoryEs.size() > 0) {
-					theoSetEs = new HashSet<Classroom>(assignedTheoryEs);
+					theoSetEs = new HashSet<Classroom>(
+							assignedTheoryEs);
 					uniqueTheoEs = theoSetEs.size();
-					esValue = 100 - (uniqueTheoEs * 100 / theory.size());
+					esValue = 100 - (uniqueTheoEs * 100
+							/ theory.size());
 					++langCounter;
 				}
 
 				groupNameValue = enValue + esValue;
 				if (langCounter > 0)
-					groupNameValue = groupNameValue / langCounter;
+					groupNameValue = groupNameValue
+							/ langCounter;
 
 				courseValue += groupNameValue;
 

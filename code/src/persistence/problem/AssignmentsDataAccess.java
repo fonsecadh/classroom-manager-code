@@ -13,11 +13,15 @@ import persistence.filemanager.FileManager;
 
 public interface AssignmentsDataAccess {
 
-	Map<String, Assignment> loadAssignments(String filename, Map<String, Group> groups,
-			Map<String, Classroom> classrooms, FileManager fileManager)
+	Map<String, Assignment> loadAssignments(String filename,
+			Map<String, Group> groups,
+			Map<String, Classroom> classrooms,
+			FileManager fileManager)
 			throws PersistenceException, InputValidationException;
 
-	void writeAssignments(String filename, Map<String, Assignment> assignments, List<Subject> subjects,
-			FileManager fileManager) throws PersistenceException;
+	void writeAssignments(String filename,
+			Map<String, Assignment> assignments,
+			List<Subject> subjects, FileManager fileManager)
+			throws PersistenceException;
 
 }

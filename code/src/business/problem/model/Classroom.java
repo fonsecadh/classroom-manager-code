@@ -6,40 +6,49 @@ public class Classroom {
 	private int numberOfSeats;
 	private ClassroomType type;
 
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
 	}
 
-	public int getNumberOfSeats() {
+	public int getNumberOfSeats()
+	{
 		return numberOfSeats;
 	}
 
-	public ClassroomType getType() {
+	public ClassroomType getType()
+	{
 		return type;
 	}
 
-	public void setCode(String code) {
+	public void setCode(String code)
+	{
 		this.code = code;
 	}
 
-	public void setNumberOfSeats(int numberOfSeats) {
+	public void setNumberOfSeats(int numberOfSeats)
+	{
 		this.numberOfSeats = numberOfSeats;
 	}
 
-	public void setType(ClassroomType type) {
+	public void setType(ClassroomType type)
+	{
 		this.type = type;
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result
+				+ ((code == null) ? 0 : code.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

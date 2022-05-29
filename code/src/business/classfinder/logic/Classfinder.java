@@ -13,17 +13,16 @@ public class Classfinder {
 		this.queries = new ArrayList<ClassfinderQuery>(queries);
 	}
 
-	public String queryResults() {
+	public String queryResults()
+	{
 
 		StringBuilder sb = new StringBuilder();
-		
+
 		appendTitle(sb, "Classfinder Query Results");
 
 		for (ClassfinderQuery q : queries) {
-			
+
 			appendLine(sb, q.toString());
-			
-			
 
 		}
 
@@ -31,7 +30,8 @@ public class Classfinder {
 
 	}
 
-	private void appendTitle(StringBuilder sb, String msg) {
+	private void appendTitle(StringBuilder sb, String msg)
+	{
 		sb.append(msg + "\n");
 		for (int i = 0; i < msg.length(); i++) {
 			sb.append("=");
@@ -39,11 +39,13 @@ public class Classfinder {
 		sb.append("\n");
 	}
 
-	private void appendLine(StringBuilder sb, String msg) {
+	private void appendLine(StringBuilder sb, String msg)
+	{
 		sb.append(msg + "\n");
 	}
 
-	private void appendNewLine(StringBuilder sb) {
+	private void appendNewLine(StringBuilder sb)
+	{
 		sb.append("\n");
 	}
 

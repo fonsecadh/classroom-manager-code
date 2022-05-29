@@ -8,7 +8,9 @@ import business.alg.gen.model.Individual;
 
 public class GenAlgoUtils {
 
-	public static Individual generateRandomIndividual(List<String> groupCodes) {
+	public static Individual generateRandomIndividual(
+			List<String> groupCodes)
+	{
 		List<String> individualRep = new ArrayList<String>(groupCodes);
 		Collections.shuffle(individualRep);
 		return new Individual(individualRep);

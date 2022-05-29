@@ -19,8 +19,10 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 	public static final String CSVNAME = "GROUPS";
 
 	@Override
-	public Map<String, Group> loadGroups(String filename, Map<String, Subject> subjects, FileManager fileManager)
-			throws PersistenceException, InputValidationException {
+	public Map<String, Group> loadGroups(String filename,
+			Map<String, Subject> subjects, FileManager fileManager)
+			throws PersistenceException, InputValidationException
+	{
 
 		Map<String, Group> groups = new HashMap<String, Group>();
 
@@ -35,10 +37,14 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 
 	}
 
-	private Group lineToGroup(String line, int lineNumber, Map<String, Subject> subjects)
-			throws InputValidationException {
+	private Group lineToGroup(String line, int lineNumber,
+			Map<String, Subject> subjects)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
 		ValidationUtils.validateColumns(fields, 5, CSVNAME, lineNumber);
 
@@ -48,7 +54,8 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 		String type = fields[3].trim();
 		String language = fields[4].trim();
 
-		validate(code, subjectCode, nStudents, type, language, lineNumber);
+		validate(code, subjectCode, nStudents, type, language,
+				lineNumber);
 
 		ClassroomType ct = null;
 
@@ -80,8 +87,9 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 
 		Subject s = subjects.get(subjectCode);
 		if (s == null) {
-			String msg = String.format("Non existing code for subject in %s csv file (%s), line %d", CSVNAME,
-					subjectCode, lineNumber);
+			String msg = String.format(
+					"Non existing code for subject in %s csv file (%s), line %d",
+					CSVNAME, subjectCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
 
@@ -92,8 +100,10 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 
 	}
 
-	private void validate(String code, String subjectCode, String nStudents, String type, String language,
-			int lineNumber) throws InputValidationException {
+	private void validate(String code, String subjectCode, String nStudents,
+			String type, String language, int lineNumber)
+			throws InputValidationException
+	{
 
 		String csvName = CSVNAME;
 
@@ -101,23 +111,27 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 		ValidationUtils.validateString(code, csvName, lineNumber);
 
 		// Subject code validation
-		ValidationUtils.validateString(subjectCode, csvName, lineNumber);
+		ValidationUtils.validateString(subjectCode, csvName,
+				lineNumber);
 
 		// Number of students validation
 		ValidationUtils.validateString(nStudents, csvName, lineNumber);
-		ValidationUtils.validatePositiveInt(nStudents, csvName, lineNumber);
+		ValidationUtils.validatePositiveInt(nStudents, csvName,
+				lineNumber);
 
 		// Type validation
 		ValidationUtils.validateString(type, csvName, lineNumber);
 
 		String[] valuesType = { "T", "L" };
-		ValidationUtils.validateStringValues(type, csvName, valuesType, lineNumber);
+		ValidationUtils.validateStringValues(type, csvName, valuesType,
+				lineNumber);
 
 		// Language
 		ValidationUtils.validateString(language, csvName, lineNumber);
 
 		String[] valuesLang = { "EN", "ES" };
-		ValidationUtils.validateStringValues(language, csvName, valuesLang, lineNumber);
+		ValidationUtils.validateStringValues(language, csvName,
+				valuesLang, lineNumber);
 
 	}
 

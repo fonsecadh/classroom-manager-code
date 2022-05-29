@@ -53,7 +53,8 @@ import ui.CommandLineInterface;
 
 public class Program {
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		// CLI
 		CommandLineInterface cli = CommandLineInterface.getInstance();
@@ -63,7 +64,8 @@ public class Program {
 		Config config = Config.getInstance();
 
 		// Time
-		long startTime = System.currentTimeMillis(), currentTime, totalTime;
+		long startTime = System.currentTimeMillis(), currentTime,
+				totalTime;
 
 		try {
 
@@ -72,7 +74,8 @@ public class Program {
 			// Persistence
 			cli.showMessage("START Processing input files...");
 			cli.showNewLine();
-			logh.log(Level.FINE, Program.class.getName(), "main", "START Persistence logic");
+			logh.log(Level.FINE, Program.class.getName(), "main",
+					"START Persistence logic");
 
 			// FileManager
 			FileManager fm = new FileManager();
@@ -87,24 +90,34 @@ public class Program {
 			// Input
 
 			// Required
-			String subjectsFilePath = config.getProperty("SUBJECTS_FILE_PATH");
-			String classroomsFilePath = config.getProperty("CLASSROOMS_FILE_PATH");
-			String groupsFilePath = config.getProperty("GROUPS_FILE_PATH");
-			String groupScheduleFilePath = config.getProperty("GROUPSCHEDULE_FILE_PATH");
-			String weeksFilePath = config.getProperty("WEEKS_FILE_PATH");
+			String subjectsFilePath = config
+					.getProperty("SUBJECTS_FILE_PATH");
+			String classroomsFilePath = config
+					.getProperty("CLASSROOMS_FILE_PATH");
+			String groupsFilePath = config
+					.getProperty("GROUPS_FILE_PATH");
+			String groupScheduleFilePath = config
+					.getProperty("GROUPSCHEDULE_FILE_PATH");
+			String weeksFilePath = config
+					.getProperty("WEEKS_FILE_PATH");
 
 			// Optional
-			boolean loadAssignments = Boolean.parseBoolean(config.getProperty("LOAD_ASSIGNMENTS"));
-			String assignmentsFilePath = config.getProperty("ASSIGNMENTS_FILE_PATH");
+			boolean loadAssignments = Boolean.parseBoolean(
+					config.getProperty("LOAD_ASSIGNMENTS"));
+			String assignmentsFilePath = config
+					.getProperty("ASSIGNMENTS_FILE_PATH");
 
-			boolean loadPreferences = Boolean.parseBoolean(config.getProperty("LOAD_PREFERENCES"));
-			String preferencesFilePath = config.getProperty("PREFERENCES_FILE_PATH");
+			boolean loadPreferences = Boolean.parseBoolean(
+					config.getProperty("LOAD_PREFERENCES"));
+			String preferencesFilePath = config
+					.getProperty("PREFERENCES_FILE_PATH");
 
-			boolean loadRestrictions = Boolean.parseBoolean(config.getProperty("LOAD_RESTRICTIONS"));
-			String restrictionsFilePath = config.getProperty("RESTRICTIONS_FILE_PATH");
+			boolean loadRestrictions = Boolean.parseBoolean(config
+					.getProperty("LOAD_RESTRICTIONS"));
+			String restrictionsFilePath = config
+					.getProperty("RESTRICTIONS_FILE_PATH");
 
 			// Load files
-
 			Map<String, Subject> subjects;
 			Map<String, Classroom> classrooms;
 			Map<String, Group> groups;
@@ -112,78 +125,116 @@ public class Program {
 			Map<String, Preference> preferences;
 			Map<String, List<Restriction>> restrictions;
 
-			cli.showMessageWithoutNewLine("Loading SUBJECTS file...");
-			subjects = new SubjectDataAccessCsv().loadSubjects(subjectsFilePath, fm);
+			cli.showMessageWithoutNewLine(
+					"Loading SUBJECTS file...");
+			subjects = new SubjectDataAccessCsv()
+					.loadSubjects(subjectsFilePath, fm);
 			cli.showMessage(" DONE");
 
-			cli.showMessageWithoutNewLine("Loading CLASSROOMS file...");
-			classrooms = new ClassroomsDataAccessCsv().loadClassrooms(classroomsFilePath, fm);
+			cli.showMessageWithoutNewLine(
+					"Loading CLASSROOMS file...");
+			classrooms = new ClassroomsDataAccessCsv()
+					.loadClassrooms(classroomsFilePath, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading GROUPS file...");
-			groups = new GroupsDataAccessCsv().loadGroups(groupsFilePath, subjects, fm);
+			groups = new GroupsDataAccessCsv().loadGroups(
+					groupsFilePath, subjects, fm);
 			cli.showMessage(" DONE");
 
-			cli.showMessageWithoutNewLine("Loading GROUPSCHEDULE file...");
-			new GroupScheduleDataAccessCsv().loadGroupSchedule(groupScheduleFilePath, groups, fm);
+			cli.showMessageWithoutNewLine(
+					"Loading GROUPSCHEDULE file...");
+			new GroupScheduleDataAccessCsv().loadGroupSchedule(
+					groupScheduleFilePath, groups, fm);
 			cli.showMessage(" DONE");
 
 			cli.showMessageWithoutNewLine("Loading WEEKS file...");
-			new AcademicWeeksDataAccessCsv().loadAcademicWeeks(weeksFilePath, groups, fm);
+			new AcademicWeeksDataAccessCsv().loadAcademicWeeks(
+					weeksFilePath, groups, fm);
 			cli.showMessage(" DONE");
 
 			AssignmentsDataAccess ada = new AssignmentDataAccessCsv();
 			assignments = new HashMap<String, Assignment>();
 			if (loadAssignments) {
-				cli.showMessageWithoutNewLine("Loading ASSIGNMENTS file...");
-				assignments = ada.loadAssignments(assignmentsFilePath, groups, classrooms, fm);
+				cli.showMessageWithoutNewLine(
+						"Loading ASSIGNMENTS file...");
+				assignments = ada.loadAssignments(
+						assignmentsFilePath, groups,
+						classrooms, fm);
 				cli.showMessage(" DONE");
 			}
 
 			preferences = null;
 			if (loadPreferences) {
-				cli.showMessageWithoutNewLine("Loading PREFERENCES file...");
-				preferences = new PreferencesDataAccessCsv().loadPreferences(preferencesFilePath, classrooms, subjects,
-						fm);
+				cli.showMessageWithoutNewLine(
+						"Loading PREFERENCES file...");
+				preferences = new PreferencesDataAccessCsv()
+						.loadPreferences(
+								preferencesFilePath,
+								classrooms,
+								subjects, fm);
 				cli.showMessage(" DONE");
 			}
 
 			restrictions = null;
 			if (loadRestrictions) {
-				cli.showMessageWithoutNewLine("Loading RESTRICTIONS file...");
-				restrictions = new RestrictionsDataAccessCsv().loadRestrictions(restrictionsFilePath, classrooms,
-						groups, subjects, fm);
+				cli.showMessageWithoutNewLine(
+						"Loading RESTRICTIONS file...");
+				restrictions = new RestrictionsDataAccessCsv()
+						.loadRestrictions(
+								restrictionsFilePath,
+								classrooms,
+								groups,
+								subjects, fm);
 				cli.showMessage(" DONE");
 			}
 
-			List<Subject> subjectList = new ArrayList<Subject>(subjects.values());
-			List<Classroom> classroomList = new ArrayList<Classroom>(classrooms.values());
-			List<Group> groupList = new ArrayList<Group>(groups.values());
+			List<Subject> subjectList = new ArrayList<Subject>(
+					subjects.values());
+			List<Classroom> classroomList = new ArrayList<Classroom>(
+					classrooms.values());
+			List<Group> groupList = new ArrayList<Group>(
+					groups.values());
 
 			// Output
-			String outputFolderPath = config.getProperty("OUTPUT_FOLDER_PATH");
-			String outputAssignmentsFilename = config.getProperty("OUTPUT_ASSIGNMENTS_FILENAME");
+			String outputFolderPath = config
+					.getProperty("OUTPUT_FOLDER_PATH");
+			String outputAssignmentsFilename = config.getProperty(
+					"OUTPUT_ASSIGNMENTS_FILENAME");
 
 			// Genetic parameters
 			int individualLength = groups.size();
-			int populationSize = Integer.parseInt(config.getProperty("POP_SIZE"));
-			double crossoverProbability = Double.parseDouble(config.getProperty("CROSS_PROB"));
-			double mutationProbability = Double.parseDouble(config.getProperty("MUTA_PROB"));
-			long maxTimeMilliseconds = Long.parseLong(config.getProperty("MAX_TIME_MS"));
-			int numberOfGenerations = Integer.parseInt(config.getProperty("NUM_GEN"));
-			int freeLabs = Integer.parseInt(config.getProperty("FREE_LABS"));
+			int populationSize = Integer.parseInt(
+					config.getProperty("POP_SIZE"));
+			double crossoverProbability = Double.parseDouble(
+					config.getProperty("CROSS_PROB"));
+			double mutationProbability = Double.parseDouble(
+					config.getProperty("MUTA_PROB"));
+			long maxTimeMilliseconds = Long.parseLong(
+					config.getProperty("MAX_TIME_MS"));
+			int numberOfGenerations = Integer.parseInt(
+					config.getProperty("NUM_GEN"));
+			int freeLabs = Integer.parseInt(
+					config.getProperty("FREE_LABS"));
 
 			// Fitness weights
-			double collisionsFnWeight = Double.parseDouble(config.getProperty("COL_WEIGHT"));
-			double freeLabsFnWeight = Double.parseDouble(config.getProperty("FREE_LABS_WEIGHT"));
-			double languageFnWeight = Double.parseDouble(config.getProperty("LANG_WEIGHT"));
-			double sharedLabsFnWeight = Double.parseDouble(config.getProperty("SHARED_LABS_WEIGHT"));
-			double sharedTheoryFnWeight = Double.parseDouble(config.getProperty("SHARED_THEORY_WEIGHT"));
-			double prefsFnWeight = Double.parseDouble(config.getProperty("PREFS_WEIGHT"));
+			double collisionsFnWeight = Double.parseDouble(
+					config.getProperty("COL_WEIGHT"));
+			double freeLabsFnWeight = Double.parseDouble(
+					config.getProperty("FREE_LABS_WEIGHT"));
+			double languageFnWeight = Double.parseDouble(
+					config.getProperty("LANG_WEIGHT"));
+			double sharedLabsFnWeight = Double.parseDouble(config
+					.getProperty("SHARED_LABS_WEIGHT"));
+			double sharedTheoryFnWeight = Double.parseDouble(config
+					.getProperty("SHARED_THEORY_WEIGHT"));
+			double prefsFnWeight = Double.parseDouble(
+					config.getProperty("PREFS_WEIGHT"));
 
 			// Persistence errors
 			if (errh.anyErrors()) {
-				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
+				errh.getCustomErrorMessages()
+						.forEach(e -> cli.showError(e));
 				cli.showEndOfProgramWithErrors();
 				return;
 			}
@@ -191,10 +242,12 @@ public class Program {
 			cli.showNewLine();
 			cli.showMessage("END Processing input files");
 			cli.showNewLine();
-			logh.log(Level.FINE, Program.class.getName(), "main", "END Persistence logic");
+			logh.log(Level.FINE, Program.class.getName(), "main",
+					"END Persistence logic");
 
 			// Business logic
-			logh.log(Level.FINE, Program.class.getName(), "main", "START Business logic");
+			logh.log(Level.FINE, Program.class.getName(), "main",
+					"START Business logic");
 
 			List<ClassroomFilter> classroomFilters = new ArrayList<ClassroomFilter>();
 			List<FitnessValue> fitnessValues = new ArrayList<FitnessValue>();
@@ -204,27 +257,41 @@ public class Program {
 			classroomFilters.add(new CapacityFilter());
 
 			if (loadRestrictions)
-				classroomFilters.add(new RestrictionFilter(restrictions));
+				classroomFilters.add(new RestrictionFilter(
+						restrictions));
 
 			// Fitness values
-			fitnessValues.add(new CollisionsFitnessValue(collisionsFnWeight));
-			fitnessValues.add(new FreeLabsFitnessValue(freeLabsFnWeight, freeLabs));
-			fitnessValues.add(new LanguageFitnessValue(languageFnWeight, subjectList));
-			fitnessValues.add(new SharedLabsFitnessValue(sharedLabsFnWeight, subjectList, classroomList));
-			fitnessValues.add(new SharedTheoryFitnessValue(sharedTheoryFnWeight, subjectList, classroomList));
+			fitnessValues.add(new CollisionsFitnessValue(
+					collisionsFnWeight));
+			fitnessValues.add(new FreeLabsFitnessValue(
+					freeLabsFnWeight, freeLabs));
+			fitnessValues.add(new LanguageFitnessValue(
+					languageFnWeight, subjectList));
+			fitnessValues.add(new SharedLabsFitnessValue(
+					sharedLabsFnWeight, subjectList,
+					classroomList));
+			fitnessValues.add(new SharedTheoryFitnessValue(
+					sharedTheoryFnWeight, subjectList,
+					classroomList));
 
 			if (loadPreferences)
-				fitnessValues.add(new PreferencesFitnessValue(prefsFnWeight, preferences, subjectList));
+				fitnessValues.add(new PreferencesFitnessValue(
+						prefsFnWeight, preferences,
+						subjectList));
 
 			Decoder decoder = new Decoder();
 			for (Group g : groupList) {
 				if (assignments.get(g.getCode()) != null)
-					decoder.putMasterAssignment(g.getCode(), new Assignment(assignments.get(g.getCode())));
+					decoder.putMasterAssignment(g.getCode(),
+							new Assignment(assignments
+									.get(g.getCode())));
 				else
-					decoder.putMasterAssignment(g.getCode(), new Assignment(g));
+					decoder.putMasterAssignment(g.getCode(),
+							new Assignment(g));
 			}
 
-			ClassroomFilterManager cfm = new ClassroomFilterManager(classroomFilters, classroomList);
+			ClassroomFilterManager cfm = new ClassroomFilterManager(
+					classroomFilters, classroomList);
 			CollisionManager cm = new CollisionManager();
 
 			Map<String, Subject> groupSubjectMap = new HashMap<String, Subject>();
@@ -234,48 +301,72 @@ public class Program {
 				}
 			}
 
-			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm, groupSubjectMap, subjectList);
+			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm,
+					cm, groupSubjectMap, subjectList);
 
-			FitnessFunction fitnessFunction = new DefaultFitnessFunction(decoder, greedyAlgo, fitnessValues);
+			FitnessFunction fitnessFunction = new DefaultFitnessFunction(
+					decoder, greedyAlgo, fitnessValues);
 
-			List<String> groupCodes = groupList.stream().map(g -> g.getCode()).collect(Collectors.toList());
-			IndividualManager individualManager = new IndividualManager(groupCodes);
+			List<String> groupCodes = groupList.stream()
+					.map(g -> g.getCode())
+					.collect(Collectors.toList());
+			IndividualManager individualManager = new IndividualManager(
+					groupCodes);
 
-			GeneticAlgorithm genAlgo = new GeneticAlgorithm(individualLength, populationSize, mutationProbability,
-					crossoverProbability, maxTimeMilliseconds, numberOfGenerations, fitnessFunction, individualManager);
+			GeneticAlgorithm genAlgo = new GeneticAlgorithm(
+					individualLength, populationSize,
+					mutationProbability,
+					crossoverProbability,
+					maxTimeMilliseconds,
+					numberOfGenerations, fitnessFunction,
+					individualManager);
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
 
 			// Output files
-			List<Assignment> decoded = decoder.decode(bestIndividual);
-			Map<String, Assignment> assignmentsMap = greedyAlgo.greedyAlgorithm(decoded);
+			List<Assignment> decoded = decoder
+					.decode(bestIndividual);
+			Map<String, Assignment> assignmentsMap = greedyAlgo
+					.greedyAlgorithm(decoded);
 
-			String outputAssignmentsFilePath = outputFolderPath + outputAssignmentsFilename;
-			IndividualPrinter individualPrinter = new IndividualPrinter(subjectList, assignmentsMap);
+			String outputAssignmentsFilePath = outputFolderPath
+					+ outputAssignmentsFilename;
+			IndividualPrinter individualPrinter = new IndividualPrinter(
+					subjectList, assignmentsMap);
 
 			// Assignments (Pretty format)
-			fm.writeToFile(outputAssignmentsFilePath + ".txt", individualPrinter.getPrettyIndividual());
+			fm.writeToFile(outputAssignmentsFilePath + ".txt",
+					individualPrinter
+							.getPrettyIndividual());
 
 			// Assignments (CSV format)
-			ada.writeAssignments(outputAssignmentsFilePath + ".csv", assignmentsMap, subjectList, fm);
+			ada.writeAssignments(outputAssignmentsFilePath + ".csv",
+					assignmentsMap, subjectList, fm);
 
 			// Classroom timetables
 			for (Classroom c : classroomList) {
-				fm.writeToFile(outputFolderPath + c.getCode() + ".txt", individualPrinter.getTimetableFor(c));
+				fm.writeToFile(outputFolderPath + c.getCode()
+						+ ".txt",
+						individualPrinter
+								.getTimetableFor(
+										c));
 			}
 
 			// Business errors
 			if (errh.anyErrors()) {
-				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
+				errh.getCustomErrorMessages()
+						.forEach(e -> cli.showError(e));
 				cli.showEndOfProgramWithErrors();
 				return;
 			}
 
-			logh.log(Level.FINE, Program.class.getName(), "main", "END Business logic");
+			logh.log(Level.FINE, Program.class.getName(), "main",
+					"END Business logic");
 
 		} catch (Exception e) {
 
-			logh.log(Level.SEVERE, Program.class.getName(), "main", e.getLocalizedMessage(), e);
+			logh.log(Level.SEVERE, Program.class.getName(), "main",
+					e.getLocalizedMessage(), e);
 			errh.addError(new ErrorType(e));
 
 		} finally {
@@ -289,12 +380,17 @@ public class Program {
 
 			cli.showNewLine();
 			if (minutes > 0)
-				cli.showMessage(String.format("Finished execution in %02d minutes and %02d seconds", minutes, seconds));
+				cli.showMessage(String.format(
+						"Finished execution in %02d minutes and %02d seconds",
+						minutes, seconds));
 			else
-				cli.showMessage(String.format("Finished execution in %02d seconds", seconds));
+				cli.showMessage(String.format(
+						"Finished execution in %02d seconds",
+						seconds));
 
 			if (errh.anyErrors()) {
-				errh.getCustomErrorMessages().forEach(e -> cli.showError(e));
+				errh.getCustomErrorMessages()
+						.forEach(e -> cli.showError(e));
 				cli.showEndOfProgramWithErrors();
 			} else
 				cli.showEndOfProgram();

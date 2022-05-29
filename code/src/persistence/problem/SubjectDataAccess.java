@@ -9,7 +9,8 @@ import persistence.filemanager.FileManager;
 
 public interface SubjectDataAccess {
 
-	Map<String, Subject> loadSubjects(String filename, FileManager fileManager)
+	Map<String, Subject> loadSubjects(String filename,
+			FileManager fileManager)
 			throws InputValidationException, PersistenceException;
 
 }

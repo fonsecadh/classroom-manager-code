@@ -18,15 +18,18 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 	private List<Subject> subjects;
 	private List<Classroom> labs;
 
-	public SharedLabsFitnessValue(double weight, List<Subject> subjects, List<Classroom> classrooms) {
+	public SharedLabsFitnessValue(double weight, List<Subject> subjects,
+			List<Classroom> classrooms) {
 		super(weight);
 		this.subjects = new ArrayList<Subject>(subjects);
-		this.labs = new ArrayList<Classroom>(classrooms).stream().filter(c -> ProblemUtils.isLabClassroom(c))
+		this.labs = new ArrayList<Classroom>(classrooms).stream()
+				.filter(c -> ProblemUtils.isLabClassroom(c))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public double getValue(Map<String, Assignment> assignments) {
+	public double getValue(Map<String, Assignment> assignments)
+	{
 
 		double value = 0.0;
 
@@ -41,11 +44,19 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 
 			for (Group g : s.getGroups()) {
 				if (ProblemUtils.isLabGroup(g)) {
-					if (assignments.get(g.getCode()) != null) {
-						if (ProblemUtils.isEnglishGroup(g)) {
-							assignedLabsEn.add(assignments.get(g.getCode()).getClassroom());
+					if (assignments.get(
+							g.getCode()) != null) {
+						if (ProblemUtils.isEnglishGroup(
+								g)) {
+							assignedLabsEn.add(
+									assignments.get(g
+											.getCode())
+											.getClassroom());
 						} else {
-							assignedLabsEs.add(assignments.get(g.getCode()).getClassroom());
+							assignedLabsEs.add(
+									assignments.get(g
+											.getCode())
+											.getClassroom());
 						}
 					}
 				}
@@ -58,16 +69,20 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 			double subjectValue = 0.0, enValue = 0.0, esValue = 0.0;
 
 			if (assignedLabsEn.size() > 0) {
-				labSetEn = new HashSet<Classroom>(assignedLabsEn);
+				labSetEn = new HashSet<Classroom>(
+						assignedLabsEn);
 				uniqueLabsEn = labSetEn.size();
-				enValue = 100 - (uniqueLabsEn * 100 / labs.size());
+				enValue = 100 - (uniqueLabsEn * 100
+						/ labs.size());
 				++langCounter;
 			}
 
 			if (assignedLabsEs.size() > 0) {
-				labSetEs = new HashSet<Classroom>(assignedLabsEs);
+				labSetEs = new HashSet<Classroom>(
+						assignedLabsEs);
 				uniqueLabsEs = labSetEs.size();
-				esValue = 100 - (uniqueLabsEs * 100 / labs.size());
+				esValue = 100 - (uniqueLabsEs * 100
+						/ labs.size());
 				++langCounter;
 			}
 

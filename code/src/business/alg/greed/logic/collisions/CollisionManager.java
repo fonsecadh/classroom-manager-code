@@ -11,8 +11,8 @@ public class CollisionManager {
 	 * Map that represents the collisions between groups.<br>
 	 * <br>
 	 * Key: The group ({@link Group}) ID.<br>
-	 * Value: Map containing all the groups evaluated against the key group, with a
-	 * boolean that indicates whether or not they collide.
+	 * Value: Map containing all the groups evaluated against the key group,
+	 * with a boolean that indicates whether or not they collide.
 	 */
 	private Map<String, Map<String, Boolean>> collisionMap;
 
@@ -20,7 +20,8 @@ public class CollisionManager {
 		this.collisionMap = new HashMap<String, Map<String, Boolean>>();
 	}
 
-	public boolean groupsCollide(Group g1, Group g2) {
+	public boolean groupsCollide(Group g1, Group g2)
+	{
 		Map<String, Boolean> g1CollisionMap, g2CollisionMap;
 
 		g1CollisionMap = this.collisionMap.get(g1.getCode());

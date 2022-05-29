@@ -16,27 +16,34 @@ public class ErrorHandler {
 		this.errors = new ArrayList<ErrorType>();
 	}
 
-	public static ErrorHandler getInstance() {
+	public static ErrorHandler getInstance()
+	{
 		return INSTANCE;
 	}
 
-	public boolean anyErrors() {
+	public boolean anyErrors()
+	{
 		return !errors.isEmpty();
 	}
 
-	public void addError(ErrorType error) {
+	public void addError(ErrorType error)
+	{
 		errors.add(error);
 	}
 
-	public List<ErrorType> getErrors() {
+	public List<ErrorType> getErrors()
+	{
 		return new ArrayList<ErrorType>(errors);
 	}
 
-	public List<String> getCustomErrorMessages() {
-		return errors.stream().map(e -> e.getCustomMessage()).collect(Collectors.toList());
+	public List<String> getCustomErrorMessages()
+	{
+		return errors.stream().map(e -> e.getCustomMessage())
+				.collect(Collectors.toList());
 	}
 
-	public void clearErrors() {
+	public void clearErrors()
+	{
 		errors.clear();
 	}
 

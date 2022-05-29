@@ -21,15 +21,16 @@ public class Individual {
 	 * 
 	 * @param representation
 	 * 
-	 *                       The representation of the individual. An individual is
-	 *                       a list of strings acting as the group identifiers in a
-	 *                       specific order.
+	 *                       The representation of the individual. An
+	 *                       individual is a list of strings acting as the
+	 *                       group identifiers in a specific order.
 	 */
 	public Individual(List<String> representation) {
 		this.representation = representation;
 	}
 
-	public List<String> getRepresentation() {
+	public List<String> getRepresentation()
+	{
 		return new ArrayList<String>(representation);
 	}
 

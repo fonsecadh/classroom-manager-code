@@ -29,14 +29,17 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 	private int correctSpanishTheory;
 	private int totalSpanishTheory;
 
-	public PreferencesFitnessValue(double weight, Map<String, Preference> preferences, List<Subject> subjects) {
+	public PreferencesFitnessValue(double weight,
+			Map<String, Preference> preferences,
+			List<Subject> subjects) {
 		super(weight);
 		this.preferences = new HashMap<String, Preference>(preferences);
 		this.subjects = new ArrayList<Subject>(subjects);
 	}
 
 	@Override
-	public double getValue(Map<String, Assignment> assignments) {
+	public double getValue(Map<String, Assignment> assignments)
+	{
 
 		double value = 0.0;
 
@@ -57,39 +60,52 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 
 				for (Group g : s.getGroups()) {
 
-					Assignment a = assignments.get(g.getCode());
+					Assignment a = assignments
+							.get(g.getCode());
 
-					if (a != null && a.getClassroom() != null) {
-						increaseCountersForGroup(p, g, a);
+					if (a != null && a
+							.getClassroom() != null) {
+						increaseCountersForGroup(p, g,
+								a);
 					}
 
 				}
 
-				double enLabValue = 0, enTheoryValue = 0, esLabValue = 0, esTheoryValue = 0, groupCounter = 0;
+				double enLabValue = 0, enTheoryValue = 0,
+						esLabValue = 0,
+						esTheoryValue = 0,
+						groupCounter = 0;
 
 				if (totalEnglishLabs > 0) {
-					enLabValue = 100 * correctEnglishLabs / totalEnglishLabs;
+					enLabValue = 100 * correctEnglishLabs
+							/ totalEnglishLabs;
 					++groupCounter;
 				}
 
 				if (totalEnglishTheory > 0) {
-					enTheoryValue = 100 * correctEnglishTheory / totalEnglishTheory;
+					enTheoryValue = 100
+							* correctEnglishTheory
+							/ totalEnglishTheory;
 					++groupCounter;
 				}
 
 				if (totalSpanishLabs > 0) {
-					esLabValue = 100 * correctSpanishLabs / totalSpanishLabs;
+					esLabValue = 100 * correctSpanishLabs
+							/ totalSpanishLabs;
 					++groupCounter;
 				}
 
 				if (totalSpanishTheory > 0) {
-					esTheoryValue = 100 * correctSpanishTheory / totalSpanishTheory;
+					esTheoryValue = 100
+							* correctSpanishTheory
+							/ totalSpanishTheory;
 					++groupCounter;
 				}
 
 				double sValue = 0.0;
 
-				sValue = enLabValue + enTheoryValue + esLabValue + esTheoryValue;
+				sValue = enLabValue + enTheoryValue + esLabValue
+						+ esTheoryValue;
 				if (groupCounter > 0)
 					sValue = sValue / groupCounter;
 
@@ -101,7 +117,9 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 		return value;
 	}
 
-	private void increaseCountersForGroup(Preference p, Group g, Assignment a) {
+	private void increaseCountersForGroup(Preference p, Group g,
+			Assignment a)
+	{
 
 		boolean enLang, labType;
 
@@ -112,14 +130,16 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 
 			if (labType) {
 
-				if (complies(p.getEnglishLabPreferences(), a.getClassroom().getCode())) {
+				if (complies(p.getEnglishLabPreferences(),
+						a.getClassroom().getCode())) {
 					++correctEnglishLabs;
 				}
 				++totalEnglishLabs;
 
 			} else {
 
-				if (complies(p.getEnglishTheoryPreferences(), a.getClassroom().getCode())) {
+				if (complies(p.getEnglishTheoryPreferences(),
+						a.getClassroom().getCode())) {
 					++correctEnglishTheory;
 				}
 				++totalEnglishTheory;
@@ -130,14 +150,16 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 
 			if (labType) {
 
-				if (complies(p.getSpanishLabPreferences(), a.getClassroom().getCode())) {
+				if (complies(p.getSpanishLabPreferences(),
+						a.getClassroom().getCode())) {
 					++correctSpanishLabs;
 				}
 				++totalSpanishLabs;
 
 			} else {
 
-				if (complies(p.getSpanishTheoryPreferences(), a.getClassroom().getCode())) {
+				if (complies(p.getSpanishTheoryPreferences(),
+						a.getClassroom().getCode())) {
 					++correctSpanishTheory;
 				}
 				++totalSpanishTheory;
@@ -147,7 +169,8 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 		}
 	}
 
-	private boolean complies(List<String> prefs, String classroomCode) {
+	private boolean complies(List<String> prefs, String classroomCode)
+	{
 		boolean hasPrefs, complies;
 
 		hasPrefs = prefs.size() > 0;

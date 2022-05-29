@@ -22,26 +22,36 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 	public static final String CSVNAME = "RESTRICTIONS";
 
 	@Override
-	public Map<String, List<Restriction>> loadRestrictions(String filename, Map<String, Classroom> classrooms,
-			Map<String, Group> groups, Map<String, Subject> subjects, FileManager fileManager)
-			throws PersistenceException, InputValidationException {
+	public Map<String, List<Restriction>> loadRestrictions(String filename,
+			Map<String, Classroom> classrooms,
+			Map<String, Group> groups,
+			Map<String, Subject> subjects, FileManager fileManager)
+			throws PersistenceException, InputValidationException
+	{
 
 		Map<String, List<Restriction>> restrictions = new HashMap<String, List<Restriction>>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			lineToRestrictions(lines.get(i), i, classrooms, groups, subjects, restrictions);
+			lineToRestrictions(lines.get(i), i, classrooms, groups,
+					subjects, restrictions);
 		}
 
 		return restrictions;
 	}
 
-	private void lineToRestrictions(String line, int lineNumber, Map<String, Classroom> classrooms,
-			Map<String, Group> groups, Map<String, Subject> subjects, Map<String, List<Restriction>> restrictions)
-			throws InputValidationException {
+	private void lineToRestrictions(String line, int lineNumber,
+			Map<String, Classroom> classrooms,
+			Map<String, Group> groups,
+			Map<String, Subject> subjects,
+			Map<String, List<Restriction>> restrictions)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
 		ValidationUtils.validateColumns(fields, 3, CSVNAME, lineNumber);
 
@@ -49,7 +59,8 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 		String restrictionType = fields[1].trim();
 		String classroomCodes = fields[2].trim();
 
-		validate(groupCode, restrictionType, classroomCodes, lineNumber);
+		validate(groupCode, restrictionType, classroomCodes,
+				lineNumber);
 
 		RestrictionType rt = null;
 
@@ -68,15 +79,19 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 		switch (ProblemUtils.getNameFromGroupCode(groupCode)) {
 
 		case ("*"):
-			s = subjects.get(ProblemUtils.getSubjectFromGroupCode(groupCode));
+			s = subjects.get(ProblemUtils
+					.getSubjectFromGroupCode(groupCode));
 			if (s == null) {
-				String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME,
-						groupCode, lineNumber);
+				String msg = String.format(
+						"Non existing code for group in %s csv file (%s), line %d",
+						CSVNAME, groupCode, lineNumber);
 				throw new InputValidationException(msg);
 			}
 
 			for (Group g : s.getGroups()) {
-				if (ProblemUtils.getClassroomTypeFromGroupCode(groupCode).equals(g.getClassroomType())) {
+				if (ProblemUtils.getClassroomTypeFromGroupCode(
+						groupCode)
+						.equals(g.getClassroomType())) {
 					processedGroups.add(g);
 				}
 			}
@@ -84,16 +99,21 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			break;
 
 		case ("+"):
-			s = subjects.get(ProblemUtils.getSubjectFromGroupCode(groupCode));
+			s = subjects.get(ProblemUtils
+					.getSubjectFromGroupCode(groupCode));
 			if (s == null) {
-				String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME,
-						groupCode, lineNumber);
+				String msg = String.format(
+						"Non existing code for group in %s csv file (%s), line %d",
+						CSVNAME, groupCode, lineNumber);
 				throw new InputValidationException(msg);
 			}
 
 			for (Group g : s.getGroups()) {
-				if (ProblemUtils.getClassroomTypeFromGroupCode(groupCode).equals(g.getClassroomType())
-						&& ProblemUtils.isSpanishGroup(g)) {
+				if (ProblemUtils.getClassroomTypeFromGroupCode(
+						groupCode)
+						.equals(g.getClassroomType())
+						&& ProblemUtils.isSpanishGroup(
+								g)) {
 					processedGroups.add(g);
 				}
 			}
@@ -101,16 +121,21 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			break;
 
 		case ("?"):
-			s = subjects.get(ProblemUtils.getSubjectFromGroupCode(groupCode));
+			s = subjects.get(ProblemUtils
+					.getSubjectFromGroupCode(groupCode));
 			if (s == null) {
-				String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME,
-						groupCode, lineNumber);
+				String msg = String.format(
+						"Non existing code for group in %s csv file (%s), line %d",
+						CSVNAME, groupCode, lineNumber);
 				throw new InputValidationException(msg);
 			}
 
 			for (Group g : s.getGroups()) {
-				if (ProblemUtils.getClassroomTypeFromGroupCode(groupCode).equals(g.getClassroomType())
-						&& ProblemUtils.isEnglishGroup(g)) {
+				if (ProblemUtils.getClassroomTypeFromGroupCode(
+						groupCode)
+						.equals(g.getClassroomType())
+						&& ProblemUtils.isEnglishGroup(
+								g)) {
 					processedGroups.add(g);
 				}
 			}
@@ -120,8 +145,9 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 		default:
 			Group g = groups.get(groupCode);
 			if (g == null) {
-				String msg = String.format("Non existing code for group in %s csv file (%s), line %d", CSVNAME,
-						groupCode, lineNumber);
+				String msg = String.format(
+						"Non existing code for group in %s csv file (%s), line %d",
+						CSVNAME, groupCode, lineNumber);
 				throw new InputValidationException(msg);
 			}
 
@@ -138,8 +164,10 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 
 			Classroom c = classrooms.get(classroomCode);
 			if (c == null) {
-				String msg = String.format("Non existing code for classroom in %s csv file (%s), line %d", CSVNAME,
-						classroomCode, lineNumber);
+				String msg = String.format(
+						"Non existing code for classroom in %s csv file (%s), line %d",
+						CSVNAME, classroomCode,
+						lineNumber);
 				throw new InputValidationException(msg);
 			}
 			processedClassrooms.add(c);
@@ -154,12 +182,15 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 				r.setClassroom(c);
 				r.setType(rt);
 
-				List<Restriction> rList = restrictions.get(g.getCode());
+				List<Restriction> rList = restrictions
+						.get(g.getCode());
 				if (rList == null)
 					rList = new ArrayList<Restriction>();
 				rList.add(r);
 
-				restrictions.put(g.getCode(), new ArrayList<Restriction>(rList));
+				restrictions.put(g.getCode(),
+						new ArrayList<Restriction>(
+								rList));
 
 			}
 
@@ -167,8 +198,10 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 
 	}
 
-	private void validate(String groupCode, String restrictionType, String classroomCodes, int lineNumber)
-			throws InputValidationException {
+	private void validate(String groupCode, String restrictionType,
+			String classroomCodes, int lineNumber)
+			throws InputValidationException
+	{
 
 		String csvName = CSVNAME;
 
@@ -176,13 +209,16 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 		ValidationUtils.validateString(groupCode, csvName, lineNumber);
 
 		// Restriction type validation
-		ValidationUtils.validateString(restrictionType, csvName, lineNumber);
+		ValidationUtils.validateString(restrictionType, csvName,
+				lineNumber);
 
 		String[] valuesType = { "P", "N" };
-		ValidationUtils.validateStringValues(restrictionType, csvName, valuesType, lineNumber);
+		ValidationUtils.validateStringValues(restrictionType, csvName,
+				valuesType, lineNumber);
 
 		// Classroom code validation
-		ValidationUtils.validateString(classroomCodes, csvName, lineNumber);
+		ValidationUtils.validateString(classroomCodes, csvName,
+				lineNumber);
 
 	}
 

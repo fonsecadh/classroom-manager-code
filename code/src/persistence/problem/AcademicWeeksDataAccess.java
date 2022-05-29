@@ -9,7 +9,8 @@ import persistence.filemanager.FileManager;
 
 public interface AcademicWeeksDataAccess {
 
-	void loadAcademicWeeks(String filename, Map<String, Group> groups, FileManager fileManager)
+	void loadAcademicWeeks(String filename, Map<String, Group> groups,
+			FileManager fileManager)
 			throws PersistenceException, InputValidationException;
 
 }

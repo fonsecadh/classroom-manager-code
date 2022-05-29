@@ -15,7 +15,8 @@ import business.errorhandler.model.ErrorType;
 public class LogHandler {
 
 	private static final LogHandler INSTANCE = new LogHandler();
-	private static final Logger LOGGER = Logger.getLogger(LogHandler.class.getName());
+	private static final Logger LOGGER = Logger
+			.getLogger(LogHandler.class.getName());
 	// TODO: Figure this out
 	/*
 	 * private static final String FOLDERPATH =
@@ -25,44 +26,60 @@ public class LogHandler {
 
 	private LogHandler() {
 		Handler handler = getHandler();
-		Logger.getLogger(LogHandler.class.getName()).addHandler(handler);
-		Logger.getLogger(LogHandler.class.getName()).setLevel(Level.ALL);
-		Logger.getLogger(LogHandler.class.getName()).setUseParentHandlers(false);
+		Logger.getLogger(LogHandler.class.getName())
+				.addHandler(handler);
+		Logger.getLogger(LogHandler.class.getName())
+				.setLevel(Level.ALL);
+		Logger.getLogger(LogHandler.class.getName())
+				.setUseParentHandlers(false);
 	}
 
-	public static LogHandler getInstance() {
+	public static LogHandler getInstance()
+	{
 		return INSTANCE;
 	}
 
-	public void log(Level level, String sourceClass, String sourceMethod, String msg) {
+	public void log(Level level, String sourceClass, String sourceMethod,
+			String msg)
+	{
 		LOGGER.logp(level, sourceClass, sourceMethod, msg);
 	}
 
-	public void log(Level level, String sourceClass, String sourceMethod, String msg, Throwable thrown) {
+	public void log(Level level, String sourceClass, String sourceMethod,
+			String msg, Throwable thrown)
+	{
 		LOGGER.logp(level, sourceClass, sourceMethod, msg, thrown);
 	}
 
-	private Handler getHandler() {
+	private Handler getHandler()
+	{
 
 		Handler h = null;
 
 		try {
 
-			h = new FileHandler(FOLDERPATH + getFileName() + ".txt", true);
+			h = new FileHandler(FOLDERPATH + getFileName() + ".txt",
+					true);
 			h.setFormatter(new SimpleFormatter());
 
 		} catch (SecurityException e) {
 
-			LogHandler.getInstance().log(Level.SEVERE, LogHandler.class.getName(), "getHandler",
-					e.getLocalizedMessage(), e);
-			PersistenceException pe = new PersistenceException("LOG csv file not found");
+			LogHandler.getInstance().log(Level.SEVERE,
+					LogHandler.class.getName(),
+					"getHandler", e.getLocalizedMessage(),
+					e);
+			PersistenceException pe = new PersistenceException(
+					"LOG csv file not found");
 			ErrorHandler.getInstance().addError(new ErrorType(pe));
 
 		} catch (IOException e) {
 
-			LogHandler.getInstance().log(Level.SEVERE, LogHandler.class.getName(), "getHandler",
-					e.getLocalizedMessage(), e);
-			PersistenceException pe = new PersistenceException("Error encountered while loading the CONFIG file.");
+			LogHandler.getInstance().log(Level.SEVERE,
+					LogHandler.class.getName(),
+					"getHandler", e.getLocalizedMessage(),
+					e);
+			PersistenceException pe = new PersistenceException(
+					"Error encountered while loading the CONFIG file.");
 			ErrorHandler.getInstance().addError(new ErrorType(pe));
 
 		}
@@ -71,7 +88,8 @@ public class LogHandler {
 
 	}
 
-	private String getFileName() {
+	private String getFileName()
+	{
 
 		LocalDate ld = LocalDate.now();
 

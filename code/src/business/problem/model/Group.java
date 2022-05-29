@@ -20,70 +20,87 @@ public class Group {
 		this.academicWeeks = new ArrayList<String>();
 	}
 
-	public String getCode() {
+	public String getCode()
+	{
 		return code;
 	}
 
-	public String getNameFromCode() {
+	public String getNameFromCode()
+	{
 		return ProblemUtils.getNameFromGroupCode(code);
 	}
 
-	public String getTypeFromCode() {
+	public String getTypeFromCode()
+	{
 		return ProblemUtils.getTypeFromGroupCode(code);
 	}
 
-	public String getSubjectFromCode() {
+	public String getSubjectFromCode()
+	{
 		return ProblemUtils.getSubjectFromGroupCode(code);
 	}
 
-	public int getNumberOfStudents() {
+	public int getNumberOfStudents()
+	{
 		return numberOfStudents;
 	}
 
-	public ClassroomType getClassroomType() {
+	public ClassroomType getClassroomType()
+	{
 		return classroomType;
 	}
 
-	public GroupLanguage getGroupLanguage() {
+	public GroupLanguage getGroupLanguage()
+	{
 		return groupLanguage;
 	}
 
-	public List<GroupSchedule> getAllGroupSchedules() {
+	public List<GroupSchedule> getAllGroupSchedules()
+	{
 		return new ArrayList<GroupSchedule>(allGroupSchedules);
 	}
 
-	public List<String> getAcademicWeeks() {
+	public List<String> getAcademicWeeks()
+	{
 		return new ArrayList<String>(academicWeeks);
 	}
 
-	public void setCode(String code) {
+	public void setCode(String code)
+	{
 		this.code = code;
 	}
 
-	public void setNumberOfStudents(int numberOfStudents) {
+	public void setNumberOfStudents(int numberOfStudents)
+	{
 		this.numberOfStudents = numberOfStudents;
 	}
 
-	public void setClassroomType(ClassroomType classroomType) {
+	public void setClassroomType(ClassroomType classroomType)
+	{
 		this.classroomType = classroomType;
 	}
 
-	public void setGroupLanguage(GroupLanguage groupLanguage) {
+	public void setGroupLanguage(GroupLanguage groupLanguage)
+	{
 		this.groupLanguage = groupLanguage;
 	}
 
-	public void addGroupSchedule(GroupSchedule groupSchedule) {
+	public void addGroupSchedule(GroupSchedule groupSchedule)
+	{
 		this.allGroupSchedules.add(groupSchedule);
 	}
 
-	public void addAcademicWeek(String academicWeek) {
+	public void addAcademicWeek(String academicWeek)
+	{
 		this.academicWeeks.add(academicWeek);
 	}
 
-	public boolean collidesWith(Group other) {
+	public boolean collidesWith(Group other)
+	{
 		boolean schedulesCollide = false, weeksCollide = false;
 
-		outerloop: for (GroupSchedule ogs : other.getAllGroupSchedules()) {
+		outerloop: for (GroupSchedule ogs : other
+				.getAllGroupSchedules()) {
 			for (GroupSchedule gs : getAllGroupSchedules()) {
 				if (ogs.overlapsWith(gs)) {
 					schedulesCollide = true;
@@ -104,16 +121,19 @@ public class Group {
 		return schedulesCollide && weeksCollide;
 	}
 
-	public boolean sameGroupNameAs(Group other) {
+	public boolean sameGroupNameAs(Group other)
+	{
 
-		if (getNameFromCode().equalsIgnoreCase(other.getNameFromCode())) {
+		if (getNameFromCode()
+				.equalsIgnoreCase(other.getNameFromCode())) {
 			return true;
 		}
 		return false;
 
 	}
 
-	public boolean sameGroupNameAs(String groupName) {
+	public boolean sameGroupNameAs(String groupName)
+	{
 
 		if (getNameFromCode().equalsIgnoreCase(groupName)) {
 			return true;
@@ -122,10 +142,12 @@ public class Group {
 
 	}
 
-	public boolean sameTypeAndGroupNameAs(Group other) {
+	public boolean sameTypeAndGroupNameAs(Group other)
+	{
 
 		if (getNameFromCode().equalsIgnoreCase(other.getNameFromCode())
-				&& getTypeFromCode().equalsIgnoreCase(other.getTypeFromCode())) {
+				&& getTypeFromCode().equalsIgnoreCase(
+						other.getTypeFromCode())) {
 			return true;
 		}
 		return false;
@@ -133,15 +155,18 @@ public class Group {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result
+				+ ((code == null) ? 0 : code.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
+	public boolean equals(Object obj)
+	{
 		if (this == obj)
 			return true;
 		if (obj == null)

@@ -22,12 +22,15 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 	}
 
 	@Override
-	public double getValue(Map<String, Assignment> assignments) {
+	public double getValue(Map<String, Assignment> assignments)
+	{
 
 		this.counter = new FreeLabsCounter();
 
 		List<Assignment> filtered = assignments.values().stream()
-				.filter(a -> a.isAssigned() && ProblemUtils.isLabGroup(a.getGroup())).collect(Collectors.toList());
+				.filter(a -> a.isAssigned() && ProblemUtils
+						.isLabGroup(a.getGroup()))
+				.collect(Collectors.toList());
 
 		for (Assignment a : filtered) {
 			Group g = a.getGroup();
@@ -57,7 +60,8 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 			initializeWeekMap();
 		}
 
-		public double getMeanByHour() {
+		public double getMeanByHour()
+		{
 			double meanWeek = 0.0;
 			for (Day d : weekMap.keySet()) {
 				double meanDay = 0.0;
@@ -72,7 +76,8 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 			return meanWeek;
 		}
 
-		public void increaseCounterFor(GroupSchedule gs) {
+		public void increaseCounterFor(GroupSchedule gs)
+		{
 			int s, f;
 			s = gs.getStart().getHour();
 			f = gs.getFinish().getHour();
@@ -87,7 +92,8 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 			weekMap.put(gs.getDay(), dayMap);
 		}
 
-		private void initializeWeekMap() {
+		private void initializeWeekMap()
+		{
 			weekMap = new HashMap<Day, Map<Integer, Integer>>();
 			for (Day d : Day.values()) {
 				Map<Integer, Integer> hourMap = new HashMap<Integer, Integer>();

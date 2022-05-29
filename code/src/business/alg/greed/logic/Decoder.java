@@ -16,20 +16,24 @@ public class Decoder {
 		this.masterAssignments = new HashMap<String, Assignment>();
 	}
 
-	public void putMasterAssignment(String groupId, Assignment a) {
+	public void putMasterAssignment(String groupId, Assignment a)
+	{
 		this.masterAssignments.put(groupId, a);
 	}
 
-	public List<Assignment> decode(Individual i) {
+	public List<Assignment> decode(Individual i)
+	{
 		List<Assignment> decodedRep = new ArrayList<Assignment>();
 		List<String> rep = i.getRepresentation();
 		for (String groupId : rep) {
-			decodedRep.add(new Assignment(masterAssignments.get(groupId)));
+			decodedRep.add(new Assignment(
+					masterAssignments.get(groupId)));
 		}
 		return decodedRep;
 	}
 
-	public Map<String, Assignment> decodeAsMap(Individual i) {
+	public Map<String, Assignment> decodeAsMap(Individual i)
+	{
 		List<Assignment> l = decode(i);
 		Map<String, Assignment> m = new HashMap<String, Assignment>();
 		for (Assignment a : l) {

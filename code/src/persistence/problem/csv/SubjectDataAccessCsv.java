@@ -16,8 +16,10 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 	public static final String CSVNAME = "SUBJECTS";
 
 	@Override
-	public Map<String, Subject> loadSubjects(String filename, FileManager fileManager)
-			throws InputValidationException, PersistenceException {
+	public Map<String, Subject> loadSubjects(String filename,
+			FileManager fileManager)
+			throws InputValidationException, PersistenceException
+	{
 
 		Map<String, Subject> subjects = new HashMap<String, Subject>();
 
@@ -32,9 +34,13 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 
 	}
 
-	private Subject lineToSubject(String line, int lineNumber) throws InputValidationException {
+	private Subject lineToSubject(String line, int lineNumber)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
 		ValidationUtils.validateColumns(fields, 3, CSVNAME, lineNumber);
 
@@ -53,7 +59,9 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 
 	}
 
-	private void validate(String code, String course, String semester, int lineNumber) throws InputValidationException {
+	private void validate(String code, String course, String semester,
+			int lineNumber) throws InputValidationException
+	{
 
 		String csvName = CSVNAME;
 

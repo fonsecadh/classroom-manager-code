@@ -17,8 +17,10 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 	public static final String CSVNAME = "CLASSROOMS";
 
 	@Override
-	public Map<String, Classroom> loadClassrooms(String filename, FileManager fileManager)
-			throws InputValidationException, PersistenceException {
+	public Map<String, Classroom> loadClassrooms(String filename,
+			FileManager fileManager)
+			throws InputValidationException, PersistenceException
+	{
 
 		Map<String, Classroom> classrooms = new HashMap<String, Classroom>();
 
@@ -33,9 +35,13 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
 	}
 
-	private Classroom lineToClassroom(String line, int lineNumber) throws InputValidationException {
+	private Classroom lineToClassroom(String line, int lineNumber)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
 		ValidationUtils.validateColumns(fields, 3, CSVNAME, lineNumber);
 
@@ -65,7 +71,9 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
 	}
 
-	private void validate(String code, String type, String capacity, int lineNumber) throws InputValidationException {
+	private void validate(String code, String type, String capacity,
+			int lineNumber) throws InputValidationException
+	{
 
 		String csvName = CSVNAME;
 
@@ -76,11 +84,13 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 		ValidationUtils.validateString(type, csvName, lineNumber);
 
 		String[] values = { "T", "L" };
-		ValidationUtils.validateStringValues(type, csvName, values, lineNumber);
+		ValidationUtils.validateStringValues(type, csvName, values,
+				lineNumber);
 
 		// Capacity validation
 		ValidationUtils.validateString(capacity, csvName, lineNumber);
-		ValidationUtils.validatePositiveInt(capacity, csvName, lineNumber);
+		ValidationUtils.validatePositiveInt(capacity, csvName,
+				lineNumber);
 
 	}
 

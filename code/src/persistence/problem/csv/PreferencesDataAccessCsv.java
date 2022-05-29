@@ -20,26 +20,35 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 	public static final String CSVNAME = "PREFERENCES";
 
 	@Override
-	public Map<String, Preference> loadPreferences(String filename, Map<String, Classroom> classrooms,
+	public Map<String, Preference> loadPreferences(String filename,
+			Map<String, Classroom> classrooms,
 			Map<String, Subject> subjects, FileManager fileManager)
-			throws PersistenceException, InputValidationException {
+			throws PersistenceException, InputValidationException
+	{
 
 		Map<String, Preference> prefs = new HashMap<String, Preference>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			lineToPreferences(lines.get(i), i, classrooms, subjects, prefs);
+			lineToPreferences(lines.get(i), i, classrooms, subjects,
+					prefs);
 		}
 
 		return prefs;
 
 	}
 
-	private void lineToPreferences(String line, int lineNumber, Map<String, Classroom> classrooms,
-			Map<String, Subject> subjects, Map<String, Preference> prefs) throws InputValidationException {
+	private void lineToPreferences(String line, int lineNumber,
+			Map<String, Classroom> classrooms,
+			Map<String, Subject> subjects,
+			Map<String, Preference> prefs)
+			throws InputValidationException
+	{
 
-		String[] fields = line.split(";", -1); // -1 allows empty strings to be included in the array
+		String[] fields = line.split(";", -1); // -1 allows empty
+						       // strings to be included
+						       // in the array
 
 		ValidationUtils.validateColumns(fields, 4, CSVNAME, lineNumber);
 
@@ -74,15 +83,17 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 
 		Subject s = subjects.get(subjectCode);
 		if (s == null) {
-			String msg = String.format("Non existing code for subject in %s csv file (%s), line %d", CSVNAME,
-					subjectCode, lineNumber);
+			String msg = String.format(
+					"Non existing code for subject in %s csv file (%s), line %d",
+					CSVNAME, subjectCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
 
 		Classroom c = classrooms.get(classroomCode);
 		if (c == null) {
-			String msg = String.format("Non existing code for classroom in %s csv file (%s), line %d", CSVNAME,
-					classroomCode, lineNumber);
+			String msg = String.format(
+					"Non existing code for classroom in %s csv file (%s), line %d",
+					CSVNAME, classroomCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
 
@@ -107,28 +118,34 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 
 	}
 
-	private void validate(String subjectCode, String lang, String type, String classroomCode, int lineNumber)
-			throws InputValidationException {
+	private void validate(String subjectCode, String lang, String type,
+			String classroomCode, int lineNumber)
+			throws InputValidationException
+	{
 
 		String csvName = CSVNAME;
 
 		// Subject code validation
-		ValidationUtils.validateString(subjectCode, csvName, lineNumber);
+		ValidationUtils.validateString(subjectCode, csvName,
+				lineNumber);
 
 		// Language
 		ValidationUtils.validateString(lang, csvName, lineNumber);
 
 		String[] valuesLang = { "EN", "ES" };
-		ValidationUtils.validateStringValues(lang, csvName, valuesLang, lineNumber);
+		ValidationUtils.validateStringValues(lang, csvName, valuesLang,
+				lineNumber);
 
 		// Type validation
 		ValidationUtils.validateString(type, csvName, lineNumber);
 
 		String[] valuesType = { "T", "L" };
-		ValidationUtils.validateStringValues(type, csvName, valuesType, lineNumber);
+		ValidationUtils.validateStringValues(type, csvName, valuesType,
+				lineNumber);
 
 		// Classroom code validation
-		ValidationUtils.validateString(classroomCode, csvName, lineNumber);
+		ValidationUtils.validateString(classroomCode, csvName,
+				lineNumber);
 
 	}
 

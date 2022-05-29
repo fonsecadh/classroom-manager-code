@@ -13,33 +13,40 @@ public class Metrics {
 		this.metrics = new HashMap<String, String>();
 	}
 
-	public static Metrics getInstance() {
+	public static Metrics getInstance()
+	{
 		return INSTANCE;
 	}
 
-	public void set(String name, int i) {
+	public void set(String name, int i)
+	{
 		this.metrics.put(name, Integer.toString(i));
 	}
 
-	public void set(String name, long l) {
+	public void set(String name, long l)
+	{
 		this.metrics.put(name, Long.toString(l));
 	}
 
-	public void set(String name, double d) {
+	public void set(String name, double d)
+	{
 		this.metrics.put(name, Double.toString(d));
 	}
 
-	public int getInt(String name) {
+	public int getInt(String name)
+	{
 		String value = this.metrics.get(name);
 		return value != null ? Integer.parseInt(value) : 0;
 	}
 
-	public long getLong(String name) {
+	public long getLong(String name)
+	{
 		String value = this.metrics.get(name);
 		return value != null ? Long.parseLong(value) : 0L;
 	}
 
-	public double getDouble(String name) {
+	public double getDouble(String name)
+	{
 		String value = this.metrics.get(name);
 		return value != null ? Double.parseDouble(value) : Double.NaN;
 	}

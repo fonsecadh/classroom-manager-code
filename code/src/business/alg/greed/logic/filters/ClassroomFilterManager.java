@@ -22,20 +22,23 @@ public class ClassroomFilterManager {
 	 */
 	private Map<String, List<Classroom>> mapFiltered;
 
-	public ClassroomFilterManager(List<ClassroomFilter> classroomFilters, List<Classroom> classrooms) {
+	public ClassroomFilterManager(List<ClassroomFilter> classroomFilters,
+			List<Classroom> classrooms) {
 		this.filters = new ArrayList<ClassroomFilter>(classroomFilters);
 		this.classrooms = new ArrayList<Classroom>(classrooms);
 		this.mapFiltered = new HashMap<String, List<Classroom>>();
 	}
 
-	public List<Classroom> filterClassroomsFor(Group g) {
+	public List<Classroom> filterClassroomsFor(Group g)
+	{
 		List<Classroom> fc = mapFiltered.get(g.getCode());
 		if (fc == null) {
 			fc = new ArrayList<Classroom>(classrooms);
 			for (ClassroomFilter cf : filters) {
 				fc = cf.filterByGroup(g, fc);
 			}
-			Collections.sort(fc, (c1, c2) -> c1.getNumberOfSeats() - c2.getNumberOfSeats());
+			Collections.sort(fc, (c1, c2) -> c1.getNumberOfSeats()
+					- c2.getNumberOfSeats());
 			mapFiltered.put(g.getCode(), fc);
 		}
 		return new ArrayList<Classroom>(fc);
