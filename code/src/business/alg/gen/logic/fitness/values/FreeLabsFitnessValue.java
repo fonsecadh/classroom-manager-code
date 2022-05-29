@@ -12,7 +12,6 @@ import business.problem.model.schedule.GroupSchedule;
 import business.problem.utils.ProblemUtils;
 
 public class FreeLabsFitnessValue extends AbstractFitnessValue {
-
 	private FreeLabsCounter counter;
 	private int freeLabsPref = 0;
 
@@ -24,21 +23,18 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{
-
 		this.counter = new FreeLabsCounter();
 
 		List<Assignment> filtered = assignments.values().stream()
 				.filter(a -> a.isAssigned() && ProblemUtils
 						.isLabGroup(a.getGroup()))
 				.collect(Collectors.toList());
-
 		for (Assignment a : filtered) {
 			Group g = a.getGroup();
 			for (GroupSchedule gs : g.getAllGroupSchedules()) {
 				counter.increaseCounterFor(gs);
 			}
 		}
-
 		double mean = counter.getMeanByHour();
 		double absDiff = Math.abs(mean - freeLabsPref);
 
@@ -46,14 +42,11 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 			return 0;
 
 		return 100 - (100 * absDiff / freeLabsPref);
-
 	}
 
 	private class FreeLabsCounter {
-
 		private static final int START_HOUR = 9;
 		private static final int FINISH_HOUR = 21;
-
 		private Map<Day, Map<Integer, Integer>> weekMap;
 
 		private FreeLabsCounter() {
@@ -83,12 +76,10 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 			f = gs.getFinish().getHour();
 
 			Map<Integer, Integer> dayMap = weekMap.get(gs.getDay());
-
 			for (int i = s; i < f; i++) {
 				int counter = dayMap.get(i);
 				dayMap.put(i, ++counter);
 			}
-
 			weekMap.put(gs.getDay(), dayMap);
 		}
 
@@ -103,7 +94,5 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 				weekMap.put(d, hourMap);
 			}
 		}
-
 	}
-
 }

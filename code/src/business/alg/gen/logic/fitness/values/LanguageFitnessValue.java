@@ -11,7 +11,6 @@ import business.problem.model.Subject;
 import business.problem.utils.ProblemUtils;
 
 public class LanguageFitnessValue extends AbstractFitnessValue {
-
 	private List<Subject> subjects;
 
 	public LanguageFitnessValue(double weight, List<Subject> subjects) {
@@ -22,7 +21,6 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{
-
 		double value = 0.0;
 
 		List<Classroom> enTheory, enLab, esTheory, esLab,
@@ -33,7 +31,6 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 		esLab = new ArrayList<Classroom>();
 		theoryIntersec = new ArrayList<Classroom>();
 		labIntersec = new ArrayList<Classroom>();
-
 		for (Subject s : subjects) {
 			clearLists(enTheory, enLab, esTheory, esLab,
 					theoryIntersec, labIntersec);
@@ -41,37 +38,31 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 				addClassrooms(assignments, enTheory, enLab,
 						esTheory, esLab, g);
 			}
-
 			theoryIntersec = intersection(enTheory, esTheory);
 			labIntersec = intersection(enLab, esLab);
 
 			double subjectValue, theoryValue = 0.0, labValue = 0.0;
 			int langCounter = 0;
-
 			if (enTheory.size() + esTheory.size() > 0) {
 				theoryValue = 100 - (theoryIntersec.size() * 100
 						/ (enTheory.size() + esTheory
 								.size()));
 				++langCounter;
 			}
-
 			if (enLab.size() + esLab.size() > 0) {
 				labValue = 100 - (labIntersec.size() * 100
 						/ (enLab.size() + esLab
 								.size()));
 				++langCounter;
 			}
-
 			subjectValue = theoryValue + labValue;
 			if (langCounter > 0)
 				subjectValue = subjectValue / langCounter;
 
 			value += subjectValue;
 		}
-
 		value = value / subjects.size();
 		return value;
-
 	}
 
 	private List<Classroom> intersection(List<Classroom> l1,
@@ -85,7 +76,6 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 					intersection.add(c1);
 
 		return intersection;
-
 	}
 
 	private void addClassrooms(Map<String, Assignment> assignments,
@@ -93,18 +83,15 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 			List<Classroom> esTheory, List<Classroom> esLab,
 			Group g)
 	{
-
 		if (ProblemUtils.isLabGroup(g))
 			addClassroom(assignments, enLab, esLab, g);
 		else
 			addClassroom(assignments, enTheory, esTheory, g);
-
 	}
 
 	private void addClassroom(Map<String, Assignment> assignments,
 			List<Classroom> en, List<Classroom> es, Group g)
 	{
-
 		if (assignments.get(g.getCode()) == null)
 			return;
 
@@ -112,13 +99,11 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 		if (a.getClassroom() == null) {
 			return;
 		}
-
 		if (ProblemUtils.isEnglishGroup(g)) {
 			en.add(a.getClassroom());
 		} else {
 			es.add(a.getClassroom());
 		}
-
 	}
 
 	private void clearLists(List<Classroom> enTheory, List<Classroom> enLab,
@@ -126,14 +111,11 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 			List<Classroom> theoryIntersec,
 			List<Classroom> labIntersec)
 	{
-
 		enTheory.clear();
 		enLab.clear();
 		esTheory.clear();
 		esLab.clear();
 		theoryIntersec.clear();
 		labIntersec.clear();
-
 	}
-
 }

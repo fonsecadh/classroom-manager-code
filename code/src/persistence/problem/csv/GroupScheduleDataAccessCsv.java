@@ -15,7 +15,6 @@ import persistence.problem.GroupScheduleDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
-
 	public static final String CSVNAME = "GROUPSCHEDULE";
 
 	@Override
@@ -23,7 +22,6 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 			Map<String, Group> groups, FileManager fileManager)
 			throws PersistenceException, InputValidationException
 	{
-
 		List<GroupSchedule> groupSchedule = new ArrayList<GroupSchedule>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
@@ -33,14 +31,12 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 					groups));
 
 		return groupSchedule;
-
 	}
 
 	private GroupSchedule lineToGroupSchedule(String line, int lineNumber,
 			Map<String, Group> groups)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -55,7 +51,6 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		validate(groupCode, day, startTime, endTime, lineNumber);
 
 		Day d = null;
-
 		switch (day) {
 		case "L":
 			d = Day.MONDAY;
@@ -73,7 +68,6 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 			d = Day.FRIDAY;
 			break;
 		}
-
 		String[] stFields = startTime.trim().split("\\.", -1);
 		String stHour = stFields[0];
 		String stMin = stFields[1];
@@ -99,19 +93,16 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 					CSVNAME, groupCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		g.addGroupSchedule(gs);
 		groups.put(g.getCode(), g);
 
 		return gs;
-
 	}
 
 	private void validate(String groupCode, String day, String startTime,
 			String endTime, int lineNumber)
 			throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Group code validation
@@ -131,7 +122,5 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		// End time
 		ValidationUtils.validateString(endTime, csvName, lineNumber);
 		ValidationUtils.validateTime(endTime, csvName, lineNumber);
-
 	}
-
 }

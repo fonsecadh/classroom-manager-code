@@ -16,7 +16,6 @@ import persistence.problem.PreferencesDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class PreferencesDataAccessCsv implements PreferencesDataAccess {
-
 	public static final String CSVNAME = "PREFERENCES";
 
 	@Override
@@ -25,18 +24,14 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 			Map<String, Subject> subjects, FileManager fileManager)
 			throws PersistenceException, InputValidationException
 	{
-
 		Map<String, Preference> prefs = new HashMap<String, Preference>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			lineToPreferences(lines.get(i), i, classrooms, subjects,
 					prefs);
 		}
-
 		return prefs;
-
 	}
 
 	private void lineToPreferences(String line, int lineNumber,
@@ -45,7 +40,6 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 			Map<String, Preference> prefs)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -60,7 +54,6 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 		validate(subjectCode, lang, type, classroomCode, lineNumber);
 
 		GroupLanguage gl = null;
-
 		switch (lang) {
 		case "ES":
 			gl = GroupLanguage.SPANISH;
@@ -69,9 +62,7 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 			gl = GroupLanguage.ENGLISH;
 			break;
 		}
-
 		ClassroomType ct = null;
-
 		switch (type) {
 		case "T":
 			ct = ClassroomType.THEORY;
@@ -80,7 +71,6 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 			ct = ClassroomType.LABORATORY;
 			break;
 		}
-
 		Subject s = subjects.get(subjectCode);
 		if (s == null) {
 			String msg = String.format(
@@ -88,7 +78,6 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 					CSVNAME, subjectCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		Classroom c = classrooms.get(classroomCode);
 		if (c == null) {
 			String msg = String.format(
@@ -96,12 +85,10 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 					CSVNAME, classroomCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		Preference p = prefs.get(s.getCode());
 
 		if (p == null)
 			p = new Preference();
-
 		if (gl.equals(GroupLanguage.ENGLISH)) {
 			if (ct.equals(ClassroomType.LABORATORY))
 				p.addEnglishLabPreference(c.getCode());
@@ -113,16 +100,13 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 			else
 				p.addSpanishTheoryPreference(c.getCode());
 		}
-
 		prefs.put(s.getCode(), p);
-
 	}
 
 	private void validate(String subjectCode, String lang, String type,
 			String classroomCode, int lineNumber)
 			throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Subject code validation
@@ -146,7 +130,5 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 		// Classroom code validation
 		ValidationUtils.validateString(classroomCode, csvName,
 				lineNumber);
-
 	}
-
 }

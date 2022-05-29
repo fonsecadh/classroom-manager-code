@@ -1,11 +1,9 @@
 package ui;
 
 public class CommandLineInterface {
-
 	private static final CommandLineInterface INSTANCE = new CommandLineInterface();
 
 	private CommandLineInterface() {
-
 	}
 
 	public static CommandLineInterface getInstance()
@@ -60,5 +58,4 @@ public class CommandLineInterface {
 	{
 		System.out.println();
 	}
-
 }

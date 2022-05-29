@@ -8,9 +8,7 @@ import business.problem.model.Subject;
 import persistence.filemanager.FileManager;
 
 public interface SubjectDataAccess {
-
 	Map<String, Subject> loadSubjects(String filename,
 			FileManager fileManager)
 			throws InputValidationException, PersistenceException;
-
 }

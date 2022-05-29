@@ -12,7 +12,6 @@ import business.problem.model.Subject;
 import persistence.filemanager.FileManager;
 
 public interface AssignmentsDataAccess {
-
 	Map<String, Assignment> loadAssignments(String filename,
 			Map<String, Group> groups,
 			Map<String, Classroom> classrooms,
@@ -23,5 +22,4 @@ public interface AssignmentsDataAccess {
 			Map<String, Assignment> assignments,
 			List<Subject> subjects, FileManager fileManager)
 			throws PersistenceException;
-
 }

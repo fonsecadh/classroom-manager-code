@@ -7,7 +7,6 @@ import business.problem.model.schedule.GroupSchedule;
 import business.problem.utils.ProblemUtils;
 
 public class Group {
-
 	private String code;
 	private int numberOfStudents;
 	private ClassroomType classroomType;
@@ -108,7 +107,6 @@ public class Group {
 				}
 			}
 		}
-
 		if (schedulesCollide) {
 			weekloop: for (String w : getAcademicWeeks()) {
 				if (other.getAcademicWeeks().contains(w)) {
@@ -117,41 +115,34 @@ public class Group {
 				}
 			}
 		}
-
 		return schedulesCollide && weeksCollide;
 	}
 
 	public boolean sameGroupNameAs(Group other)
 	{
-
 		if (getNameFromCode()
 				.equalsIgnoreCase(other.getNameFromCode())) {
 			return true;
 		}
 		return false;
-
 	}
 
 	public boolean sameGroupNameAs(String groupName)
 	{
-
 		if (getNameFromCode().equalsIgnoreCase(groupName)) {
 			return true;
 		}
 		return false;
-
 	}
 
 	public boolean sameTypeAndGroupNameAs(Group other)
 	{
-
 		if (getNameFromCode().equalsIgnoreCase(other.getNameFromCode())
 				&& getTypeFromCode().equalsIgnoreCase(
 						other.getTypeFromCode())) {
 			return true;
 		}
 		return false;
-
 	}
 
 	@Override
@@ -181,5 +172,4 @@ public class Group {
 			return false;
 		return true;
 	}
-
 }

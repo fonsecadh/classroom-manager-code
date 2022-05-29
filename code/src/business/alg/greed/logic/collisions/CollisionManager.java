@@ -6,7 +6,6 @@ import java.util.Map;
 import business.problem.model.Group;
 
 public class CollisionManager {
-
 	/**
 	 * Map that represents the collisions between groups.<br>
 	 * <br>
@@ -26,15 +25,12 @@ public class CollisionManager {
 
 		g1CollisionMap = this.collisionMap.get(g1.getCode());
 		g2CollisionMap = this.collisionMap.get(g2.getCode());
-
 		if (g1CollisionMap == null) {
 			g1CollisionMap = new HashMap<String, Boolean>();
 		}
-
 		if (g2CollisionMap == null) {
 			g2CollisionMap = new HashMap<String, Boolean>();
 		}
-
 		// If the collision has been checked before
 		if (g1CollisionMap.get(g2.getCode()) != null)
 			return g1CollisionMap.get(g2.getCode());
@@ -49,5 +45,4 @@ public class CollisionManager {
 
 		return collision;
 	}
-
 }

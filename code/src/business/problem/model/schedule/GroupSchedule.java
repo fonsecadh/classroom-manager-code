@@ -3,7 +3,6 @@ package business.problem.model.schedule;
 import java.time.LocalTime;
 
 public class GroupSchedule {
-
 	private Day day;
 	private LocalTime start;
 	private LocalTime finish;
@@ -70,5 +69,4 @@ public class GroupSchedule {
 	{
 		return getDay().toString().equals(other.getDay().toString());
 	}
-
 }

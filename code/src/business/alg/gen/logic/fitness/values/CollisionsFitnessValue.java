@@ -5,7 +5,6 @@ import java.util.Map;
 import business.alg.greed.model.Assignment;
 
 public class CollisionsFitnessValue extends AbstractFitnessValue {
-
 	public CollisionsFitnessValue(double weight) {
 		super(weight);
 	}
@@ -18,5 +17,4 @@ public class CollisionsFitnessValue extends AbstractFitnessValue {
 		double nAssignments = assignments.size();
 		return 100 - (nCollisions * 100 / nAssignments);
 	}
-
 }

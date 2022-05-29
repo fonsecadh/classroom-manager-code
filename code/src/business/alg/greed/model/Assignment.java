@@ -4,7 +4,6 @@ import business.problem.model.Classroom;
 import business.problem.model.Group;
 
 public class Assignment {
-
 	private Group group;
 	private Classroom classroom;
 
@@ -64,5 +63,4 @@ public class Assignment {
 			return false;
 		return true;
 	}
-
 }

@@ -10,9 +10,7 @@ import business.problem.model.schedule.GroupSchedule;
 import persistence.filemanager.FileManager;
 
 public interface GroupScheduleDataAccess {
-
 	List<GroupSchedule> loadGroupSchedule(String filename,
 			Map<String, Group> groups, FileManager fileManager)
 			throws PersistenceException, InputValidationException;
-
 }

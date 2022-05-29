@@ -4,9 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Metrics {
-
 	private static final Metrics INSTANCE = new Metrics();
-
 	private Map<String, String> metrics;
 
 	private Metrics() {
@@ -50,5 +48,4 @@ public class Metrics {
 		String value = this.metrics.get(name);
 		return value != null ? Double.parseDouble(value) : Double.NaN;
 	}
-
 }

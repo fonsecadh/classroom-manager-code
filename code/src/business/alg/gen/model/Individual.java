@@ -13,7 +13,6 @@ import business.problem.model.Group;
  * 
  */
 public class Individual {
-
 	private List<String> representation;
 
 	/**
@@ -33,5 +32,4 @@ public class Individual {
 	{
 		return new ArrayList<String>(representation);
 	}
-
 }

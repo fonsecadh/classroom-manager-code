@@ -6,7 +6,6 @@ import java.util.List;
 import business.classfinder.model.ClassfinderQuery;
 
 public class Classfinder {
-
 	private List<ClassfinderQuery> queries;
 
 	public Classfinder(List<ClassfinderQuery> queries) {
@@ -15,19 +14,13 @@ public class Classfinder {
 
 	public String queryResults()
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		appendTitle(sb, "Classfinder Query Results");
-
 		for (ClassfinderQuery q : queries) {
-
 			appendLine(sb, q.toString());
-
 		}
-
 		return sb.toString();
-
 	}
 
 	private void appendTitle(StringBuilder sb, String msg)
@@ -48,5 +41,4 @@ public class Classfinder {
 	{
 		sb.append("\n");
 	}
-
 }

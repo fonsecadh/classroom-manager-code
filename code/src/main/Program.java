@@ -52,10 +52,8 @@ import persistence.problem.csv.SubjectDataAccessCsv;
 import ui.CommandLineInterface;
 
 public class Program {
-
 	public static void main(String[] args)
 	{
-
 		// CLI
 		CommandLineInterface cli = CommandLineInterface.getInstance();
 
@@ -66,9 +64,7 @@ public class Program {
 		// Time
 		long startTime = System.currentTimeMillis(), currentTime,
 				totalTime;
-
 		try {
-
 			cli.showProgramDetails("1.0.0");
 
 			// Persistence
@@ -163,7 +159,6 @@ public class Program {
 						classrooms, fm);
 				cli.showMessage(" DONE");
 			}
-
 			preferences = null;
 			if (loadPreferences) {
 				cli.showMessageWithoutNewLine(
@@ -175,7 +170,6 @@ public class Program {
 								subjects, fm);
 				cli.showMessage(" DONE");
 			}
-
 			restrictions = null;
 			if (loadRestrictions) {
 				cli.showMessageWithoutNewLine(
@@ -188,7 +182,6 @@ public class Program {
 								subjects, fm);
 				cli.showMessage(" DONE");
 			}
-
 			List<Subject> subjectList = new ArrayList<Subject>(
 					subjects.values());
 			List<Classroom> classroomList = new ArrayList<Classroom>(
@@ -238,7 +231,6 @@ public class Program {
 				cli.showEndOfProgramWithErrors();
 				return;
 			}
-
 			cli.showNewLine();
 			cli.showMessage("END Processing input files");
 			cli.showNewLine();
@@ -289,7 +281,6 @@ public class Program {
 					decoder.putMasterAssignment(g.getCode(),
 							new Assignment(g));
 			}
-
 			ClassroomFilterManager cfm = new ClassroomFilterManager(
 					classroomFilters, classroomList);
 			CollisionManager cm = new CollisionManager();
@@ -300,7 +291,6 @@ public class Program {
 					groupSubjectMap.put(g.getCode(), s);
 				}
 			}
-
 			GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm,
 					cm, groupSubjectMap, subjectList);
 
@@ -351,7 +341,6 @@ public class Program {
 								.getTimetableFor(
 										c));
 			}
-
 			// Business errors
 			if (errh.anyErrors()) {
 				errh.getCustomErrorMessages()
@@ -359,18 +348,13 @@ public class Program {
 				cli.showEndOfProgramWithErrors();
 				return;
 			}
-
 			logh.log(Level.FINE, Program.class.getName(), "main",
 					"END Business logic");
-
 		} catch (Exception e) {
-
 			logh.log(Level.SEVERE, Program.class.getName(), "main",
 					e.getLocalizedMessage(), e);
 			errh.addError(new ErrorType(e));
-
 		} finally {
-
 			currentTime = System.currentTimeMillis();
 			totalTime = currentTime - startTime;
 
@@ -387,15 +371,12 @@ public class Program {
 				cli.showMessage(String.format(
 						"Finished execution in %02d seconds",
 						seconds));
-
 			if (errh.anyErrors()) {
 				errh.getCustomErrorMessages()
 						.forEach(e -> cli.showError(e));
 				cli.showEndOfProgramWithErrors();
 			} else
 				cli.showEndOfProgram();
-
 		}
 	}
-
 }

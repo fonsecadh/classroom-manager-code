@@ -11,7 +11,6 @@ import persistence.problem.AcademicWeeksDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
-
 	public static final String CSVNAME = "WEEKS";
 
 	@Override
@@ -19,7 +18,6 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 			Map<String, Group> groups, FileManager fileManager)
 			throws PersistenceException, InputValidationException
 	{
-
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		String header = lines.get(0);
@@ -28,14 +26,12 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 
 		for (int i = 1; i < lines.size(); i++)
 			addWeeksToGroup(lines.get(i), i, groups, headerArray);
-
 	}
 
 	private void addWeeksToGroup(String line, int lineNumber,
 			Map<String, Group> groups, String[] header)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -54,28 +50,22 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 					CSVNAME, groupCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		for (int i = 1; i < header.length; i++) {
 			String week = header[i];
 			if (fields[i].equalsIgnoreCase("S"))
 				g.addAcademicWeek(week);
 		}
-
 	}
 
 	private void validateHeader(String header)
 			throws InputValidationException
 	{
-
 		String[] fields = header.split(";", -1); // -1 allows empty
 							 // strings to be
 							 // included in the
 							 // array
-
 		for (String f : fields) {
 			ValidationUtils.validateString(f, CSVNAME, 0);
 		}
-
 	}
-
 }

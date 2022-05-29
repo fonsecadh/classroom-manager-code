@@ -23,7 +23,6 @@ import business.problem.utils.ProblemUtils;
  *
  */
 public class GreedyAlgorithm {
-
 	/**
 	 * Map with the groups assigned to each classroom. <br>
 	 * <br>
@@ -32,7 +31,6 @@ public class GreedyAlgorithm {
 	 * ({@link Classroom}).
 	 */
 	private Map<String, Set<Group>> assignedGroupsToClassrooms;
-
 	/**
 	 * Map with the subject for each group. <br>
 	 * <br>
@@ -40,7 +38,6 @@ public class GreedyAlgorithm {
 	 * Value: Subject ({@link Subject}).
 	 */
 	private Map<String, Subject> groupSubjectMap;
-
 	/**
 	 * Map with the assignments related to each subject. <br>
 	 * <br>
@@ -49,7 +46,6 @@ public class GreedyAlgorithm {
 	 * subject ({@link Subject}).
 	 */
 	private Map<String, List<Assignment>> subjectAssignmentsMap;
-
 	/**
 	 * Map with the assignments related to each academic course. <br>
 	 * <br>
@@ -58,9 +54,7 @@ public class GreedyAlgorithm {
 	 * course.
 	 */
 	private Map<String, List<Assignment>> courseAssignmentsMap;
-
 	private List<Subject> subjectList;
-
 	private ClassroomFilterManager cfm;
 	private CollisionManager cm;
 
@@ -93,7 +87,6 @@ public class GreedyAlgorithm {
 			CollisionManager collisionManager,
 			Map<String, Subject> groupSubjectMap,
 			List<Subject> subjectList) {
-
 		this.cfm = classroomFilterManager;
 		this.cm = collisionManager;
 		this.groupSubjectMap = new HashMap<String, Subject>(
@@ -103,7 +96,6 @@ public class GreedyAlgorithm {
 		this.subjectAssignmentsMap = new HashMap<String, List<Assignment>>();
 		this.courseAssignmentsMap = new HashMap<String, List<Assignment>>();
 		this.assignedGroupsToClassrooms = new HashMap<String, Set<Group>>();
-
 	}
 
 	/**
@@ -119,7 +111,6 @@ public class GreedyAlgorithm {
 	public Map<String, Assignment> greedyAlgorithm(
 			List<Assignment> assignments)
 	{
-
 		clearMaps();
 
 		Map<String, Assignment> result = assignments.stream()
@@ -135,17 +126,12 @@ public class GreedyAlgorithm {
 
 		// The assignments are made
 		for (Assignment a : preproc) {
-
 			if (!a.isAssigned()) {
-
 				Classroom c = bestClassroomFor(a);
 				if (c != null) {
-
 					assignClassroomToGroup(c, a, result);
-
 					if (ProblemUtils.isLabGroup(
 							a.getGroup())) {
-
 						/*
 						 * If the group is a lab group,
 						 * try to assign the same
@@ -154,9 +140,7 @@ public class GreedyAlgorithm {
 						 */
 						assignClassroomToOtherLabs(
 								result, a, c);
-
 					} else {
-
 						/*
 						 * If the group is a theory
 						 * group, try to assign the same
@@ -166,35 +150,24 @@ public class GreedyAlgorithm {
 						 */
 						assignClassroomToOtherTheories(
 								result, a, c);
-
 					}
-
 				} else {
-
 					repairs.add(a);
-
 				}
 			}
 		}
-
 		// Repairing process
 		for (Assignment a : repairs) {
-
 			List<Classroom> filteredClassrooms = cfm
 					.filterClassroomsFor(a.getGroup());
 
 			classroomloop: for (Classroom c : filteredClassrooms) {
-
 				List<Group> collisions = collisionsFor(
 						a.getGroup(), c);
-
 				if (collisions.size() > 1) {
-
 					// Assignment could not be repaired
 					break classroomloop;
-
 				}
-
 				Group g = collisions.get(0);
 
 				Assignment a2 = result.get(g.getCode());
@@ -203,59 +176,37 @@ public class GreedyAlgorithm {
 				assignClassroomToGroup(c, a, result);
 
 				Classroom c2 = bestClassroomFor(a2);
-
 				if (c2 != null) {
-
 					// Assignment repaired
 					assignClassroomToGroup(c2, a2, result);
-
 				} else {
-
 					// Assignment could not be repaired
 					removeClassroomFromGroup(c, a, result);
 					assignClassroomToGroup(c, a2, result);
-
 				}
-
 			}
-
 		}
-
 		return new HashMap<String, Assignment>(result);
-
 	}
 
 	private List<Assignment> preprocess(List<Assignment> assignments,
 			Map<String, Assignment> result)
 	{
-
 		for (Assignment a : assignments) {
-
 			if (!a.isAssigned()) {
-
 				List<Classroom> filteredClassrooms = cfm
 						.filterClassroomsFor(
 								a.getGroup());
-
 				if (filteredClassrooms.size() == 1) {
-
 					Classroom c = bestClassroomFor(a);
-
 					if (c != null) {
-
 						assignClassroomToGroup(c, a,
 								result);
-
 					}
-
 				}
-
 			}
-
 		}
-
 		return assignments;
-
 	}
 
 	private void clearMaps()
@@ -267,14 +218,10 @@ public class GreedyAlgorithm {
 
 	private void createMaps(Map<String, Assignment> aMap)
 	{
-
 		for (Subject s : subjectList) {
-
 			// (Subject - List of assignments) map
 			List<Assignment> saList = new ArrayList<Assignment>();
-
 			for (Group g : s.getGroups()) {
-
 				saList.add(aMap.get(g.getCode()));
 
 				// (Course - List of assignments) map
@@ -285,13 +232,9 @@ public class GreedyAlgorithm {
 				caList.add(aMap.get(g.getCode()));
 				this.courseAssignmentsMap.put(s.getCourse(),
 						caList);
-
 			}
-
 			this.subjectAssignmentsMap.put(s.getCode(), saList);
-
 		}
-
 	}
 
 	private Classroom bestClassroomFor(Assignment a)
@@ -336,15 +279,12 @@ public class GreedyAlgorithm {
 	private void assignClassroomToGroup(Classroom c, Assignment a,
 			Map<String, Assignment> result)
 	{
-
 		List<Classroom> filteredClassrooms = cfm
 				.filterClassroomsFor(a.getGroup());
 
 		boolean validClassroom = filteredClassrooms.contains(c);
 		boolean noCollisions = !collisionsExistFor(a.getGroup(), c);
-
 		if (validClassroom && noCollisions) {
-
 			a.setClassroom(c);
 			result.put(a.getGroup().getCode(), a);
 			Set<Group> gSet = assignedGroupsToClassrooms
@@ -353,15 +293,12 @@ public class GreedyAlgorithm {
 				gSet = new HashSet<Group>();
 			gSet.add(a.getGroup());
 			assignedGroupsToClassrooms.put(c.getCode(), gSet);
-
 		}
-
 	}
 
 	private void removeClassroomFromGroup(Classroom c, Assignment a,
 			Map<String, Assignment> result)
 	{
-
 		a.setClassroom(null);
 		result.put(a.getGroup().getCode(), a);
 		Set<Group> gSet = assignedGroupsToClassrooms.get(c.getCode());
@@ -369,27 +306,20 @@ public class GreedyAlgorithm {
 			gSet = new HashSet<Group>();
 		gSet.remove(a.getGroup());
 		assignedGroupsToClassrooms.put(c.getCode(), gSet);
-
 	}
 
 	private void assignClassroomToOtherLabs(Map<String, Assignment> result,
 			Assignment a, Classroom c)
 	{
-
 		Subject subject = this.groupSubjectMap
 				.get(a.getGroup().getCode());
 		List<Assignment> aList = this.subjectAssignmentsMap
 				.get(subject.getCode());
-
 		for (Assignment assignment : aList) {
-
 			if (!assignment.isAssigned() && ProblemUtils
 					.isLabGroup(assignment.getGroup())) {
-
 				assignClassroomToGroup(c, assignment, result);
-
 			}
-
 		}
 	}
 
@@ -397,27 +327,19 @@ public class GreedyAlgorithm {
 			Map<String, Assignment> result, Assignment a,
 			Classroom c)
 	{
-
 		Subject subject = this.groupSubjectMap
 				.get(a.getGroup().getCode());
 		List<Assignment> aList = this.courseAssignmentsMap
 				.get(subject.getCourse());
-
 		for (Assignment assignment : aList) {
-
 			if (!assignment.isAssigned()
 					&& ProblemUtils.isTheoryGroup(
 							assignment.getGroup())
 					&& assignment.getGroup()
 							.sameTypeAndGroupNameAs(
 									a.getGroup())) {
-
 				assignClassroomToGroup(c, assignment, result);
-
 			}
-
 		}
-
 	}
-
 }

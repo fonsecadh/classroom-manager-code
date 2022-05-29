@@ -7,7 +7,6 @@ import business.problem.model.Classroom;
 import business.problem.model.Group;
 
 public class ClassTypeFilter implements ClassroomFilter {
-
 	@Override
 	public List<Classroom> filterByGroup(Group group,
 			List<Classroom> classrooms)
@@ -17,5 +16,4 @@ public class ClassTypeFilter implements ClassroomFilter {
 						group.getClassroomType()))
 				.collect(Collectors.toList());
 	}
-
 }

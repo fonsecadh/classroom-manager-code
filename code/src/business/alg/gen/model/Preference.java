@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Preference {
-
 	private List<String> enTheory;
 	private List<String> enLab;
 	private List<String> esTheory;
@@ -56,5 +55,4 @@ public class Preference {
 	{
 		this.esLab.add(classroomCode);
 	}
-
 }

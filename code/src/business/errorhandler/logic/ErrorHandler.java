@@ -7,9 +7,7 @@ import java.util.stream.Collectors;
 import business.errorhandler.model.ErrorType;
 
 public class ErrorHandler {
-
 	private static final ErrorHandler INSTANCE = new ErrorHandler();
-
 	private List<ErrorType> errors;
 
 	private ErrorHandler() {
@@ -46,5 +44,4 @@ public class ErrorHandler {
 	{
 		errors.clear();
 	}
-
 }

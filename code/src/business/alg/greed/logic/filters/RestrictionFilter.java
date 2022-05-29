@@ -12,7 +12,6 @@ import business.problem.model.Classroom;
 import business.problem.model.Group;
 
 public class RestrictionFilter implements ClassroomFilter {
-
 	private Map<String, List<Restriction>> rMap;
 
 	public RestrictionFilter(Map<String, List<Restriction>> restrictions) {
@@ -24,7 +23,6 @@ public class RestrictionFilter implements ClassroomFilter {
 	public List<Classroom> filterByGroup(Group group,
 			List<Classroom> classrooms)
 	{
-
 		List<Restriction> rList = rMap.get(group.getCode());
 
 		// If there are no restrictions for this group
@@ -48,7 +46,5 @@ public class RestrictionFilter implements ClassroomFilter {
 				.filter(c -> !negativeClassrooms.contains(c))
 				.filter(c -> positiveClassrooms.contains(c))
 				.collect(Collectors.toList());
-
 	}
-
 }

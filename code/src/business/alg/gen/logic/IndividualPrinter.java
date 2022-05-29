@@ -18,7 +18,6 @@ import business.problem.model.Subject;
 import business.problem.model.schedule.Day;
 
 public class IndividualPrinter {
-
 	private List<Subject> subjects;
 	private Map<String, Assignment> assignmentsMap;
 
@@ -43,7 +42,6 @@ public class IndividualPrinter {
 		c = c.thenComparing(Comparator.comparing(s -> s.getCode()));
 
 		subjects.sort(c);
-
 		for (String course : courses) {
 			String cMsg = "COURSE: " + course;
 			appendTitle(sb, cMsg);
@@ -52,11 +50,9 @@ public class IndividualPrinter {
 					s -> s.getCourse().equalsIgnoreCase(
 							course))
 					.collect(Collectors.toList());
-
 			for (Subject subject : courseSubjects) {
 				String sMsg = "SUBJECT: " + subject.getCode();
 				appendTitle(sb, sMsg);
-
 				for (Group group : subject.getGroups()) {
 					Classroom classroom = assignmentsMap
 							.get(group.getCode())
@@ -71,7 +67,6 @@ public class IndividualPrinter {
 				appendNewLine(sb);
 			}
 		}
-
 		return sb.toString();
 	}
 
@@ -82,7 +77,6 @@ public class IndividualPrinter {
 
 	public String getTimetableFor(Classroom c)
 	{
-
 		int hourColWidth = 13;
 		int maxColWidth = 9;
 
@@ -101,9 +95,7 @@ public class IndividualPrinter {
 
 		LocalTime start = LocalTime.of(9, 0);
 		LocalTime end = LocalTime.of(9, 30);
-
 		for (int i = 1; i <= 24; i++) {
-
 			data[i] = new String[8];
 			data[i][0] = String.format("%02d:%02d - %02d:%02d",
 					start.getHour(), start.getMinute(),
@@ -135,9 +127,7 @@ public class IndividualPrinter {
 
 			start = start.plusMinutes(30);
 			end = end.plusMinutes(30);
-
 		}
-
 		StringBuilder timetable = new StringBuilder();
 
 		String form = "| %-" + hourColWidth + "s | %-" + mondayWidth
@@ -156,27 +146,21 @@ public class IndividualPrinter {
 				c.getCode()));
 		appendNewLine(timetable);
 		appendLine(timetable, border);
-
 		for (int i = 0; i <= 24; i++) {
-
 			String row = String.format(form, data[i][0], data[i][1],
 					data[i][2], data[i][3], data[i][4],
 					data[i][5], data[i][6], data[i][7]);
 			appendLine(timetable, row);
 			appendLine(timetable, border);
-
 		}
-
 		appendNewLine(timetable);
 
 		return timetable.toString();
-
 	}
 
 	private String getGroupsFor(Classroom c, Day d, LocalTime start,
 			LocalTime end)
 	{
-
 		String str = "";
 
 		List<Group> gList = assignmentsMap.values().stream()
@@ -191,16 +175,13 @@ public class IndividualPrinter {
 										start,
 										end)))
 				.collect(Collectors.toList());
-
 		for (int i = 0; i < gList.size(); i++) {
 			str += gList.get(i).getCode();
 			if (i < gList.size() - 1) {
 				str += ", ";
 			}
 		}
-
 		return str;
-
 	}
 
 	private void appendTitle(StringBuilder sb, String msg)
@@ -221,5 +202,4 @@ public class IndividualPrinter {
 	{
 		sb.append("\n");
 	}
-
 }

@@ -19,7 +19,6 @@ import persistence.problem.AssignmentsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
-
 	public static final String CSVNAME = "ASSIGNMENTS";
 
 	@Override
@@ -29,19 +28,15 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 			FileManager fileManager)
 			throws PersistenceException, InputValidationException
 	{
-
 		Map<String, Assignment> assignments = new HashMap<String, Assignment>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Assignment a = lineToAssignment(lines.get(i), i, groups,
 					classrooms);
 			assignments.put(a.getGroup().getCode(), a);
 		}
-
 		return assignments;
-
 	}
 
 	private Assignment lineToAssignment(String line, int lineNumber,
@@ -49,7 +44,6 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 			Map<String, Classroom> classrooms)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -68,7 +62,6 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 					CSVNAME, groupCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		Classroom c = classrooms.get(classroomCode);
 		if (c == null) {
 			String msg = String.format(
@@ -76,18 +69,15 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 					CSVNAME, classroomCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		Assignment a = new Assignment(groups.get(groupCode));
 		a.setClassroom(classrooms.get(classroomCode));
 
 		return a;
-
 	}
 
 	private void validate(String groupCode, String classroomCode,
 			int lineNumber) throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Code validation
@@ -96,7 +86,6 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 		// Subject code validation
 		ValidationUtils.validateString(classroomCode, csvName,
 				lineNumber);
-
 	}
 
 	@Override
@@ -105,7 +94,6 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 			List<Subject> subjects, FileManager fileManager)
 			throws PersistenceException
 	{
-
 		StringBuilder sb = new StringBuilder();
 
 		List<String> coursesDuplicates = subjects.stream()
@@ -120,18 +108,13 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 		subjects.sort(c);
 
 		appendLine(sb, "CodigoGrupo;CodigoAula");
-
 		for (String course : courses) {
-
 			List<Subject> courseSubjects = subjects.stream().filter(
 					s -> s.getCourse().equalsIgnoreCase(
 							course))
 					.collect(Collectors.toList());
-
 			for (Subject subject : courseSubjects) {
-
 				for (Group group : subject.getGroups()) {
-
 					Classroom classroom = assignments
 							.get(group.getCode())
 							.getClassroom();
@@ -139,17 +122,12 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 					if (classroom != null)
 						gMsg += classroom.getCode();
 					appendLine(sb, gMsg);
-
 				}
-
 			}
-
 		}
-
 		appendNewLine(sb);
 
 		fileManager.writeToFile(filename, sb.toString());
-
 	}
 
 	private void appendLine(StringBuilder sb, String msg)
@@ -161,5 +139,4 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 	{
 		sb.append("\n");
 	}
-
 }

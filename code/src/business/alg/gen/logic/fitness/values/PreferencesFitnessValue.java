@@ -12,20 +12,16 @@ import business.problem.model.Subject;
 import business.problem.utils.ProblemUtils;
 
 public class PreferencesFitnessValue extends AbstractFitnessValue {
-
 	private Map<String, Preference> preferences;
 	private List<Subject> subjects;
 
 	// Counters
 	private int correctEnglishLabs;
 	private int totalEnglishLabs;
-
 	private int correctEnglishTheory;
 	private int totalEnglishTheory;
-
 	private int correctSpanishLabs;
 	private int totalSpanishLabs;
-
 	private int correctSpanishTheory;
 	private int totalSpanishTheory;
 
@@ -40,13 +36,9 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{
-
 		double value = 0.0;
-
 		for (Subject s : subjects) {
-
 			if (preferences.get(s.getCode()) != null) {
-
 				Preference p = preferences.get(s.getCode());
 
 				totalEnglishLabs = 0;
@@ -57,51 +49,41 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 				correctSpanishLabs = 0;
 				totalSpanishTheory = 0;
 				correctSpanishTheory = 0;
-
 				for (Group g : s.getGroups()) {
-
 					Assignment a = assignments
 							.get(g.getCode());
-
 					if (a != null && a
 							.getClassroom() != null) {
 						increaseCountersForGroup(p, g,
 								a);
 					}
-
 				}
-
 				double enLabValue = 0, enTheoryValue = 0,
 						esLabValue = 0,
 						esTheoryValue = 0,
 						groupCounter = 0;
-
 				if (totalEnglishLabs > 0) {
 					enLabValue = 100 * correctEnglishLabs
 							/ totalEnglishLabs;
 					++groupCounter;
 				}
-
 				if (totalEnglishTheory > 0) {
 					enTheoryValue = 100
 							* correctEnglishTheory
 							/ totalEnglishTheory;
 					++groupCounter;
 				}
-
 				if (totalSpanishLabs > 0) {
 					esLabValue = 100 * correctSpanishLabs
 							/ totalSpanishLabs;
 					++groupCounter;
 				}
-
 				if (totalSpanishTheory > 0) {
 					esTheoryValue = 100
 							* correctSpanishTheory
 							/ totalSpanishTheory;
 					++groupCounter;
 				}
-
 				double sValue = 0.0;
 
 				sValue = enLabValue + enTheoryValue + esLabValue
@@ -110,62 +92,46 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 					sValue = sValue / groupCounter;
 
 				value += sValue;
-
 			}
 		}
-
 		return value;
 	}
 
 	private void increaseCountersForGroup(Preference p, Group g,
 			Assignment a)
 	{
-
 		boolean enLang, labType;
 
 		enLang = ProblemUtils.isEnglishGroup(g);
 		labType = ProblemUtils.isLabGroup(g);
-
 		if (enLang) {
-
 			if (labType) {
-
 				if (complies(p.getEnglishLabPreferences(),
 						a.getClassroom().getCode())) {
 					++correctEnglishLabs;
 				}
 				++totalEnglishLabs;
-
 			} else {
-
 				if (complies(p.getEnglishTheoryPreferences(),
 						a.getClassroom().getCode())) {
 					++correctEnglishTheory;
 				}
 				++totalEnglishTheory;
-
 			}
-
 		} else {
-
 			if (labType) {
-
 				if (complies(p.getSpanishLabPreferences(),
 						a.getClassroom().getCode())) {
 					++correctSpanishLabs;
 				}
 				++totalSpanishLabs;
-
 			} else {
-
 				if (complies(p.getSpanishTheoryPreferences(),
 						a.getClassroom().getCode())) {
 					++correctSpanishTheory;
 				}
 				++totalSpanishTheory;
-
 			}
-
 		}
 	}
 
@@ -175,12 +141,9 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 
 		hasPrefs = prefs.size() > 0;
 		complies = prefs.contains(classroomCode);
-
 		if (!hasPrefs || hasPrefs && complies) {
 			return true;
 		}
-
 		return false;
 	}
-
 }

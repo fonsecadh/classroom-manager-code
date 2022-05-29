@@ -7,7 +7,6 @@ import java.util.List;
 import business.alg.gen.model.Individual;
 
 public class GenAlgoUtils {
-
 	public static Individual generateRandomIndividual(
 			List<String> groupCodes)
 	{
@@ -15,5 +14,4 @@ public class GenAlgoUtils {
 		Collections.shuffle(individualRep);
 		return new Individual(individualRep);
 	}
-
 }

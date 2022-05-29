@@ -20,20 +20,14 @@ import ui.CommandLineInterface;
  *
  */
 public class GeneticAlgorithm {
-
 	private int popSize;
-
 	private int individualLength;
-
 	private double crossoverProb;
 	private double mutationProb;
-
 	private long maxTimeMs;
 	private int nGenerations;
-
 	private FitnessFunction fn;
 	private IndividualManager im;
-
 	private Random random;
 	private Metrics metrics;
 
@@ -82,7 +76,6 @@ public class GeneticAlgorithm {
 	 */
 	public Individual geneticAlgorithm()
 	{
-
 		// CLI and LOG
 		CommandLineInterface cli = CommandLineInterface.getInstance();
 		LogHandler logh = LogHandler.getInstance();
@@ -123,9 +116,7 @@ public class GeneticAlgorithm {
 		Individual bestIndividual = bestIndividual(population);
 
 		int gen = 0;
-
 		do {
-
 			genTime = System.currentTimeMillis();
 
 			// Core of the genetic algorithm
@@ -146,9 +137,7 @@ public class GeneticAlgorithm {
 								"BEST_FITNESS"),
 						metrics.getDouble(
 								"AVG_FITNESS")));
-
 		} while (gen < nGenerations && totalTime < maxTimeMs);
-
 		// CLI and LOG
 		cli.showNewLine();
 		cli.showMessage("END Genetic Algorithm");
@@ -157,7 +146,6 @@ public class GeneticAlgorithm {
 				"geneticAlgorithm", "END Genetic Algorithm");
 
 		return bestIndividual;
-
 	}
 
 	private Individual bestIndividual(List<Individual> population)
@@ -165,7 +153,6 @@ public class GeneticAlgorithm {
 		Individual bestIndividual = null;
 		double bestFitness = Double.NEGATIVE_INFINITY;
 		double avgFitness = 0.0;
-
 		for (Individual individual : population) {
 			double fValue = fitnessFunction(individual);
 			avgFitness += fValue;
@@ -174,7 +161,6 @@ public class GeneticAlgorithm {
 				bestFitness = fValue;
 			}
 		}
-
 		avgFitness = avgFitness / population.size();
 
 		metrics.set("BEST_FITNESS", bestFitness);
@@ -184,13 +170,10 @@ public class GeneticAlgorithm {
 
 	private List<Individual> nextGeneration(List<Individual> population)
 	{
-
 		List<Individual> newPopulation, oldPopulation;
 		newPopulation = new ArrayList<Individual>();
 		oldPopulation = new ArrayList<Individual>(population);
-
 		while (!oldPopulation.isEmpty()) {
-
 			Individual p1, p2, c1, c2; // Parents and children
 
 			// Selection
@@ -206,20 +189,16 @@ public class GeneticAlgorithm {
 				c1 = crossover(p1, p2);
 				c2 = crossover(p1, p2);
 			}
-
 			// Mutation
 			if (random.nextDouble() <= mutationProb) {
 				c1 = mutation(c1);
 				c2 = mutation(c2);
 			}
-
 			// Tournament
 			Individual[] best = tournament(p1, p2, c1, c2);
 			newPopulation.add(best[0]);
 			newPopulation.add(best[1]);
-
 		}
-
 		return newPopulation;
 	}
 
@@ -284,7 +263,6 @@ public class GeneticAlgorithm {
 		while (p1 == p2) {
 			p2 = randomOffset(individualLength);
 		}
-
 		List<String> mutatedRepresentation = new ArrayList<String>(
 				child.getRepresentation());
 
@@ -317,5 +295,4 @@ public class GeneticAlgorithm {
 	{
 		return random.nextInt(length);
 	}
-
 }

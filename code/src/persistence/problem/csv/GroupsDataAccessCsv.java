@@ -15,7 +15,6 @@ import persistence.problem.GroupsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class GroupsDataAccessCsv implements GroupsDataAccess {
-
 	public static final String CSVNAME = "GROUPS";
 
 	@Override
@@ -23,25 +22,20 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 			Map<String, Subject> subjects, FileManager fileManager)
 			throws PersistenceException, InputValidationException
 	{
-
 		Map<String, Group> groups = new HashMap<String, Group>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Group g = lineToGroup(lines.get(i), i, subjects);
 			groups.put(g.getCode(), g);
 		}
-
 		return groups;
-
 	}
 
 	private Group lineToGroup(String line, int lineNumber,
 			Map<String, Subject> subjects)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -58,7 +52,6 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 				lineNumber);
 
 		ClassroomType ct = null;
-
 		switch (type) {
 		case "T":
 			ct = ClassroomType.THEORY;
@@ -67,9 +60,7 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 			ct = ClassroomType.LABORATORY;
 			break;
 		}
-
 		GroupLanguage gl = null;
-
 		switch (language) {
 		case "ES":
 			gl = GroupLanguage.SPANISH;
@@ -78,7 +69,6 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 			gl = GroupLanguage.ENGLISH;
 			break;
 		}
-
 		Group g = new Group();
 		g.setCode(code);
 		g.setNumberOfStudents(Integer.parseInt(nStudents));
@@ -92,19 +82,16 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 					CSVNAME, subjectCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-
 		s.addGroup(g);
 		subjects.put(s.getCode(), s);
 
 		return g;
-
 	}
 
 	private void validate(String code, String subjectCode, String nStudents,
 			String type, String language, int lineNumber)
 			throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Code validation
@@ -132,7 +119,5 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 		String[] valuesLang = { "EN", "ES" };
 		ValidationUtils.validateStringValues(language, csvName,
 				valuesLang, lineNumber);
-
 	}
-
 }

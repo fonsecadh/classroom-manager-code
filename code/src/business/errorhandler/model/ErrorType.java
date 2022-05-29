@@ -4,7 +4,6 @@ import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
 
 public class ErrorType {
-
 	private String customMsg;
 	private Exception e;
 
@@ -36,5 +35,4 @@ public class ErrorType {
 			return e.getMessage();
 		return "FATAL ERROR while executing the program. Terminating...";
 	}
-
 }

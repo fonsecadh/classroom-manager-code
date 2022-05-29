@@ -9,7 +9,6 @@ import business.alg.gen.model.Individual;
 import business.alg.greed.model.Assignment;
 
 public class Decoder {
-
 	private Map<String, Assignment> masterAssignments;
 
 	public Decoder() {
@@ -41,5 +40,4 @@ public class Decoder {
 		}
 		return m;
 	}
-
 }

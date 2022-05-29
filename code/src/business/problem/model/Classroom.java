@@ -1,7 +1,6 @@
 package business.problem.model;
 
 public class Classroom {
-
 	private String code;
 	private int numberOfSeats;
 	private ClassroomType type;
@@ -63,5 +62,4 @@ public class Classroom {
 			return false;
 		return true;
 	}
-
 }

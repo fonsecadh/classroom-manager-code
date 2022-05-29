@@ -13,7 +13,6 @@ import persistence.problem.ClassroomsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
-
 	public static final String CSVNAME = "CLASSROOMS";
 
 	@Override
@@ -21,24 +20,19 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 			FileManager fileManager)
 			throws InputValidationException, PersistenceException
 	{
-
 		Map<String, Classroom> classrooms = new HashMap<String, Classroom>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Classroom c = lineToClassroom(lines.get(i), i);
 			classrooms.put(c.getCode(), c);
 		}
-
 		return classrooms;
-
 	}
 
 	private Classroom lineToClassroom(String line, int lineNumber)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -52,7 +46,6 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 		validate(code, type, capacity, lineNumber);
 
 		ClassroomType ct = null;
-
 		switch (type) {
 		case "T":
 			ct = ClassroomType.THEORY;
@@ -61,20 +54,17 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 			ct = ClassroomType.LABORATORY;
 			break;
 		}
-
 		Classroom c = new Classroom();
 		c.setCode(code);
 		c.setType(ct);
 		c.setNumberOfSeats(Integer.parseInt(capacity));
 
 		return c;
-
 	}
 
 	private void validate(String code, String type, String capacity,
 			int lineNumber) throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Code validation
@@ -91,7 +81,5 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 		ValidationUtils.validateString(capacity, csvName, lineNumber);
 		ValidationUtils.validatePositiveInt(capacity, csvName,
 				lineNumber);
-
 	}
-
 }

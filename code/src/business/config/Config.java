@@ -11,9 +11,7 @@ import business.errorhandler.exceptions.PersistenceException;
 import business.loghandler.LogHandler;
 
 public class Config {
-
 	private static final Config INSTANCE = new Config();
-
 	private Properties prop;
 
 	private Config() {
@@ -54,5 +52,4 @@ public class Config {
 	{
 		return this.prop.getProperty(key);
 	}
-
 }

@@ -3,14 +3,12 @@ package business.classfinder.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.WeekFields;
-import java.util.ArrayList;
 import java.util.List;
 
 import business.problem.model.ClassroomType;
+import business.problem.utils.ProblemUtils;
 
 public class ClassfinderQuery {
-
 	private LocalDate startDate;
 	private LocalDate endDate;
 	private LocalTime startTime;
@@ -62,22 +60,7 @@ public class ClassfinderQuery {
 
 	public List<String> getAcademicWeeks()
 	{
-
-		List<String> weeks = new ArrayList<String>();
-
-		WeekFields weekFields = WeekFields.ISO;
-
-		int startWeekNumber = startDate
-				.get(weekFields.weekOfWeekBasedYear());
-		int endWeekNumber = endDate
-				.get(weekFields.weekOfWeekBasedYear());
-
-		for (int i = startWeekNumber; i <= endWeekNumber; i++) {
-			weeks.add(String.format("S%d", i));
-		}
-
-		return weeks;
-
+		return ProblemUtils.getAcademicWeeks(startDate, endDate);
 	}
 
 	public void setStartDate(LocalDate startDate)
@@ -123,7 +106,6 @@ public class ClassfinderQuery {
 	@Override
 	public String toString()
 	{
-
 		DateTimeFormatter formatter = DateTimeFormatter
 				.ofPattern("dd/MM/yyyy");
 
@@ -141,7 +123,5 @@ public class ClassfinderQuery {
 				numberOfAttendants, type, numberOfResults);
 
 		return result;
-
 	}
-
 }

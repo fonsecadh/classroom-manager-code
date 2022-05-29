@@ -10,10 +10,8 @@ import business.problem.model.Classroom;
 import business.problem.model.Group;
 
 public class ClassroomFilterManager {
-
 	private List<ClassroomFilter> filters;
 	private List<Classroom> classrooms;
-
 	/**
 	 * Map with the filtered classrooms for each group. <br>
 	 * <br>
@@ -43,5 +41,4 @@ public class ClassroomFilterManager {
 		}
 		return new ArrayList<Classroom>(fc);
 	}
-
 }

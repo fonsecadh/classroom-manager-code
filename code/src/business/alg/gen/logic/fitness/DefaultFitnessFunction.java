@@ -11,7 +11,6 @@ import business.alg.greed.logic.GreedyAlgorithm;
 import business.alg.greed.model.Assignment;
 
 public class DefaultFitnessFunction implements FitnessFunction {
-
 	private Decoder decoder;
 	private GreedyAlgorithm greedyAlgo;
 	private List<FitnessValue> fnValues;
@@ -41,5 +40,4 @@ public class DefaultFitnessFunction implements FitnessFunction {
 		}
 		return result;
 	}
-
 }

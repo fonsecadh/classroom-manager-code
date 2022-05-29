@@ -7,7 +7,6 @@ import business.alg.gen.model.Individual;
 import business.alg.gen.utils.GenAlgoUtils;
 
 public class IndividualManager {
-
 	private List<String> groupCodes;
 
 	public IndividualManager(List<String> groupCodes) {
@@ -18,5 +17,4 @@ public class IndividualManager {
 	{
 		return GenAlgoUtils.generateRandomIndividual(groupCodes);
 	}
-
 }

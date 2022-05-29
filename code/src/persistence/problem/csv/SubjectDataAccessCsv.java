@@ -12,7 +12,6 @@ import persistence.problem.SubjectDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class SubjectDataAccessCsv implements SubjectDataAccess {
-
 	public static final String CSVNAME = "SUBJECTS";
 
 	@Override
@@ -20,24 +19,19 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 			FileManager fileManager)
 			throws InputValidationException, PersistenceException
 	{
-
 		Map<String, Subject> subjects = new HashMap<String, Subject>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			Subject s = lineToSubject(lines.get(i), i);
 			subjects.put(s.getCode(), s);
 		}
-
 		return subjects;
-
 	}
 
 	private Subject lineToSubject(String line, int lineNumber)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -56,13 +50,11 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 		s.setSemester(semester);
 
 		return s;
-
 	}
 
 	private void validate(String code, String course, String semester,
 			int lineNumber) throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Code validation
@@ -73,7 +65,5 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 
 		// Semester validation
 		ValidationUtils.validateString(semester, csvName, lineNumber);
-
 	}
-
 }

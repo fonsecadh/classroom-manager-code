@@ -14,7 +14,6 @@ import business.problem.model.Subject;
 import business.problem.utils.ProblemUtils;
 
 public class SharedLabsFitnessValue extends AbstractFitnessValue {
-
 	private List<Subject> subjects;
 	private List<Classroom> labs;
 
@@ -30,18 +29,14 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{
-
 		double value = 0.0;
 
 		List<Classroom> assignedLabsEn, assignedLabsEs;
 		assignedLabsEn = new ArrayList<Classroom>();
 		assignedLabsEs = new ArrayList<Classroom>();
-
 		for (Subject s : subjects) {
-
 			assignedLabsEn.clear();
 			assignedLabsEs.clear();
-
 			for (Group g : s.getGroups()) {
 				if (ProblemUtils.isLabGroup(g)) {
 					if (assignments.get(
@@ -61,13 +56,11 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 					}
 				}
 			}
-
 			Set<Classroom> labSetEn, labSetEs;
 
 			int langCounter = 0;
 			int uniqueLabsEn = 0, uniqueLabsEs = 0;
 			double subjectValue = 0.0, enValue = 0.0, esValue = 0.0;
-
 			if (assignedLabsEn.size() > 0) {
 				labSetEn = new HashSet<Classroom>(
 						assignedLabsEn);
@@ -76,7 +69,6 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 						/ labs.size());
 				++langCounter;
 			}
-
 			if (assignedLabsEs.size() > 0) {
 				labSetEs = new HashSet<Classroom>(
 						assignedLabsEs);
@@ -85,19 +77,14 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 						/ labs.size());
 				++langCounter;
 			}
-
 			subjectValue = enValue + esValue;
 			if (langCounter > 0)
 				subjectValue = subjectValue / langCounter;
 
 			value += subjectValue;
-
 		}
-
 		value = value / subjects.size();
 
 		return value;
-
 	}
-
 }

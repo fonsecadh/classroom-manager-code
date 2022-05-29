@@ -18,7 +18,6 @@ import persistence.problem.RestrictionsDataAccess;
 import persistence.problem.csv.utils.ValidationUtils;
 
 public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
-
 	public static final String CSVNAME = "RESTRICTIONS";
 
 	@Override
@@ -28,16 +27,13 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			Map<String, Subject> subjects, FileManager fileManager)
 			throws PersistenceException, InputValidationException
 	{
-
 		Map<String, List<Restriction>> restrictions = new HashMap<String, List<Restriction>>();
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
 			lineToRestrictions(lines.get(i), i, classrooms, groups,
 					subjects, restrictions);
 		}
-
 		return restrictions;
 	}
 
@@ -48,7 +44,6 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			Map<String, List<Restriction>> restrictions)
 			throws InputValidationException
 	{
-
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
@@ -63,7 +58,6 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 				lineNumber);
 
 		RestrictionType rt = null;
-
 		switch (restrictionType) {
 		case "P":
 			rt = RestrictionType.POSITIVE;
@@ -72,12 +66,9 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			rt = RestrictionType.NEGATIVE;
 			break;
 		}
-
 		List<Group> processedGroups = new ArrayList<Group>();
 		Subject s;
-
 		switch (ProblemUtils.getNameFromGroupCode(groupCode)) {
-
 		case ("*"):
 			s = subjects.get(ProblemUtils
 					.getSubjectFromGroupCode(groupCode));
@@ -97,7 +88,6 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			}
 
 			break;
-
 		case ("+"):
 			s = subjects.get(ProblemUtils
 					.getSubjectFromGroupCode(groupCode));
@@ -119,7 +109,6 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			}
 
 			break;
-
 		case ("?"):
 			s = subjects.get(ProblemUtils
 					.getSubjectFromGroupCode(groupCode));
@@ -141,7 +130,6 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			}
 
 			break;
-
 		default:
 			Group g = groups.get(groupCode);
 			if (g == null) {
@@ -154,14 +142,10 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 			processedGroups.add(g);
 
 			break;
-
 		}
-
 		String[] classroomCodesArray = classroomCodes.split(",");
 		List<Classroom> processedClassrooms = new ArrayList<Classroom>();
-
 		for (String classroomCode : classroomCodesArray) {
-
 			Classroom c = classrooms.get(classroomCode);
 			if (c == null) {
 				String msg = String.format(
@@ -171,13 +155,9 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 				throw new InputValidationException(msg);
 			}
 			processedClassrooms.add(c);
-
 		}
-
 		for (Group g : processedGroups) {
-
 			for (Classroom c : processedClassrooms) {
-
 				Restriction r = new Restriction();
 				r.setClassroom(c);
 				r.setType(rt);
@@ -191,18 +171,14 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 				restrictions.put(g.getCode(),
 						new ArrayList<Restriction>(
 								rList));
-
 			}
-
 		}
-
 	}
 
 	private void validate(String groupCode, String restrictionType,
 			String classroomCodes, int lineNumber)
 			throws InputValidationException
 	{
-
 		String csvName = CSVNAME;
 
 		// Group code validation
@@ -219,7 +195,5 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 		// Classroom code validation
 		ValidationUtils.validateString(classroomCodes, csvName,
 				lineNumber);
-
 	}
-
 }

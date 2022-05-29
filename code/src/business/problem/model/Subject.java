@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Subject {
-
 	private String code;
 	private String course;
 	private String semester;
@@ -81,5 +80,4 @@ public class Subject {
 			return false;
 		return true;
 	}
-
 }

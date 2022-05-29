@@ -3,7 +3,6 @@ package business.alg.greed.model;
 import business.problem.model.Classroom;
 
 public class Restriction {
-
 	private RestrictionType type;
 	private Classroom classroom;
 
@@ -26,5 +25,4 @@ public class Restriction {
 	{
 		this.classroom = classroom;
 	}
-
 }

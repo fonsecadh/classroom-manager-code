@@ -14,7 +14,6 @@ import business.errorhandler.exceptions.PersistenceException;
 import business.loghandler.LogHandler;
 
 public class FileManager {
-
 	public void writeToFile(String filename, String content)
 			throws PersistenceException
 	{
@@ -73,5 +72,4 @@ public class FileManager {
 		}
 		return lines;
 	}
-
 }
