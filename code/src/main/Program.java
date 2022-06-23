@@ -209,6 +209,8 @@ public class Program {
 					config.getProperty("NUM_GEN"));
 			int freeLabs = Integer.parseInt(
 					config.getProperty("FREE_LABS"));
+			int showGenInfo = Integer.parseInt(
+					config.getProperty("SHOW_GEN_INFO"));
 
 			// Fitness weights
 			double collisionsFnWeight = Double.parseDouble(
@@ -309,7 +311,7 @@ public class Program {
 					crossoverProbability,
 					maxTimeMilliseconds,
 					numberOfGenerations, fitnessFunction,
-					individualManager);
+					individualManager, showGenInfo);
 
 			Individual bestIndividual = genAlgo.geneticAlgorithm();
 

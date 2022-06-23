@@ -14,6 +14,7 @@ import business.problem.model.Group;
  */
 public class Individual {
 	private List<String> representation;
+	private double fitness;
 
 	/**
 	 * Creates an individual given its representation.
@@ -26,10 +27,21 @@ public class Individual {
 	 */
 	public Individual(List<String> representation) {
 		this.representation = representation;
+		this.fitness = Double.NEGATIVE_INFINITY;
 	}
 
 	public List<String> getRepresentation()
 	{
 		return new ArrayList<String>(representation);
+	}
+
+	public double getFitness()
+	{
+		return fitness;
+	}
+
+	public void setFitness(double fitness)
+	{
+		this.fitness = fitness;
 	}
 }

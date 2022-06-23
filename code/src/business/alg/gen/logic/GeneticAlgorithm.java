@@ -1,8 +1,10 @@
 package business.alg.gen.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
@@ -28,6 +30,7 @@ public class GeneticAlgorithm {
 	private int nGenerations;
 	private FitnessFunction fn;
 	private IndividualManager im;
+	private int showGenInfo;
 	private Random random;
 	private Metrics metrics;
 
@@ -48,12 +51,13 @@ public class GeneticAlgorithm {
 	 *                             algorithm.
 	 * @param individualManager    A manager ({@link IndividualManager}) for
 	 *                             the individual operations.
+	 * @param showGenInfo 
 	 */
 	public GeneticAlgorithm(int individualLength, int populationSize,
 			double mutationProbability, double crossoverProbability,
 			long maxTimeMilliseconds, int numberOfGenerations,
 			FitnessFunction fitnessFunction,
-			IndividualManager individualManager) {
+			IndividualManager individualManager, int showGenInfo) {
 		this.individualLength = individualLength;
 		this.popSize = populationSize;
 		this.mutationProb = mutationProbability;
@@ -62,6 +66,7 @@ public class GeneticAlgorithm {
 		this.nGenerations = numberOfGenerations;
 		this.fn = fitnessFunction;
 		this.im = individualManager;
+		this.showGenInfo = showGenInfo;
 		this.random = new Random();
 		this.metrics = Metrics.getInstance();
 	}
@@ -108,7 +113,6 @@ public class GeneticAlgorithm {
 		long startTime = System.currentTimeMillis();
 		long currentTime;
 		long totalTime;
-		long genTime;
 
 		// The algorithm starts
 		List<Individual> population = new ArrayList<Individual>(
@@ -117,26 +121,25 @@ public class GeneticAlgorithm {
 
 		int gen = 0;
 		do {
-			genTime = System.currentTimeMillis();
-
 			// Core of the genetic algorithm
 			population = nextGeneration(population);
 			bestIndividual = bestIndividual(population);
 			++gen;
 
 			currentTime = System.currentTimeMillis();
-			genTime = currentTime - genTime;
 			totalTime = currentTime - startTime;
 
 			// Metrics for the command line interface
-			if (gen == 1 || gen % 10 == 0)
+			if (showGenInfo != 0 && (gen == 1 || gen % showGenInfo == 0)) {
 				cli.showMessage(String.format(
-						"Generation = %d, best fitness = %.2f, average fitness = %.2f",
+						"Generation = %d, best fitness = %.2f, average fitness = %.2f, current time (s) = %.2f",
 						gen,
 						metrics.getDouble(
 								"BEST_FITNESS"),
 						metrics.getDouble(
-								"AVG_FITNESS")));
+								"AVG_FITNESS"),
+						(totalTime / 1000.0)));
+			}
 		} while (gen < nGenerations && totalTime < maxTimeMs);
 		// CLI and LOG
 		cli.showNewLine();
@@ -185,33 +188,50 @@ public class GeneticAlgorithm {
 			c2 = p2;
 
 			// Crossover
-			if (random.nextDouble() <= crossoverProb) {
+			if (crossoverProb >= random.nextDouble()) {
 				c1 = crossover(p1, p2);
 				c2 = crossover(p1, p2);
 			}
 			// Mutation
-			if (random.nextDouble() <= mutationProb) {
+			if (mutationProb >= random.nextDouble()) {
 				c1 = mutation(c1);
 				c2 = mutation(c2);
 			}
 			// Tournament
 			Individual[] best = tournament(p1, p2, c1, c2);
-			newPopulation.add(best[0]);
-			newPopulation.add(best[1]);
+			Individual w1 = new Individual(
+					best[0].getRepresentation());
+			Individual w2 = new Individual(
+					best[1].getRepresentation());
+			newPopulation.add(w1);
+			newPopulation.add(w2);
 		}
 		return newPopulation;
 	}
 
 	private double fitnessFunction(Individual individual)
 	{
-		return fn.fitnessFunction(individual);
+		if (individual.getFitness() == Double.NEGATIVE_INFINITY) {
+			individual.setFitness(fn.fitnessFunction(individual));
+		}
+		return individual.getFitness();
 	}
 
 	private Set<Individual> initialPopulation()
 	{
+		Map<String, Boolean> uniqueMap = new HashMap<String, Boolean>();
 		Set<Individual> p = new HashSet<Individual>();
 		while (p.size() < popSize) {
-			p.add(im.generateRandomIndividual());
+			Individual ran = im.generateRandomIndividual();
+			String key = "";
+			for (int i = 0; i < ran.getRepresentation()
+					.size(); i++) {
+				key += ran.getRepresentation().get(i) + "@";
+			}
+			if (uniqueMap.get(key) == null) {
+				uniqueMap.put(key, false);
+				p.add(ran);
+			}
 		}
 		return p;
 	}
