@@ -1,6 +1,7 @@
 package business.classfinder.logic;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,21 +40,33 @@ public class Classfinder {
 	{
 		StringBuilder sb = new StringBuilder();
 
-		appendTitle(sb, "Classfinder Query Results");
+		appendTitle(sb, "ClassFinder Query Results");
 		for (ClassfinderQuery q : queries) {
 			appendLine(sb, q.toString());
 
 			List<QueryResult> qrList = getResultsForQuery(q);
+			qrList.sort(Comparator
+					.comparing((QueryResult aux) -> aux
+							.getClassroom()
+							.getCode())
+					.thenComparing(QueryResult::getWeek)
+					.thenComparing((QueryResult::getDay)));
 
 			appendText(sb, "Result: ");
+			appendNewLine(sb);
 			for (int i = 0; i < qrList.size(); i++) {
 				appendText(sb, qrList.get(i).toString());
-				if (i == qrList.size() - 1)
+				if (i < qrList.size() - 1)
 					appendText(sb, ", ");
+				appendNewLine(sb);
 			}
+			if (qrList.size() <= 0) {
+				appendLine(sb, "No results for query.");
+				;
+			}
+			appendLine(sb, "####### QUERY END #######");
 			appendNewLine(sb);
 		}
-		appendNewLine(sb);
 		return sb.toString();
 	}
 
@@ -68,6 +81,9 @@ public class Classfinder {
 		for (int i = 0; i < cList.size(); i++) {
 			Classroom c = cList.get(i);
 			addQueryResultsForClassroom(c, q, qrList);
+			if (qrList.size() == q.getNumberOfAttendants()) {
+				break;
+			}
 		}
 		return qrList;
 	}
@@ -84,19 +100,17 @@ public class Classfinder {
 
 		List<Group> gList = aList.stream().map(a -> a.getGroup())
 				.collect(Collectors.toList());
-
-		weekloop: for (String w : weeks) {
+		for (String w : weeks) {
 			List<Day> days = weekDaysMap.get(w);
 			if (days != null) {
 				for (Day d : days) {
 					QueryResult qr = createResult(c, q, w,
 							d, gList);
 					if (qr.isValid()) {
-						qrList.add(qr);
-						boolean cond = qrList
-								.size() == q.getNumberOfResults();
+						boolean cond = qrList.size() < q
+								.getNumberOfResults();
 						if (cond) {
-							break weekloop;
+							qrList.add(qr);
 						}
 					}
 				}

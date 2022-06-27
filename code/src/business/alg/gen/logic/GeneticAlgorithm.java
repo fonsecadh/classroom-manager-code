@@ -51,7 +51,7 @@ public class GeneticAlgorithm {
 	 *                             algorithm.
 	 * @param individualManager    A manager ({@link IndividualManager}) for
 	 *                             the individual operations.
-	 * @param showGenInfo 
+	 * @param showGenInfo
 	 */
 	public GeneticAlgorithm(int individualLength, int populationSize,
 			double mutationProbability, double crossoverProbability,
@@ -130,7 +130,8 @@ public class GeneticAlgorithm {
 			totalTime = currentTime - startTime;
 
 			// Metrics for the command line interface
-			if (showGenInfo != 0 && (gen == 1 || gen % showGenInfo == 0)) {
+			if (showGenInfo != 0 && (gen == 1
+					|| gen % showGenInfo == 0)) {
 				cli.showMessage(String.format(
 						"Generation = %d, best fitness = %.2f, average fitness = %.2f, current time (s) = %.2f",
 						gen,

@@ -50,8 +50,7 @@ public class FileManager {
 					new FileReader(filename));
 			while (file.ready()) {
 				line = file.readLine();
-				if (line.trim() != "")
-					lines.add(line);
+				lines.add(line);
 			}
 			file.close();
 		} catch (FileNotFoundException e) {

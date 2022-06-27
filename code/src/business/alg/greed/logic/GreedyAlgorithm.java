@@ -149,7 +149,7 @@ public class GreedyAlgorithm {
 					break classroomloop;
 				}
 				if (collisions.size() == 0) {
-					// TODO: BUG - IGNORE UNTIL FIXING 
+					// TODO: BUG - IGNORE UNTIL FIXING
 					break classroomloop;
 				}
 				Group g = collisions.get(0);

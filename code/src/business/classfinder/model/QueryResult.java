@@ -2,11 +2,13 @@ package business.classfinder.model;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import business.problem.model.Classroom;
@@ -19,14 +21,18 @@ public class QueryResult {
 	private ClassfinderQuery query;
 	private Day day;
 	private String week;
+	private List<GroupSchedule> finalFreeSlots;
 
 	public QueryResult(ClassfinderQuery query, Classroom classroom, Day day,
 			String week) {
 		this.classroom = classroom;
-		this.schedule = new HashMap<GroupSchedule, Boolean>();
+		this.schedule = new TreeMap<GroupSchedule, Boolean>(Comparator
+				.comparing(GroupSchedule::getStart)
+				.thenComparing(GroupSchedule::getFinish));
 		this.query = query;
 		this.day = day;
 		this.week = week;
+		this.finalFreeSlots = new ArrayList<GroupSchedule>();
 		initialiseScheduleMap();
 	}
 
@@ -40,15 +46,42 @@ public class QueryResult {
 		return new HashMap<GroupSchedule, Boolean>(schedule);
 	}
 
+	public Day getDay()
+	{
+		return day;
+	}
+
+	public String getWeek()
+	{
+		return week;
+	}
+
 	public boolean isValid()
 	{
-		return getFreeSlots().size() > 0;
+		this.finalFreeSlots = getFreeSlots();
+		return this.finalFreeSlots.size() > 0;
 	}
 
 	public void addCollisionToScheduleMap(GroupSchedule collision)
 	{
-		LocalTime start = LocalTime.from(collision.getStart());
-		LocalTime end = LocalTime.from(collision.getFinish());
+		if (!collision.overlapsWith(query.getStartTime(),
+				query.getEndTime())) {
+			return;
+		}
+		// Max (collision start, query start)
+		LocalTime start = collision.getStart()
+				.isBefore(query.getStartTime())
+						? LocalTime.from(query
+								.getStartTime())
+						: LocalTime.from(collision
+								.getStart());
+		// Min (collision end, query end)
+		LocalTime end = collision.getFinish()
+				.isAfter(query.getEndTime())
+						? LocalTime.from(query
+								.getEndTime())
+						: LocalTime.from(collision
+								.getFinish());
 		while (!start.equals(end)) {
 			GroupSchedule gs = new GroupSchedule();
 			gs.setDay(day);
@@ -83,11 +116,11 @@ public class QueryResult {
 		while (it.hasNext()) {
 			Map.Entry<GroupSchedule, Boolean> pair = it.next();
 			// If time frame is free
-			if (pair.getValue()) {
+			if (!pair.getValue()) {
 				if (prevFree) { // If the previous slot was free
 					LocalTime time = LocalTime
 							.from(gs.getFinish());
-					time.plusMinutes(30);
+					time = time.plusMinutes(30);
 					gs.setFinish(time);
 				} else { // If the previous slot was not free
 					if (gs != null) {
@@ -105,6 +138,10 @@ public class QueryResult {
 				prevFree = false;
 			}
 		}
+		if (gs != null) {
+			freeSlots.add(gs);
+			gs = null;
+		}
 		freeSlots = freeSlots.stream()
 				.filter(s -> s.getDurationInHours() >= query
 						.getDurationInHours())
@@ -118,11 +155,11 @@ public class QueryResult {
 		StringBuilder sb = new StringBuilder();
 		sb.append(classroom.getCode());
 		sb.append(" (");
-		sb.append(week + ", ");
-		List<GroupSchedule> freeSlots = getFreeSlots();
-		for (int i = 0; i < freeSlots.size(); i++) {
-			sb.append(freeSlots.get(i).toString());
-			if (i < freeSlots.size() - 1)
+		sb.append("Week: " + week + ", ");
+		sb.append("Day: " + day + ", ");
+		for (int i = 0; i < finalFreeSlots.size(); i++) {
+			sb.append(finalFreeSlots.get(i).toString());
+			if (i < finalFreeSlots.size() - 1)
 				sb.append(", ");
 		}
 		sb.append(")");

@@ -1,5 +1,8 @@
 package persistence.problem.csv.utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 
 import business.errorhandler.exceptions.InputValidationException;
@@ -10,7 +13,7 @@ public class ValidationUtils {
 	{
 		if (str == null || str.trim().equals("")) {
 			String msg = String.format(
-					"Null or empty code in %s csv file, line %d",
+					"Null or empty string in %s csv file, line %d",
 					csvName, lineNumber);
 			throw new InputValidationException(msg);
 		}
@@ -28,7 +31,7 @@ public class ValidationUtils {
 		}
 		if (!Arrays.stream(values).anyMatch(str::equals)) {
 			String msg = String.format(
-					"Wrong type in CLASSROOM csv file (Expected: %s, Received: %s), line %d",
+					"Wrong value in CLASSROOM csv file (Expected: %s, Received: %s), line %d",
 					expected, str, lineNumber);
 			throw new InputValidationException(msg);
 		}
@@ -42,14 +45,34 @@ public class ValidationUtils {
 			number = Integer.parseInt(str);
 		} catch (NumberFormatException e) {
 			String msg = String.format(
-					"Wrong capacity in %s csv file (not a number: %s), line %d",
-					csvName, number, lineNumber);
+					"Wrong integer in %s csv file (not a number: %s), line %d",
+					csvName, str, lineNumber);
 			throw new InputValidationException(msg);
 		}
 		if (number <= 0) {
 			String msg = String.format(
-					"Wrong capacity in %s csv file (cero or negative: %s), line %d",
-					csvName, number, lineNumber);
+					"Wrong integer in %s csv file (cero or negative: %s), line %d",
+					csvName, str, lineNumber);
+			throw new InputValidationException(msg);
+		}
+	}
+
+	public static void validatePositiveDouble(String str, String csvName,
+			int lineNumber) throws InputValidationException
+	{
+		double number = 0;
+		try {
+			number = Double.parseDouble(str);
+		} catch (NumberFormatException e) {
+			String msg = String.format(
+					"Wrong double in %s csv file (not a number: %s), line %d",
+					csvName, str, lineNumber);
+			throw new InputValidationException(msg);
+		}
+		if (number <= 0.0) {
+			String msg = String.format(
+					"Wrong double in %s csv file (cero or negative: %s), line %d",
+					csvName, str, lineNumber);
 			throw new InputValidationException(msg);
 		}
 	}
@@ -80,6 +103,21 @@ public class ValidationUtils {
 			String msg = String.format(
 					"Wrong time format in %s csv file (minutes are not a number: %s), line %d",
 					csvName, min, lineNumber);
+			throw new InputValidationException(msg);
+		}
+	}
+
+	public static void validateDate(String str, String csvName,
+			int lineNumber) throws InputValidationException
+	{
+		try {
+			DateTimeFormatter formatter = DateTimeFormatter
+					.ofPattern("dd/MM/yyyy");
+			LocalDate.parse(str, formatter);
+		} catch (DateTimeParseException e) {
+			String msg = String.format(
+					"Wrong date format in %s csv file (Expected format: dd/MM/yyyy, Received: %s), line %d",
+					csvName, str, lineNumber);
 			throw new InputValidationException(msg);
 		}
 	}

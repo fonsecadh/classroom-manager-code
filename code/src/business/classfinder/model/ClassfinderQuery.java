@@ -24,7 +24,9 @@ public class ClassfinderQuery {
 	private List<String> weeks;
 	private Map<String, List<Day>> weekDaysMap;
 
-	public ClassfinderQuery() {
+	public ClassfinderQuery(LocalDate startDate, LocalDate endDate) {
+		this.startDate = LocalDate.from(startDate);
+		this.endDate = LocalDate.from(endDate);
 		initialiseWeekList();
 		initialiseWeekDaysMap();
 	}
@@ -141,9 +143,13 @@ public class ClassfinderQuery {
 			List<Day> days = null;
 			if (result.get(week) == null)
 				days = new ArrayList<Day>();
+			else
+				days = result.get(week);
 			Day day = ProblemUtils.getDay(d);
-			if (day != null)
+			if (day != null) {
 				days.add(day);
+				result.put(week, new ArrayList<Day>(days));
+			}
 		}
 		this.weekDaysMap = new HashMap<String, List<Day>>(result);
 	}
@@ -154,7 +160,7 @@ public class ClassfinderQuery {
 		DateTimeFormatter formatter = DateTimeFormatter
 				.ofPattern("dd/MM/yyyy");
 
-		String format = "Classfinder query: %s;%s;%02d:%02d;%02d:%02d;%f;%d;%s,%d";
+		String format = "Query: %s;%s;%02d.%02d;%02d.%02d;%.2f;%d;%s;%d";
 
 		String type = classroomType.equals(ClassroomType.LABORATORY)
 				? "L"

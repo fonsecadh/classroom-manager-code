@@ -1,0 +1,943 @@
+jun 27, 2022 9:35:35 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 9:35:35 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 9:35:35 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 9:35:35 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jun 27, 2022 9:35:35 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+jun 27, 2022 9:36:10 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jun 27, 2022 9:36:10 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 10:02:28 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 10:02:28 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 10:02:28 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 10:02:28 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jun 27, 2022 10:02:28 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 339
+jun 27, 2022 10:03:01 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jun 27, 2022 10:03:02 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:00:50 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:00:50 AM main.Program main
+GRAVE: Null or empty string in ASSIGNMENTS csv file, line 51
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ASSIGNMENTS csv file, line 51
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:17)
+	at persistence.problem.csv.AssignmentDataAccessCsv.validate(AssignmentDataAccessCsv.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:56)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:480)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:01:37 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:01:37 AM main.Program main
+GRAVE: Wrong line format in ASSIGNMENTS csv file: different column size, line 336
+business.errorhandler.exceptions.InputValidationException: Wrong line format in ASSIGNMENTS csv file: different column size, line 336
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:130)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:51)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:480)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:01:46 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:01:46 AM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at java.io.FileInputStream.<init>(FileInputStream.java:130)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:50)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:26)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:03:57 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:03:57 AM main.Program main
+GRAVE: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 23/04/2022), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 23/04/2022), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateDate(ValidationUtils.java:118)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:101)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:52)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:29)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:07:20 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:07:20 AM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.problem.utils.ProblemUtils.getAcademicWeekAsNumber(ProblemUtils.java:37)
+	at business.problem.utils.ProblemUtils.getAcademicWeeks(ProblemUtils.java:19)
+	at business.classfinder.model.ClassfinderQuery.initialiseWeekList(ClassfinderQuery.java:124)
+	at business.classfinder.model.ClassfinderQuery.<init>(ClassfinderQuery.java:28)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:78)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:29)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:09:53 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:09:54 AM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.problem.utils.ProblemUtils.getAcademicWeekAsNumber(ProblemUtils.java:37)
+	at business.problem.utils.ProblemUtils.getAcademicWeeks(ProblemUtils.java:19)
+	at business.classfinder.model.ClassfinderQuery.initialiseWeekList(ClassfinderQuery.java:124)
+	at business.classfinder.model.ClassfinderQuery.<init>(ClassfinderQuery.java:28)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:82)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:13:52 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:13:52 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:13:52 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:13:52 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:15:49 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:15:49 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:15:49 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:15:49 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:16:17 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:16:17 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:16:17 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:16:17 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:16:54 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:16:54 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:16:54 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:16:54 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:17:25 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:17:25 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:17:25 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:17:25 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:17:49 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:17:49 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:17:49 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:17:49 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:19:28 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:19:28 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:19:28 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:21:11 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:21:21 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:24:58 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:24:58 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:25:05 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:26:01 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:26:01 AM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.classfinder.model.ClassfinderQuery.initialiseWeekDaysMap(ClassfinderQuery.java:148)
+	at business.classfinder.model.ClassfinderQuery.<init>(ClassfinderQuery.java:31)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:85)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 11:27:32 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:27:32 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:27:32 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:28:17 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:29:01 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:29:01 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:29:01 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:32:57 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:34:47 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:34:47 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:34:47 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:34:47 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:36:38 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:36:38 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:36:38 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:41:18 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:42:08 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:42:08 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:42:08 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:42:08 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:42:54 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:42:54 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:42:54 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:42:54 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:43:09 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:43:09 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:43:09 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:43:09 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:43:44 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:43:44 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:43:44 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:43:44 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:45:32 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:45:32 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:45:32 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:45:32 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:47:42 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:47:42 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:47:42 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:47:42 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:48:29 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:48:29 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:48:29 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:48:29 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:48:44 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:48:44 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:48:44 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:48:44 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 11:52:29 AM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 11:52:29 AM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 11:52:29 AM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 11:52:29 AM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:06:55 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:06:55 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:06:55 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:06:55 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:07:29 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:07:29 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:07:29 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:07:29 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:08:27 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:08:27 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:08:27 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:11:54 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:12:11 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:12:11 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:12:11 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:12:11 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:15:33 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:15:34 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:15:34 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:15:34 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:16:54 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:16:55 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:16:55 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:16:55 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:19:16 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:19:16 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:19:16 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:19:16 PM main.Program main
+GRAVE: null
+java.lang.NullPointerException
+	at business.classfinder.model.QueryResult.getFreeSlots(QueryResult.java:89)
+	at business.classfinder.model.QueryResult.isValid(QueryResult.java:51)
+	at business.classfinder.logic.Classfinder.addQueryResultsForClassroom(Classfinder.java:96)
+	at business.classfinder.logic.Classfinder.getResultsForQuery(Classfinder.java:72)
+	at business.classfinder.logic.Classfinder.getAllQueryResults(Classfinder.java:46)
+	at main.Program.executeClassFinder(Program.java:531)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 12:20:28 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:20:28 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:20:28 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:20:28 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:20:47 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:20:47 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:20:47 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:20:47 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:21:32 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:21:32 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:21:32 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:21:32 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:21:50 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:21:50 PM main.Program main
+GRAVE: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 9/10/2022), line 3
+business.errorhandler.exceptions.InputValidationException: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 9/10/2022), line 3
+	at persistence.problem.csv.utils.ValidationUtils.validateDate(ValidationUtils.java:121)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:106)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:53)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 12:22:01 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:22:01 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:22:01 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:22:01 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:22:34 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:22:34 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:22:34 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:22:34 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:22:50 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:22:50 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:22:50 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:22:50 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:27:08 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:27:08 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:27:08 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:27:08 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:31:38 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:31:38 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:31:38 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:31:38 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:33:59 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:33:59 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:33:59 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:33:59 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:35:23 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:35:23 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:35:23 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:37:53 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:41:38 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:41:38 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:41:38 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:41:38 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:43:06 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:43:06 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:43:06 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:43:06 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:43:24 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:43:24 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:43:24 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:43:24 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:44:04 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:44:04 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:44:04 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:46:55 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:46:55 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:46:55 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:46:55 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:48:22 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:48:22 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:48:22 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:48:56 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:49:38 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:49:38 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:49:38 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:52:46 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:52:46 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:52:46 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 12:52:47 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 12:52:51 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 12:52:51 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 12:52:51 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:00:44 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:00:44 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:00:44 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:00:44 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:00:57 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:00:57 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:00:57 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:02:28 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:02:28 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:02:28 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:02:53 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:03:32 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:03:32 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:03:32 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:03:32 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:04:54 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:04:54 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:04:54 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:07:46 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:08:51 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:08:51 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:08:51 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:12:13 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:13:44 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:13:44 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:13:44 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:13:44 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:14:09 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:14:09 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:14:09 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:14:09 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:18:21 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:18:21 PM main.Program main
+GRAVE: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 01/8/2022), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 01/8/2022), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateDate(ValidationUtils.java:121)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:106)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:53)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 1:18:30 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:18:30 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:18:30 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:18:30 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:18:57 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:18:57 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:18:57 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:18:57 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:19:12 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:19:12 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:19:12 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:19:12 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:19:26 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:19:26 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:19:26 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:19:26 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:19:48 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:19:48 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:19:48 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:19:48 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:20:02 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:20:02 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:20:02 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:20:02 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:20:26 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:20:26 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:20:26 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:20:27 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:21:40 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:21:40 PM main.Program main
+GRAVE: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 024/09/2022), line 1
+business.errorhandler.exceptions.InputValidationException: Wrong date format in QUERIES csv file (Expected format: dd/MM/yyyy, Received: 024/09/2022), line 1
+	at persistence.problem.csv.utils.ValidationUtils.validateDate(ValidationUtils.java:121)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:106)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:53)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 1:21:52 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:21:52 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:21:52 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:21:52 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:22:27 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:22:27 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:22:27 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:22:27 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:27:24 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:27:24 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:27:24 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:27:24 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:29:42 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:29:42 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:29:42 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:32:16 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:32:39 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:32:39 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:32:39 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:32:39 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:32:47 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:32:47 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:32:47 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:32:47 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:34:52 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:34:52 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:34:52 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:34:52 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:35:18 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:35:18 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:35:18 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:35:18 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:35:26 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:35:26 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:35:26 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:35:26 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:35:36 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:35:36 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:35:36 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:35:36 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:36:50 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:36:50 PM main.Program main
+GRAVE: Wrong double in QUERIES csv file (not a number: 2,5), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong double in QUERIES csv file (not a number: 2,5), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validatePositiveDouble(ValidationUtils.java:70)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:122)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:53)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:486)
+	at main.Program.main(Program.java:79)
+
+jun 27, 2022 1:36:58 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:36:58 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:36:58 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:36:58 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:37:11 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:37:11 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:37:11 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:37:11 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:37:23 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:37:23 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:37:23 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:37:23 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:37:42 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:37:42 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:37:42 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:37:42 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:40:07 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:40:07 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:40:07 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:41:19 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:42:48 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:42:48 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:42:48 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:42:48 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:45:07 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:45:07 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:45:07 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:48:46 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:48:46 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:48:46 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:48:46 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:49:45 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:49:45 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:49:45 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:52:45 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:52:50 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:52:50 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:52:50 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:54:15 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 1:54:55 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:54:55 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:54:55 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 1:55:19 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 1:55:19 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 1:55:19 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:02:38 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:02:38 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:02:38 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:02:38 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:03:15 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:03:15 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:03:15 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:03:15 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:03:55 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:03:55 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:03:55 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:03:55 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:04:13 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:04:13 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:04:13 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:04:13 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:04:56 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:04:56 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:04:56 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:04:56 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:05:27 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:05:27 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:05:27 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:05:27 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:05:57 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:05:57 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:05:57 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:05:57 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:10:10 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:10:10 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:10:10 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:10:10 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:10:27 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:10:27 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:10:27 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:10:27 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:10:44 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:10:44 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:10:44 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:10:44 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:12:26 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:12:26 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:12:26 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:12:26 PM main.Program main
+DETALLADO: END Business logic
+jun 27, 2022 2:12:57 PM main.Program main
+DETALLADO: START Persistence logic
+jun 27, 2022 2:12:57 PM main.Program main
+DETALLADO: END Persistence logic
+jun 27, 2022 2:12:57 PM main.Program main
+DETALLADO: START Business logic
+jun 27, 2022 2:12:57 PM main.Program main
+DETALLADO: END Business logic
