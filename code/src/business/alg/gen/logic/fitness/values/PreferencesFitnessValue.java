@@ -1,149 +1,56 @@
 package business.alg.gen.logic.fitness.values;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import business.alg.gen.model.Preference;
+import business.alg.gen.model.PreferenceType;
 import business.alg.greed.model.Assignment;
-import business.problem.model.Group;
-import business.problem.model.Subject;
-import business.problem.utils.ProblemUtils;
+import business.problem.model.Classroom;
 
 public class PreferencesFitnessValue extends AbstractFitnessValue {
-	private Map<String, Preference> preferences;
-	private List<Subject> subjects;
-
-	// Counters
-	private int correctEnglishLabs;
-	private int totalEnglishLabs;
-	private int correctEnglishTheory;
-	private int totalEnglishTheory;
-	private int correctSpanishLabs;
-	private int totalSpanishLabs;
-	private int correctSpanishTheory;
-	private int totalSpanishTheory;
+	private Map<String, List<Preference>> preferences;
 
 	public PreferencesFitnessValue(double weight,
-			Map<String, Preference> preferences,
-			List<Subject> subjects) {
+			Map<String, List<Preference>> preferences) {
 		super(weight);
-		this.preferences = new HashMap<String, Preference>(preferences);
-		this.subjects = new ArrayList<Subject>(subjects);
+		this.preferences = new HashMap<String, List<Preference>>(
+				preferences);
 	}
 
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{
 		double value = 0.0;
-		for (Subject s : subjects) {
-			if (preferences.get(s.getCode()) != null) {
-				Preference p = preferences.get(s.getCode());
-
-				totalEnglishLabs = 0;
-				correctEnglishLabs = 0;
-				totalEnglishTheory = 0;
-				correctEnglishTheory = 0;
-				totalSpanishLabs = 0;
-				correctSpanishLabs = 0;
-				totalSpanishTheory = 0;
-				correctSpanishTheory = 0;
-				for (Group g : s.getGroups()) {
-					Assignment a = assignments
-							.get(g.getCode());
-					if (a != null && a
-							.getClassroom() != null) {
-						increaseCountersForGroup(p, g,
-								a);
-					}
+		int prefCounter = 0;
+		int prefValidCounter = 0;
+		for (String groupCode : preferences.keySet()) {
+			Classroom c = assignments.get(groupCode).getClassroom();
+			if (c != null) {
+				List<Preference> prefsForGroup = preferences
+						.get(groupCode);
+				boolean negativeValid = prefsForGroup.stream()
+						.noneMatch(p -> p.getType()
+								.equals(PreferenceType.NEGATIVE)
+								&& p.getClassroom()
+										.equals(c));
+				boolean positiveValid = prefsForGroup.stream()
+						.anyMatch(p -> p.getType()
+								.equals(PreferenceType.POSITIVE)
+								&& p.getClassroom()
+										.equals(c));
+				if (negativeValid && positiveValid) {
+					prefValidCounter++;
 				}
-				double enLabValue = 0, enTheoryValue = 0,
-						esLabValue = 0,
-						esTheoryValue = 0,
-						groupCounter = 0;
-				if (totalEnglishLabs > 0) {
-					enLabValue = 100 * correctEnglishLabs
-							/ totalEnglishLabs;
-					++groupCounter;
-				}
-				if (totalEnglishTheory > 0) {
-					enTheoryValue = 100
-							* correctEnglishTheory
-							/ totalEnglishTheory;
-					++groupCounter;
-				}
-				if (totalSpanishLabs > 0) {
-					esLabValue = 100 * correctSpanishLabs
-							/ totalSpanishLabs;
-					++groupCounter;
-				}
-				if (totalSpanishTheory > 0) {
-					esTheoryValue = 100
-							* correctSpanishTheory
-							/ totalSpanishTheory;
-					++groupCounter;
-				}
-				double sValue = 0.0;
-
-				sValue = enLabValue + enTheoryValue + esLabValue
-						+ esTheoryValue;
-				if (groupCounter > 0)
-					sValue = sValue / groupCounter;
-
-				value += sValue;
 			}
+			prefCounter++;
+		}
+		if (prefCounter == 0) {
+			value = 100;
+		} else {
+			value = (prefValidCounter / prefCounter) * 100;
 		}
 		return value;
-	}
-
-	private void increaseCountersForGroup(Preference p, Group g,
-			Assignment a)
-	{
-		boolean enLang, labType;
-
-		enLang = ProblemUtils.isEnglishGroup(g);
-		labType = ProblemUtils.isLabGroup(g);
-		if (enLang) {
-			if (labType) {
-				if (complies(p.getEnglishLabPreferences(),
-						a.getClassroom().getCode())) {
-					++correctEnglishLabs;
-				}
-				++totalEnglishLabs;
-			} else {
-				if (complies(p.getEnglishTheoryPreferences(),
-						a.getClassroom().getCode())) {
-					++correctEnglishTheory;
-				}
-				++totalEnglishTheory;
-			}
-		} else {
-			if (labType) {
-				if (complies(p.getSpanishLabPreferences(),
-						a.getClassroom().getCode())) {
-					++correctSpanishLabs;
-				}
-				++totalSpanishLabs;
-			} else {
-				if (complies(p.getSpanishTheoryPreferences(),
-						a.getClassroom().getCode())) {
-					++correctSpanishTheory;
-				}
-				++totalSpanishTheory;
-			}
-		}
-	}
-
-	private boolean complies(List<String> prefs, String classroomCode)
-	{
-		boolean hasPrefs, complies;
-
-		hasPrefs = prefs.size() > 0;
-		complies = prefs.contains(classroomCode);
-		if (!hasPrefs || hasPrefs && complies) {
-			return true;
-		}
-		return false;
 	}
 }

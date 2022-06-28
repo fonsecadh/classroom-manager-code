@@ -16,11 +16,6 @@ public class LogHandler {
 	private static final LogHandler INSTANCE = new LogHandler();
 	private static final Logger LOGGER = Logger
 			.getLogger(LogHandler.class.getName());
-	// TODO: Figure this out
-	/*
-	 * private static final String FOLDERPATH =
-	 * Config.getInstance().getProperty("LOG_FOLDER_PATH");
-	 */
 	private static final String FOLDERPATH = "files/log/";
 
 	private LogHandler() {

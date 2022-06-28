@@ -1,58 +1,28 @@
 package business.alg.gen.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import business.problem.model.Classroom;
 
 public class Preference {
-	private List<String> enTheory;
-	private List<String> enLab;
-	private List<String> esTheory;
-	private List<String> esLab;
+	private PreferenceType type;
+	private Classroom classroom;
 
-	public Preference() {
-		this.enTheory = new ArrayList<String>();
-		this.enLab = new ArrayList<String>();
-		this.esTheory = new ArrayList<String>();
-		this.esLab = new ArrayList<String>();
+	public PreferenceType getType()
+	{
+		return type;
 	}
 
-	public List<String> getEnglishTheoryPreferences()
+	public Classroom getClassroom()
 	{
-		return new ArrayList<String>(enTheory);
+		return classroom;
 	}
 
-	public List<String> getEnglishLabPreferences()
+	public void setType(PreferenceType type)
 	{
-		return new ArrayList<String>(enLab);
+		this.type = type;
 	}
 
-	public List<String> getSpanishTheoryPreferences()
+	public void setClassroom(Classroom classroom)
 	{
-		return new ArrayList<String>(esTheory);
-	}
-
-	public List<String> getSpanishLabPreferences()
-	{
-		return new ArrayList<String>(esLab);
-	}
-
-	public void addEnglishTheoryPreference(String classroomCode)
-	{
-		this.enTheory.add(classroomCode);
-	}
-
-	public void addEnglishLabPreference(String classroomCode)
-	{
-		this.enLab.add(classroomCode);
-	}
-
-	public void addSpanishTheoryPreference(String classroomCode)
-	{
-		this.esTheory.add(classroomCode);
-	}
-
-	public void addSpanishLabPreference(String classroomCode)
-	{
-		this.esLab.add(classroomCode);
+		this.classroom = classroom;
 	}
 }

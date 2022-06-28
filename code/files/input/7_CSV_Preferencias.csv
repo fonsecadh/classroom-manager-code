@@ -1,2 +1,5 @@
-CodigoAsignatura;Idioma;Tipo;CodigoAula
-CVVS;ES;L;L-05
+CodigoGrupo;Sentido;CodigoAula
+CVVS.L.+;P;L-05
+SEV.L.*;P;L-S-02
+RAA.L.*;P;L-S-02
+IA.L.*;P;L-S-02

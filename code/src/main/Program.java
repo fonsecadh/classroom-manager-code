@@ -114,7 +114,7 @@ public class Program {
 
 	private static int parseArgs(String[] args)
 	{
-		return 1;
+		return 0;
 	}
 
 	public static void executeAlgorithm()
@@ -179,7 +179,7 @@ public class Program {
 		Map<String, Classroom> classrooms;
 		Map<String, Group> groups;
 		Map<String, Assignment> assignments;
-		Map<String, Preference> preferences;
+		Map<String, List<Preference>> preferences;
 		Map<String, List<Restriction>> restrictions;
 
 		cli.showMessageWithoutNewLine("Loading SUBJECTS file...");
@@ -222,8 +222,8 @@ public class Program {
 					"Loading PREFERENCES file...");
 			preferences = new PreferencesDataAccessCsv()
 					.loadPreferences(preferencesFilePath,
-							classrooms, subjects,
-							fm);
+							classrooms, groups,
+							subjects, fm);
 			cli.showMessage(" DONE");
 		}
 		restrictions = null;
@@ -322,8 +322,7 @@ public class Program {
 
 		if (loadPreferences)
 			fitnessValues.add(new PreferencesFitnessValue(
-					prefsFnWeight, preferences,
-					subjectList));
+					prefsFnWeight, preferences));
 
 		Decoder decoder = new Decoder();
 		for (Group g : groupList) {

@@ -42,6 +42,7 @@ public class Classfinder {
 
 		appendTitle(sb, "ClassFinder Query Results");
 		for (ClassfinderQuery q : queries) {
+			appendLine(sb, "####### QUERY START #######");
 			appendLine(sb, q.toString());
 
 			List<QueryResult> qrList = getResultsForQuery(q);
@@ -64,7 +65,7 @@ public class Classfinder {
 				appendLine(sb, "No results for query.");
 				;
 			}
-			appendLine(sb, "####### QUERY END #######");
+			appendLine(sb, "######## QUERY END ########");
 			appendNewLine(sb);
 		}
 		return sb.toString();

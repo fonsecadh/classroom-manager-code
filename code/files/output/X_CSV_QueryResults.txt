@@ -1,5 +1,6 @@
 ClassFinder Query Results
 =========================
+####### QUERY START #######
 Query: 16/04/2022;30/04/2022;14.00;20.00;1,00;150;T;5
 Result: 
 A-2-01 (Week: S16, Day: MONDAY, 14:00 - 20:00), 
@@ -7,8 +8,9 @@ A-2-01 (Week: S16, Day: TUESDAY, 14:00 - 20:00),
 A-2-01 (Week: S16, Day: WEDNESDAY, 14:00 - 20:00), 
 A-2-01 (Week: S16, Day: THURSDAY, 14:00 - 20:00), 
 A-2-01 (Week: S16, Day: FRIDAY, 14:00 - 20:00)
-####### QUERY END #######
+######## QUERY END ########
 
+####### QUERY START #######
 Query: 16/11/2022;30/11/2022;14.00;20.00;1,00;150;T;5
 Result: 
 A-2-01 (Week: S46, Day: WEDNESDAY, 14:00 - 17:00), 
@@ -16,5 +18,5 @@ A-2-01 (Week: S46, Day: THURSDAY, 14:00 - 15:00, 16:00 - 17:00),
 A-2-01 (Week: S46, Day: FRIDAY, 14:00 - 16:00, 17:00 - 20:00), 
 A-2-01 (Week: S47, Day: MONDAY, 14:30 - 17:00), 
 A-2-01 (Week: S47, Day: TUESDAY, 14:00 - 17:00)
-####### QUERY END #######
+######## QUERY END ########
 
