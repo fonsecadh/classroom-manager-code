@@ -1,5 +1,11 @@
 package business.problem.model;
 
+/**
+ * Models a classroom. A classroom is uniquely identified by its code.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class Classroom {
 	private String code;
 	private int numberOfSeats;
@@ -61,5 +67,11 @@ public class Classroom {
 		} else if (!code.equals(other.code))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Classroom [code=" + code + "]";
 	}
 }

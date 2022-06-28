@@ -6,6 +6,12 @@ import java.util.List;
 import business.problem.model.schedule.GroupSchedule;
 import business.problem.utils.ProblemUtils;
 
+/**
+ * Models a group. A group is uniquely identified by its code.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class Group {
 	private String code;
 	private int numberOfStudents;
@@ -94,6 +100,14 @@ public class Group {
 		this.academicWeeks.add(academicWeek);
 	}
 
+	/**
+	 * Checks if this group collides with another group. A group collision
+	 * is produced when their schedules overlap and they attend classes in
+	 * the same week.
+	 * 
+	 * @param other The other group.
+	 * @return True if both groups collide. False otherwise.
+	 */
 	public boolean collidesWith(Group other)
 	{
 		boolean schedulesCollide = false, weeksCollide = false;
@@ -171,5 +185,11 @@ public class Group {
 		} else if (!code.equals(other.code))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Group [code=" + code + "]";
 	}
 }

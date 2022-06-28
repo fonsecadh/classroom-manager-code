@@ -22,17 +22,17 @@ import ui.CommandLineInterface;
  *
  */
 public class GeneticAlgorithm {
-	private int popSize;
-	private int individualLength;
-	private double crossoverProb;
-	private double mutationProb;
-	private long maxTimeMs;
-	private int nGenerations;
-	private FitnessFunction fn;
-	private IndividualManager im;
-	private int showGenInfo;
-	private Random random;
-	private Metrics metrics;
+	private int popSize; // Population size
+	private int individualLength; // Individual length
+	private double crossoverProb; // Crossover probability
+	private double mutationProb; // Mutation probability
+	private long maxTimeMs; // Max time in ms
+	private int nGenerations; // Number of generations
+	private FitnessFunction fn; // The current fitness function
+	private IndividualManager im; // Utilities for the individual operations
+	private int showGenInfo; // When to show generation information
+	private Random random; // A random instance
+	private Metrics metrics; // Metrics for the execution
 
 	/**
 	 * Creates a Genetic Algorithm given its parameters.
@@ -51,7 +51,8 @@ public class GeneticAlgorithm {
 	 *                             algorithm.
 	 * @param individualManager    A manager ({@link IndividualManager}) for
 	 *                             the individual operations.
-	 * @param showGenInfo
+	 * @param showGenInfo          When to show genetic information (e.g
+	 *                             every 10 generations)
 	 */
 	public GeneticAlgorithm(int individualLength, int populationSize,
 			double mutationProbability, double crossoverProbability,
@@ -72,9 +73,8 @@ public class GeneticAlgorithm {
 	}
 
 	/**
-	 * The objective of this algorithm is to generate a given number of
-	 * generations of individuals and return the individual with the
-	 * greatest fitness value at the end of the execution.
+	 * The GA returns the individual with the greatest fitness value when
+	 * all generations have been executed or the time is up.
 	 * 
 	 * @return The individual ({@link Individual}) with the best fitness
 	 *         value.
@@ -152,6 +152,12 @@ public class GeneticAlgorithm {
 		return bestIndividual;
 	}
 
+	/**
+	 * Individual with the best fitness of the generation.
+	 * 
+	 * @param population Current population of individuals.
+	 * @return The individual with greatest fitness.
+	 */
 	private Individual bestIndividual(List<Individual> population)
 	{
 		Individual bestIndividual = null;
@@ -172,6 +178,13 @@ public class GeneticAlgorithm {
 		return bestIndividual;
 	}
 
+	/**
+	 * Executes the genetic operators and creates the next generation of
+	 * individuals.
+	 * 
+	 * @param population Current population.
+	 * @return List of individuals representing the new generation.
+	 */
 	private List<Individual> nextGeneration(List<Individual> population)
 	{
 		List<Individual> newPopulation, oldPopulation;
@@ -191,7 +204,7 @@ public class GeneticAlgorithm {
 			// Crossover
 			if (crossoverProb >= random.nextDouble()) {
 				c1 = crossover(p1, p2);
-				c2 = crossover(p1, p2);
+				c2 = crossover(p2, p1);
 			}
 			// Mutation
 			if (mutationProb >= random.nextDouble()) {
@@ -210,6 +223,13 @@ public class GeneticAlgorithm {
 		return newPopulation;
 	}
 
+	/**
+	 * Executes the currently selected fitness function for the given
+	 * individual.
+	 * 
+	 * @param individual An individual of the population.
+	 * @return The fitness value of such an individual.
+	 */
 	private double fitnessFunction(Individual individual)
 	{
 		if (individual.getFitness() == Double.NEGATIVE_INFINITY) {
@@ -218,6 +238,14 @@ public class GeneticAlgorithm {
 		return individual.getFitness();
 	}
 
+	/**
+	 * Creates the initial population, checking that all individuals are
+	 * unique, that is, no pair of individuals share the same representation
+	 * vector chromosome.
+	 * 
+	 * @return The initial set of individuals representing the starting
+	 *         population.
+	 */
 	private Set<Individual> initialPopulation()
 	{
 		Map<String, Boolean> uniqueMap = new HashMap<String, Boolean>();
@@ -237,6 +265,12 @@ public class GeneticAlgorithm {
 		return p;
 	}
 
+	/**
+	 * Selection operator of the GA. The Random Selection variant is used.
+	 * 
+	 * @param population Population of individuals.
+	 * @return Randomly selected individual.
+	 */
 	private Individual selection(List<Individual> population)
 	{
 		int index = random.nextInt(population.size());
@@ -245,27 +279,48 @@ public class GeneticAlgorithm {
 		return selected;
 	}
 
+	/**
+	 * Crossover operator of the GA. The Order Crossover (OX) variant is
+	 * used.
+	 * 
+	 * @param firstParent  First individual acting as parent.
+	 * @param secondParent Second individual acting as parent.
+	 * @return The offspring resulting from crossing the chromosomes of both
+	 *         parents through the OX operator.
+	 */
 	private Individual crossover(Individual firstParent,
 			Individual secondParent)
 	{
-		int p1 = randomOffset(individualLength);
-		int p2 = randomOffset(individualLength);
+		int p1 = randomOffset(individualLength); // First point
+		int p2 = randomOffset(individualLength); // Second point
 
 		List<String> xArray = firstParent.getRepresentation();
 		List<String> yArray = secondParent.getRepresentation();
+		// The offspring starts with the chromosome of the first parent
 		List<String> offArray = new ArrayList<String>(xArray);
 
-		// Keep the substring from p1 to p2-1 to the offspring, order
-		// and position
-		// The remaining genes, p2 to p1-1, from the second parent,
-		// relative order
-		int k = p2;
-		for (int i = 0; i < individualLength; i++) {
-			int j = p1;
+		/**
+		 * OX operator description:
+		 * 
+		 * The section from p1 to p2-1 of the first parent is copied to
+		 * the offspring, keeping order and position.
+		 * 
+		 * Then, the section from p2 to p1-1 (in a circular way) of the
+		 * second parent is copied to the offspring, in relative order.
+		 * 
+		 * Check the theory section of the thesis document for an
+		 * example.
+		 * 
+		 */
+		int k = p2; // j <- Offspring position pointer
+		for (int i = 0; i < individualLength; i++) { // i <- Second
+							     // parent position
+							     // pointer
+			int j = p1; // j <- First parent position pointer
 			while (j < p2 + (p2 <= p1 ? individualLength : 0)
 					&& yArray.get(i) != xArray.get(
 							j % individualLength)) {
-				j++;
+				j++; // Iterate section p1 to p2-1
 			}
 			if (j == p2 + (p2 <= p1 ? individualLength : 0)) {
 				// yArray[i] is not in offArray from p1 to p2-1
@@ -277,6 +332,12 @@ public class GeneticAlgorithm {
 		return new Individual(offArray);
 	}
 
+	/**
+	 * Mutation operator of the GA. The Swap Mutation variant is used.
+	 * 
+	 * @param child The offspring to be mutated.
+	 * @return The mutated offspring.
+	 */
 	private Individual mutation(Individual child)
 	{
 		int p1 = randomOffset(individualLength - 1);
@@ -295,6 +356,17 @@ public class GeneticAlgorithm {
 		return new Individual(mutatedRepresentation);
 	}
 
+	/**
+	 * Tournament operator used in the GA. It sorts the individuals by their
+	 * fitness from best to lowest and returns the first two, which are
+	 * inserted in the new generation afterwards.
+	 * 
+	 * @param a Individual to be evaluated.
+	 * @param b Individual to be evaluated.
+	 * @param c Individual to be evaluated.
+	 * @param d Individual to be evaluated.
+	 * @return Array with the two winners.
+	 */
 	private Individual[] tournament(Individual a, Individual b,
 			Individual c, Individual d)
 	{

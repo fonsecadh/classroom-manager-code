@@ -3,6 +3,13 @@ package business.problem.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Models a subject. A subject is uniquely identified by its code, and contains
+ * a list of the groups ({@link Group}) that belong to it.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class Subject {
 	private String code;
 	private String course;

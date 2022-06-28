@@ -3,6 +3,14 @@ package business.alg.greed.model;
 import business.problem.model.Classroom;
 import business.problem.model.Group;
 
+/**
+ * Models an assignment of a classroom ({@link Classroom}) to a group
+ * ({@link Group}). An assignment is uniquely identified by the code of its
+ * group.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class Assignment {
 	private Group group;
 	private Classroom classroom;
@@ -62,5 +70,12 @@ public class Assignment {
 		} else if (!group.equals(other.group))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "Assignment [group=" + group + ", classroom=" + classroom
+				+ "]";
 	}
 }

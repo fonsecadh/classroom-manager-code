@@ -230,6 +230,13 @@ public class GreedyAlgorithm {
 		}
 	}
 
+	/**
+	 * Obtains the best classroom for the given assignment, or {@code null}
+	 * if no classroom is found.
+	 * 
+	 * @param a The assignment.
+	 * @return The best classroom for the given assignment.
+	 */
 	private Classroom bestClassroomFor(Assignment a)
 	{
 		Classroom selected = null;

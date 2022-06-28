@@ -6,6 +6,12 @@ import java.util.stream.Collectors;
 
 import business.errorhandler.model.ErrorType;
 
+/**
+ * Handles all errors in the system.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class ErrorHandler {
 	private static final ErrorHandler INSTANCE = new ErrorHandler();
 	private List<ErrorType> errors;

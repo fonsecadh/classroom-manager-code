@@ -13,6 +13,11 @@ public class IndividualManager {
 		this.groupCodes = new ArrayList<String>(groupCodes);
 	}
 
+	/**
+	 * Creates an individual with a random representation chromosome.
+	 * 
+	 * @return The randomly generated individual.
+	 */
 	public Individual generateRandomIndividual()
 	{
 		return GenAlgoUtils.generateRandomIndividual(groupCodes);

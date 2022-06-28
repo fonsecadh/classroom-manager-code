@@ -5,6 +5,12 @@ import java.util.Map;
 
 import business.problem.model.Group;
 
+/**
+ * The manager for the Lazy Collision Matrix (LCM).
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class CollisionManager {
 	/**
 	 * Map that represents the collisions between groups.<br>
@@ -19,6 +25,13 @@ public class CollisionManager {
 		this.collisionMap = new HashMap<String, Map<String, Boolean>>();
 	}
 
+	/**
+	 * Checks whether or not to groups collide.
+	 * 
+	 * @param g1 First group.
+	 * @param g2 Second group.
+	 * @return True if they collide. False otherwise.
+	 */
 	public boolean groupsCollide(Group g1, Group g2)
 	{
 		Map<String, Boolean> g1CollisionMap, g2CollisionMap;

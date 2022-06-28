@@ -9,6 +9,12 @@ import java.util.Map;
 import business.problem.model.Classroom;
 import business.problem.model.Group;
 
+/**
+ * Manager of the Lazy Filter Dictionary (LFD).
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class ClassroomFilterManager {
 	private List<ClassroomFilter> filters;
 	private List<Classroom> classrooms;
@@ -27,6 +33,16 @@ public class ClassroomFilterManager {
 		this.mapFiltered = new HashMap<String, List<Classroom>>();
 	}
 
+	/**
+	 * Filters the classrooms ({@link Classroom}) valid for a given group
+	 * ({@link Group}). This method applies all the filters configured by
+	 * the prototype, and only executes the filter operation the first time
+	 * for each group, storing the result in the LFD.
+	 * 
+	 * @param group      The group.
+	 * @param classrooms The list of classrooms to be filtered.
+	 * @return The list of filtered classrooms.
+	 */
 	public List<Classroom> filterClassroomsFor(Group g)
 	{
 		List<Classroom> fc = mapFiltered.get(g.getCode());

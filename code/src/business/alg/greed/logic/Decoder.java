@@ -8,6 +8,12 @@ import java.util.Map;
 import business.alg.gen.model.Individual;
 import business.alg.greed.model.Assignment;
 
+/**
+ * Models the decoder for the individual ({@link Individual}) chromosomes.
+ * 
+ * @author Hugo Fonseca Díaz
+ *
+ */
 public class Decoder {
 	private Map<String, Assignment> masterAssignments;
 
@@ -20,6 +26,14 @@ public class Decoder {
 		this.masterAssignments.put(groupId, a);
 	}
 
+	/**
+	 * Retuns a list of assignments ({@link Assignment}) in the order
+	 * specified by the individual's ({@link Individual}) vector chromosome.
+	 * 
+	 * @param i The given individual.
+	 * @return A list of assignment in the order specified by its
+	 *         chromosome.
+	 */
 	public List<Assignment> decode(Individual i)
 	{
 		List<Assignment> decodedRep = new ArrayList<Assignment>();
@@ -29,15 +43,5 @@ public class Decoder {
 					masterAssignments.get(groupId)));
 		}
 		return decodedRep;
-	}
-
-	public Map<String, Assignment> decodeAsMap(Individual i)
-	{
-		List<Assignment> l = decode(i);
-		Map<String, Assignment> m = new HashMap<String, Assignment>();
-		for (Assignment a : l) {
-			m.put(a.getGroup().getCode(), new Assignment(a));
-		}
-		return m;
 	}
 }
