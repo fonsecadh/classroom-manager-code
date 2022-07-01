@@ -1,22 +1,35 @@
 ClassFinder Query Results
 =========================
 ####### QUERY START #######
-Query: 16/04/2022;30/04/2022;14.00;20.00;1,00;150;T;5
+Query: 23/04/2022;27/04/2022;14.00;20.00;2,50;150;T;5
 Result: 
-A-2-01 (Week: S16, Day: MONDAY, 14:00 - 20:00), 
-A-2-01 (Week: S16, Day: TUESDAY, 14:00 - 20:00), 
-A-2-01 (Week: S16, Day: WEDNESDAY, 14:00 - 20:00), 
-A-2-01 (Week: S16, Day: THURSDAY, 14:00 - 20:00), 
-A-2-01 (Week: S16, Day: FRIDAY, 14:00 - 20:00)
+A-2-01 (Week: S17, Day: MONDAY, 14:00 - 20:00), 
+A-2-01 (Week: S17, Day: TUESDAY, 14:00 - 20:00), 
+A-2-01 (Week: S17, Day: WEDNESDAY, 14:00 - 20:00), 
+A-2-02 (Week: S17, Day: MONDAY, 14:00 - 20:00), 
+A-2-02 (Week: S17, Day: TUESDAY, 14:00 - 20:00)
 ######## QUERY END ########
 
 ####### QUERY START #######
-Query: 16/11/2022;30/11/2022;14.00;20.00;1,00;150;T;5
+Query: 12/06/2022;28/06/2022;08.00;12.00;2,50;14;L;7
 Result: 
-A-2-01 (Week: S46, Day: WEDNESDAY, 14:00 - 17:00), 
-A-2-01 (Week: S46, Day: THURSDAY, 14:00 - 15:00, 16:00 - 17:00), 
-A-2-01 (Week: S46, Day: FRIDAY, 14:00 - 16:00, 17:00 - 20:00), 
-A-2-01 (Week: S47, Day: MONDAY, 14:30 - 17:00), 
-A-2-01 (Week: S47, Day: TUESDAY, 14:00 - 17:00)
+L-02 (Week: S24, Day: MONDAY, 08:00 - 12:00), 
+L-02 (Week: S24, Day: TUESDAY, 08:00 - 12:00), 
+L-02 (Week: S24, Day: WEDNESDAY, 08:00 - 12:00), 
+L-02 (Week: S24, Day: THURSDAY, 08:00 - 12:00), 
+L-02 (Week: S24, Day: FRIDAY, 08:00 - 12:00), 
+L-02 (Week: S25, Day: MONDAY, 08:00 - 12:00), 
+L-02 (Week: S25, Day: TUESDAY, 08:00 - 12:00)
+######## QUERY END ########
+
+####### QUERY START #######
+Query: 10/10/2022;14/10/2022;08.00;12.00;2,50;14;L;6
+Result: 
+L-02 (Week: S41, Day: MONDAY, 08:00 - 11:00), 
+L-11 (Week: S41, Day: MONDAY, 08:00 - 12:00), 
+L-11 (Week: S41, Day: TUESDAY, 08:00 - 11:00), 
+L-11 (Week: S41, Day: THURSDAY, 08:00 - 11:00), 
+L-11 (Week: S41, Day: FRIDAY, 08:00 - 12:00), 
+L-13 (Week: S41, Day: MONDAY, 08:00 - 11:00)
 ######## QUERY END ########
 

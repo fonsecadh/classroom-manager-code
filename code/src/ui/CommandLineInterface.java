@@ -1,6 +1,7 @@
 package ui;
 
 public class CommandLineInterface {
+	public static final String VERSION = "1.0.0";
 	private static final CommandLineInterface INSTANCE = new CommandLineInterface();
 
 	private CommandLineInterface() {
@@ -11,11 +12,9 @@ public class CommandLineInterface {
 		return INSTANCE;
 	}
 
-	public void showProgramDetails(String version)
+	public void showProgramDetails()
 	{
-		String msg = "CLASSROOM MANAGER";
-		if (version != null)
-			msg += " v" + version;
+		String msg = String.format("CLASSMANAGER v%s", VERSION);
 		System.out.println(msg);
 		System.out.println("Author: Hugo Fonseca Diaz");
 		System.out.println(
@@ -23,6 +22,12 @@ public class CommandLineInterface {
 		System.out.println(
 				"Entity: School of Computing Engineering of the University of Oviedo");
 		showNewLine();
+	}
+
+	public void showVersion()
+	{
+		String msg = String.format("CLASSMANAGER v%s", VERSION);
+		System.out.println(msg);
 	}
 
 	public void showMessage(String msg)

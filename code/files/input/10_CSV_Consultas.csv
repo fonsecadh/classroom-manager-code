@@ -1,3 +1,4 @@
 FechaInicio;FechaFin;HoraMinimaInicio;HoraMaximaFin;Duracion(horas);NumeroAsistentes;TipoAula;ResultadosAObtener
-16/04/2022;30/04/2022;14.00;20.00;1.0;150;T;5
-16/11/2022;30/11/2022;14.00;20.00;1.0;150;T;5
+23/04/2022;27/04/2022;14.00;20.00;2.5;150;T;5
+12/06/2022;28/06/2022;08.00;12.00;2.5;14;L;7
+10/10/2022;14/10/2022;08.00;12.00;2.5;14;L;6

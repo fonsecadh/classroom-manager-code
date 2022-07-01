@@ -43,6 +43,9 @@ import business.loghandler.LogHandler;
 import business.problem.model.Classroom;
 import business.problem.model.Group;
 import business.problem.model.Subject;
+import persistence.automation.InputFilesAutomation;
+import persistence.automation.csv.EnrolledStudentsDataAccessCsv;
+import persistence.automation.csv.PlanningDataAccessCsv;
 import persistence.filemanager.FileManager;
 import persistence.problem.AssignmentsDataAccess;
 import persistence.problem.csv.AcademicWeeksDataAccessCsv;
@@ -70,7 +73,7 @@ public class Program {
 		long startTime = System.currentTimeMillis(), currentTime,
 				totalTime;
 		try {
-			cli.showProgramDetails("1.0.0");
+			cli.showProgramDetails();
 			switch (parseArgs(args)) {
 			case 0:
 				executeAlgorithm();
@@ -114,7 +117,7 @@ public class Program {
 
 	private static int parseArgs(String[] args)
 	{
-		return 0;
+		return 1;
 	}
 
 	public static void executeAlgorithm()
@@ -370,18 +373,17 @@ public class Program {
 		Map<String, Assignment> assignmentsMap = greedyAlgo
 				.greedyAlgorithm(decoded);
 
-		String outputAssignmentsFilePath = outputFolderPath
-				+ outputAssignmentsFilename;
+		String aPath = outputFolderPath + outputAssignmentsFilename;
 		IndividualPrinter individualPrinter = new IndividualPrinter(
 				subjectList, assignmentsMap);
 
 		// Assignments (Pretty format)
-		fm.writeToFile(outputAssignmentsFilePath + ".txt",
+		fm.writeToFile(aPath + ".txt",
 				individualPrinter.getPrettyIndividual());
 
 		// Assignments (CSV format)
-		ada.writeAssignments(outputAssignmentsFilePath + ".csv",
-				assignmentsMap, subjectList, fm);
+		ada.writeAssignments(aPath + ".csv", assignmentsMap,
+				subjectList, fm);
 
 		// Classroom timetables
 		for (Classroom c : classroomList) {
@@ -511,6 +513,9 @@ public class Program {
 		logh.log(Level.FINE, Program.class.getName(), "main",
 				"START Business logic");
 
+		cli.showMessageWithoutNewLine(
+				"Searching for free classrooms...");
+
 		Map<String, List<Assignment>> classroomAssignmentMap = new HashMap<String, List<Assignment>>();
 		for (Classroom c : classroomList) {
 			List<Assignment> aList = new ArrayList<Assignment>();
@@ -529,10 +534,131 @@ public class Program {
 
 		String res = classfinder.getAllQueryResults();
 
+		cli.showMessage(" DONE");
+
 		// Output files
-		String outputQueriesFilePath = outputFolderPath
-				+ outputQueriesFilename;
-		fm.writeToFile(outputQueriesFilePath + ".txt", res);
+		cli.showMessageWithoutNewLine("Storing the results...");
+
+		String qPath = outputFolderPath + outputQueriesFilename;
+		fm.writeToFile(qPath + ".txt", res);
+
+		// Business errors
+		if (errh.anyErrors()) {
+			errh.getCustomErrorMessages()
+					.forEach(e -> cli.showError(e));
+			cli.showEndOfProgramWithErrors();
+			return;
+		}
+		cli.showMessage(" DONE");
+
+		logh.log(Level.FINE, Program.class.getName(), "main",
+				"END Business logic");
+	}
+
+	public static void executeInputFileAutomation()
+			throws PersistenceException, InputValidationException
+	{
+		// CLI
+		CommandLineInterface cli = CommandLineInterface.getInstance();
+
+		// Handlers
+		LogHandler logh = LogHandler.getInstance();
+		ErrorHandler errh = ErrorHandler.getInstance();
+
+		// Configuration manager
+		Config config = Config.getInstance();
+
+		// Persistence
+		cli.showMessage("START Processing input files...");
+		cli.showNewLine();
+		logh.log(Level.FINE, Program.class.getName(), "main",
+				"START Persistence logic");
+
+		// FileManager
+		FileManager fm = new FileManager();
+
+		// Config file
+		String configFilePath = "files/config/classfinder.properties";
+
+		cli.showMessageWithoutNewLine("Loading CONFIG file...");
+		config.load(configFilePath);
+		cli.showMessage(" DONE");
+
+		// Input
+
+		// Required
+		String planningFilePath = config
+				.getProperty("PLANNING_FILE_PATH");
+		String enrolledFilePath = config
+				.getProperty("ENROLLED_FILE_PATH");
+
+		// Load files
+		Map<String, Group> groups;
+
+		cli.showMessageWithoutNewLine("Loading PLANNING file...");
+		groups = new PlanningDataAccessCsv()
+				.loadGroupsFromPlanning(planningFilePath, fm);
+		cli.showMessage(" DONE");
+
+		cli.showMessageWithoutNewLine("Loading ENROLLED file...");
+		new EnrolledStudentsDataAccessCsv().loadEnrolledStudents(
+				enrolledFilePath, groups, fm);
+		cli.showMessage(" DONE");
+
+		// Output
+		String outputFolderPath = config
+				.getProperty("OUTPUT_FOLDER_PATH");
+		String outputGroupsFilename = config
+				.getProperty("OUTPUT_GROUPS_FILENAME");
+		String outputGroupScheduleFilename = config
+				.getProperty("OUTPUT_GROUPSCHEDULE_FILENAME");
+		String outputWeeksFilename = config
+				.getProperty("OUTPUT_WEEKS_FILENAME");
+
+		// Persistence errors
+		if (errh.anyErrors()) {
+			errh.getCustomErrorMessages()
+					.forEach(e -> cli.showError(e));
+			cli.showEndOfProgramWithErrors();
+			return;
+		}
+		cli.showNewLine();
+		cli.showMessage("END Processing input files");
+		cli.showNewLine();
+		logh.log(Level.FINE, Program.class.getName(), "main",
+				"END Persistence logic");
+
+		// Business logic
+		logh.log(Level.FINE, Program.class.getName(), "main",
+				"START Business logic");
+
+		cli.showMessage("Generating input files...");
+		cli.showNewLine();
+
+		List<Group> groupList = new ArrayList<Group>(groups.values());
+
+		InputFilesAutomation auto = new InputFilesAutomation(groupList);
+
+		// Paths
+		String gPath = outputFolderPath + outputGroupsFilename;
+		String gsPath = outputFolderPath + outputGroupScheduleFilename;
+		String wPath = outputFolderPath + outputWeeksFilename;
+
+		cli.showMessageWithoutNewLine("Generating GROUPS file...");
+		fm.writeToFile(gPath, auto.getGroupData());
+		cli.showMessage(" DONE");
+
+		cli.showMessageWithoutNewLine(
+				"Generating GROUPSCHEDULE file...");
+		fm.writeToFile(gsPath, auto.getGroupScheduleData());
+		cli.showMessage(" DONE");
+
+		cli.showMessageWithoutNewLine("Generating WEEKS file...");
+		fm.writeToFile(wPath, auto.getAcademicWeeksData());
+		cli.showMessage(" DONE");
+
+		cli.showNewLine();
+		cli.showMessage("All files generated.");
 
 		// Business errors
 		if (errh.anyErrors()) {
@@ -543,9 +669,5 @@ public class Program {
 		}
 		logh.log(Level.FINE, Program.class.getName(), "main",
 				"END Business logic");
-	}
-
-	public static void executeInputFileAutomation()
-	{
 	}
 }

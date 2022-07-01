@@ -1,0 +1,143 @@
+jul 01, 2022 12:54:47 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 12:54:47 PM main.Program main
+GRAVE: Null or empty string in ASSIGNMENTS csv file, line 9
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ASSIGNMENTS csv file, line 9
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.problem.csv.AssignmentDataAccessCsv.validate(AssignmentDataAccessCsv.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:56)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:479)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 12:57:50 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 12:57:50 PM main.Program main
+GRAVE: Null or empty string in ASSIGNMENTS csv file, line 9
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ASSIGNMENTS csv file, line 9
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.problem.csv.AssignmentDataAccessCsv.validate(AssignmentDataAccessCsv.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:56)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:479)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 12:58:57 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 12:58:57 PM main.Program main
+GRAVE: Null or empty string in ASSIGNMENTS csv file, line 9
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ASSIGNMENTS csv file, line 9
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.problem.csv.AssignmentDataAccessCsv.validate(AssignmentDataAccessCsv.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:56)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:479)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 12:59:02 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 12:59:02 PM main.Program main
+GRAVE: Null or empty string in ASSIGNMENTS csv file, line 9
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ASSIGNMENTS csv file, line 9
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.problem.csv.AssignmentDataAccessCsv.validate(AssignmentDataAccessCsv.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:56)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:479)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 1:00:15 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:00:15 PM main.Program main
+GRAVE: Null or empty string in ASSIGNMENTS csv file, line 70
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ASSIGNMENTS csv file, line 70
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.problem.csv.AssignmentDataAccessCsv.validate(AssignmentDataAccessCsv.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:56)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:479)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 1:00:23 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:00:23 PM main.Program main
+GRAVE: Wrong line format in ASSIGNMENTS csv file: different column size, line 337
+business.errorhandler.exceptions.InputValidationException: Wrong line format in ASSIGNMENTS csv file: different column size, line 337
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:133)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:51)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeClassFinder(Program.java:479)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 1:00:39 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:00:39 PM main.Program main
+DETALLADO: END Persistence logic
+jul 01, 2022 1:00:39 PM main.Program main
+DETALLADO: START Business logic
+jul 01, 2022 1:00:39 PM main.Program main
+DETALLADO: END Business logic
+jul 01, 2022 1:02:28 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:02:28 PM main.Program main
+GRAVE: Wrong time format in QUERIES csv file (Expected format: HH.MM, Received: 14:00), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong time format in QUERIES csv file (Expected format: HH.MM, Received: 14:00), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateTime(ValidationUtils.java:88)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:114)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:53)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:485)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 1:02:46 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:02:46 PM main.Program main
+GRAVE: Wrong double in QUERIES csv file (not a number: 2,5), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong double in QUERIES csv file (not a number: 2,5), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validatePositiveDouble(ValidationUtils.java:70)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.validate(ClassfinderDataAccessCsv.java:122)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.lineToQuery(ClassfinderDataAccessCsv.java:53)
+	at persistence.problem.csv.ClassfinderDataAccessCsv.loadQueries(ClassfinderDataAccessCsv.java:30)
+	at main.Program.executeClassFinder(Program.java:485)
+	at main.Program.main(Program.java:79)
+
+jul 01, 2022 1:02:59 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:02:59 PM main.Program main
+DETALLADO: END Persistence logic
+jul 01, 2022 1:02:59 PM main.Program main
+DETALLADO: START Business logic
+jul 01, 2022 1:02:59 PM main.Program main
+DETALLADO: END Business logic
+jul 01, 2022 1:03:42 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:03:42 PM main.Program main
+DETALLADO: END Persistence logic
+jul 01, 2022 1:03:42 PM main.Program main
+DETALLADO: START Business logic
+jul 01, 2022 1:03:42 PM main.Program main
+DETALLADO: END Business logic
+jul 01, 2022 1:05:23 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:05:23 PM main.Program main
+DETALLADO: END Persistence logic
+jul 01, 2022 1:05:23 PM main.Program main
+DETALLADO: START Business logic
+jul 01, 2022 1:05:23 PM main.Program main
+DETALLADO: END Business logic
+jul 01, 2022 1:09:12 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:09:12 PM main.Program main
+DETALLADO: END Persistence logic
+jul 01, 2022 1:09:12 PM main.Program main
+DETALLADO: START Business logic
+jul 01, 2022 1:09:12 PM main.Program main
+DETALLADO: END Business logic
+jul 01, 2022 1:10:57 PM main.Program main
+DETALLADO: START Persistence logic
+jul 01, 2022 1:10:57 PM main.Program main
+DETALLADO: END Persistence logic
+jul 01, 2022 1:10:57 PM main.Program main
+DETALLADO: START Business logic
+jul 01, 2022 1:10:57 PM main.Program main
+DETALLADO: END Business logic
