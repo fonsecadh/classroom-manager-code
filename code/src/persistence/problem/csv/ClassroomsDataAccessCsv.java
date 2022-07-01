@@ -24,7 +24,7 @@ public class ClassroomsDataAccessCsv implements ClassroomsDataAccess {
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			Classroom c = lineToClassroom(lines.get(i), i);
+			Classroom c = lineToClassroom(lines.get(i), i + 1);
 			classrooms.put(c.getCode(), c);
 		}
 		return classrooms;

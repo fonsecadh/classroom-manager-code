@@ -87,4 +87,10 @@ public class Subject {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString()
+	{
+		return "Subject [code=" + code + "]";
+	}
 }

@@ -23,7 +23,7 @@ public class SubjectDataAccessCsv implements SubjectDataAccess {
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			Subject s = lineToSubject(lines.get(i), i);
+			Subject s = lineToSubject(lines.get(i), i + 1);
 			subjects.put(s.getCode(), s);
 		}
 		return subjects;

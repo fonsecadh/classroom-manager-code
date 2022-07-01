@@ -31,8 +31,8 @@ public class RestrictionsDataAccessCsv implements RestrictionsDataAccess {
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			lineToRestrictions(lines.get(i), i, classrooms, groups,
-					subjects, restrictions);
+			lineToRestrictions(lines.get(i), i + 1, classrooms,
+					groups, subjects, restrictions);
 		}
 		return restrictions;
 	}

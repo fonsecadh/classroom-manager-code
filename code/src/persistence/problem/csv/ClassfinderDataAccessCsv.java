@@ -27,7 +27,7 @@ public class ClassfinderDataAccessCsv implements ClassfinderDataAccess {
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) // Ignore header
-			queries.add(lineToQuery(lines.get(i), i));
+			queries.add(lineToQuery(lines.get(i), i + 1));
 
 		return queries;
 	}

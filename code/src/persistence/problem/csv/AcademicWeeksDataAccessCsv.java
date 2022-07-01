@@ -25,7 +25,8 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 		String[] headerArray = header.split(";", -1);
 
 		for (int i = 1; i < lines.size(); i++)
-			addWeeksToGroup(lines.get(i), i, groups, headerArray);
+			addWeeksToGroup(lines.get(i), i + 1, groups,
+					headerArray);
 	}
 
 	private void addWeeksToGroup(String line, int lineNumber,

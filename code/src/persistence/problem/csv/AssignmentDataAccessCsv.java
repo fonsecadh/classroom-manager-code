@@ -32,8 +32,8 @@ public class AssignmentDataAccessCsv implements AssignmentsDataAccess {
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			Assignment a = lineToAssignment(lines.get(i), i, groups,
-					classrooms);
+			Assignment a = lineToAssignment(lines.get(i), i + 1,
+					groups, classrooms);
 			assignments.put(a.getGroup().getCode(), a);
 		}
 		return assignments;

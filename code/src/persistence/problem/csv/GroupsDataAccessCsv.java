@@ -26,7 +26,7 @@ public class GroupsDataAccessCsv implements GroupsDataAccess {
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			Group g = lineToGroup(lines.get(i), i, subjects);
+			Group g = lineToGroup(lines.get(i), i + 1, subjects);
 			groups.put(g.getCode(), g);
 		}
 		return groups;

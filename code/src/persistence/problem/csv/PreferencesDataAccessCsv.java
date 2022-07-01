@@ -31,8 +31,8 @@ public class PreferencesDataAccessCsv implements PreferencesDataAccess {
 
 		List<String> lines = fileManager.readLinesFromFile(filename);
 		for (int i = 1; i < lines.size(); i++) { // Ignore header
-			lineToPreferences(lines.get(i), i, classrooms, groups,
-					subjects, prefs);
+			lineToPreferences(lines.get(i), i + 1, classrooms,
+					groups, subjects, prefs);
 		}
 		return prefs;
 	}

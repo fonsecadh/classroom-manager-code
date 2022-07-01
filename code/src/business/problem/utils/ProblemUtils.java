@@ -67,7 +67,7 @@ public class ProblemUtils {
 	{
 		ClassroomType ct = null;
 		switch (getTypeFromGroupCode(code)) {
-		case ("T"):
+		case ("T"): /* Fall through */
 		case ("S"):
 			ct = ClassroomType.THEORY;
 			break;
@@ -76,6 +76,20 @@ public class ProblemUtils {
 			break;
 		}
 		return ct;
+	}
+
+	public static GroupLanguage getGroupLanguageFromGroupCode(String code)
+	{
+		GroupLanguage gl = null;
+		switch (getLangFromGroupCode(code)) {
+		case ("EN"):
+			gl = GroupLanguage.ENGLISH;
+			break;
+		case ("ES"):
+			gl = GroupLanguage.SPANISH;
+			break;
+		}
+		return gl;
 	}
 
 	public static String getNameFromGroupCode(String code)
@@ -92,6 +106,15 @@ public class ProblemUtils {
 		String[] splittedStr = code.split("\\.");
 		if (splittedStr.length == 3) {
 			return splittedStr[1];
+		}
+		return "";
+	}
+
+	public static String getLangFromGroupCode(String code)
+	{
+		String[] splittedStr = code.split("\\.");
+		if (splittedStr.length == 3) {
+			return splittedStr[2].startsWith("I-") ? "EN" : "ES";
 		}
 		return "";
 	}

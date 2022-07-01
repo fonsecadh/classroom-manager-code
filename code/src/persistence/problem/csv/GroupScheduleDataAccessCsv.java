@@ -27,8 +27,8 @@ public class GroupScheduleDataAccessCsv implements GroupScheduleDataAccess {
 		List<String> lines = fileManager.readLinesFromFile(filename);
 
 		for (int i = 1; i < lines.size(); i++) // Ignore header
-			groupSchedule.add(lineToGroupSchedule(lines.get(i), i,
-					groups));
+			groupSchedule.add(lineToGroupSchedule(lines.get(i),
+					i + 1, groups));
 
 		return groupSchedule;
 	}
