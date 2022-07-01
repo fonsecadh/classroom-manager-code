@@ -102,7 +102,7 @@ public class PlanningDataAccessCsv {
 		for (String w : weeks) {
 			g.addAcademicWeek(w);
 		}
-		// Add it to map
+		// Add group to map
 		groups.put(g.getCode(), g);
 	}
 

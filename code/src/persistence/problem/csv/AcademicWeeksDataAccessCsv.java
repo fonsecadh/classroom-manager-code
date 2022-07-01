@@ -66,7 +66,7 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 							 // included in the
 							 // array
 		for (String f : fields) {
-			ValidationUtils.validateString(f, CSVNAME, 0);
+			ValidationUtils.validateString(f, CSVNAME, 1);
 		}
 	}
 }
