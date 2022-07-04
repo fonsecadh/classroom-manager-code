@@ -58,3 +58,163 @@ Out of the 340 assignments, there are 5 assignments without classroom.
 
 Of the 18 preferences, 13 are satisfied.
 ##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;116,46;109,13;2,33
+2;116,46;110,68;3,29
+3;118,50;111,96;4,14
+4;118,94;113,11;5,05
+5;119,38;113,92;6,04
+6;119,38;114,57;6,89
+7;119,38;115,31;7,73
+8;119,67;115,81;8,55
+9;119,67;116,40;9,39
+10;119,96;116,94;10,19
+
+Summary for best individual
+===========================
+
+Out of the 342 assignments, there are 12 assignments without classroom.
+
+Of the 49 preferences, 23 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;122,07;110,72;2,27
+2;122,07;112,65;3,36
+3;122,07;114,19;4,22
+4;122,07;115,82;5,06
+5;122,36;116,89;6,05
+6;122,36;117,74;6,87
+7;122,36;118,74;7,71
+8;123,38;119,29;8,53
+9;123,67;119,88;9,33
+10;124,40;120,51;10,14
+
+Summary for best individual
+===========================
+
+Out of the 349 assignments, there are 11 assignments without classroom.
+
+Of the 49 preferences, 27 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;118,61;115,39;2,06
+2;118,61;116,38;2,99
+3;118,61;116,87;3,73
+4;118,61;117,13;4,45
+5;118,61;117,34;5,32
+6;118,61;117,48;6,13
+7;118,61;117,62;6,91
+8;118,93;117,71;7,61
+9;118,93;117,83;8,33
+10;118,93;117,94;9,08
+
+Summary for best individual
+===========================
+
+Out of the 311 assignments, there are 4 assignments without classroom.
+
+Of the 47 preferences, 19 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;117,65;114,49;1,82
+2;117,65;115,30;2,70
+3;117,97;115,76;3,40
+4;117,97;116,09;4,11
+5;117,97;116,41;5,01
+6;117,97;116,59;5,75
+7;117,97;116,80;6,45
+8;117,97;116,99;7,15
+9;117,97;117,13;7,88
+10;118,29;117,27;8,57
+
+Summary for best individual
+===========================
+
+Out of the 314 assignments, there are 4 assignments without classroom.
+
+Of the 46 preferences, 18 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;119,32;116,32;1,71
+2;119,32;116,97;2,51
+3;119,32;117,45;3,25
+4;119,64;117,84;3,90
+5;119,64;118,13;4,78
+6;119,64;118,43;5,48
+7;119,64;118,71;6,16
+8;119,64;118,85;6,81
+9;119,64;119,01;7,50
+10;119,64;119,16;8,21
+
+Summary for best individual
+===========================
+
+Out of the 311 assignments, there are 4 assignments without classroom.
+
+Of the 43 preferences, 18 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;119,48;117,06;1,79
+2;119,48;117,97;2,54
+3;119,48;118,54;3,24
+4;119,48;118,82;3,90
+5;119,81;119,02;4,64
+6;119,81;119,17;5,39
+7;119,81;119,25;6,05
+8;119,81;119,33;6,69
+9;119,81;119,40;7,33
+10;119,81;119,44;7,97
+
+Summary for best individual
+===========================
+
+Out of the 308 assignments, there are 2 assignments without classroom.
+
+Of the 44 preferences, 18 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;134,64;117,61;2,33
+2;134,64;121,01;3,30
+3;134,64;123,76;4,12
+4;134,64;126,02;4,95
+5;134,64;127,84;5,97
+6;134,64;129,27;6,79
+7;134,64;130,57;7,64
+8;134,64;131,66;8,44
+9;134,64;132,56;9,28
+10;134,64;133,12;10,09
+
+Summary for best individual
+===========================
+
+Out of the 340 assignments, there are 5 assignments without classroom.
+
+Of the 18 preferences, 13 are satisfied.
+##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;138,03;120,05;2,18
+2;138,03;123,94;3,15
+3;138,03;126,64;3,98
+4;138,03;129,07;4,86
+5;138,03;131,38;5,82
+6;138,03;132,86;6,65
+7;138,03;134,04;7,47
+8;138,32;134,93;8,30
+9;138,32;135,78;9,11
+10;138,32;136,50;9,91
+
+Summary for best individual
+===========================
+
+Out of the 346 assignments, there are 4 assignments without classroom.
+
+Of the 19 preferences, 15 are satisfied.
+##### END EXECUTION #####

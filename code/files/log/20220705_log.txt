@@ -1,0 +1,287 @@
+jul 05, 2022 12:13:49 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:13:49 AM persistence.filemanager.FileManager readLinesFromFile
+GRAVE: files/usecases/experiments/restrictions/charged/course_20_21/8_CSV_Restricciones.csv (No existe el fichero o el directorio)
+java.io.FileNotFoundException: files/usecases/experiments/restrictions/charged/course_20_21/8_CSV_Restricciones.csv (No existe el fichero o el directorio)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:76)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:33)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:13:49 AM main.Program main
+GRAVE: File not found (files/usecases/experiments/restrictions/charged/course_20_21/8_CSV_Restricciones.csv)
+business.errorhandler.exceptions.PersistenceException: File not found (files/usecases/experiments/restrictions/charged/course_20_21/8_CSV_Restricciones.csv)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:33)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:14:24 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:14:24 AM persistence.filemanager.FileManager readLinesFromFile
+GRAVE: files/usecases/experiments/restrictions/charged/course_20_21/s1/8_CSV_Restricciones.csv (No existe el fichero o el directorio)
+java.io.FileNotFoundException: files/usecases/experiments/restrictions/charged/course_20_21/s1/8_CSV_Restricciones.csv (No existe el fichero o el directorio)
+	at java.io.FileInputStream.open0(Native Method)
+	at java.io.FileInputStream.open(FileInputStream.java:195)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at java.io.FileInputStream.<init>(FileInputStream.java:93)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:76)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:33)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:14:24 AM main.Program main
+GRAVE: File not found (files/usecases/experiments/restrictions/charged/course_20_21/s1/8_CSV_Restricciones.csv)
+business.errorhandler.exceptions.PersistenceException: File not found (files/usecases/experiments/restrictions/charged/course_20_21/s1/8_CSV_Restricciones.csv)
+	at persistence.filemanager.FileManager.readLinesFromFile(FileManager.java:87)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:33)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:15:56 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:15:56 AM main.Program main
+GRAVE: Wrong line format in ASSIGNMENTS csv file: different column size (Expected: 2, Received: 3), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in ASSIGNMENTS csv file: different column size (Expected: 2, Received: 3), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:134)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:51)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:16:57 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:16:57 AM main.Program main
+GRAVE: Wrong line format in ASSIGNMENTS csv file: different column size (Expected: 2, Received: 3), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in ASSIGNMENTS csv file: different column size (Expected: 2, Received: 3), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:134)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:51)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:17:55 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:17:55 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:17:55 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:17:55 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:17:55 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 342
+jul 05, 2022 12:18:05 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:18:05 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:18:35 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:18:35 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:18:35 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:18:35 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:18:35 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 349
+jul 05, 2022 12:18:45 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:18:45 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:19:22 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:19:22 AM main.Program main
+GRAVE: Wrong line format in ASSIGNMENTS csv file: different column size (Expected: 2, Received: 5), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in ASSIGNMENTS csv file: different column size (Expected: 2, Received: 5), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:134)
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:51)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeExperiments(Program.java:874)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:20:42 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:20:42 AM main.Program main
+GRAVE: Non existing code for group in PREFERENCES csv file (CPM.L.+), line 6
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in PREFERENCES csv file (CPM.L.+), line 6
+	at persistence.problem.csv.PreferencesDataAccessCsv.lineToPreferences(PreferencesDataAccessCsv.java:97)
+	at persistence.problem.csv.PreferencesDataAccessCsv.loadPreferences(PreferencesDataAccessCsv.java:34)
+	at main.Program.executeExperiments(Program.java:883)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:22:21 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:22:21 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:22:21 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:22:21 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:22:21 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 311
+jul 05, 2022 12:22:30 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:22:30 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:22:46 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:22:47 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:22:47 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:22:47 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:22:47 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 314
+jul 05, 2022 12:22:55 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:22:55 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:23:15 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:23:15 AM main.Program main
+GRAVE: Wrong integer in GROUPS csv file (cero or negative: 0), line 42
+business.errorhandler.exceptions.InputValidationException: Wrong integer in GROUPS csv file (cero or negative: 0), line 42
+	at persistence.problem.csv.utils.ValidationUtils.validatePositiveInt(ValidationUtils.java:56)
+	at persistence.problem.csv.GroupsDataAccessCsv.validate(GroupsDataAccessCsv.java:106)
+	at persistence.problem.csv.GroupsDataAccessCsv.lineToGroup(GroupsDataAccessCsv.java:51)
+	at persistence.problem.csv.GroupsDataAccessCsv.loadGroups(GroupsDataAccessCsv.java:29)
+	at main.Program.executeExperiments(Program.java:855)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:24:50 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:24:50 AM main.Program main
+GRAVE: Non existing code for group in PREFERENCES csv file (CPM.L.+), line 6
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in PREFERENCES csv file (CPM.L.+), line 6
+	at persistence.problem.csv.PreferencesDataAccessCsv.lineToPreferences(PreferencesDataAccessCsv.java:97)
+	at persistence.problem.csv.PreferencesDataAccessCsv.loadPreferences(PreferencesDataAccessCsv.java:34)
+	at main.Program.executeExperiments(Program.java:883)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 12:25:21 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:25:21 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:25:21 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:25:21 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:25:21 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 311
+jul 05, 2022 12:25:29 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:25:29 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:25:53 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:25:53 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:25:53 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:25:53 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:25:53 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 308
+jul 05, 2022 12:26:01 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:26:01 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:26:16 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:26:16 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:26:16 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:26:16 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:26:16 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 340
+jul 05, 2022 12:26:26 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:26:26 AM main.Program main
+DETALLADO: END Business logic
+jul 05, 2022 12:26:57 AM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 12:26:57 AM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 12:26:57 AM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 12:26:57 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 12:26:57 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 346
+jul 05, 2022 12:27:07 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 12:27:07 AM main.Program main
+DETALLADO: END Business logic
