@@ -1055,4 +1055,201 @@ public class Program {
 		logh.log(Level.FINE, Program.class.getName(), "main",
 				"END Business logic");
 	}
+
+	/*
+	 * 
+	 * 
+	 * TODO -> DELETE THIS AUX METHODS IN THE FINAL VERSION!
+	 * 
+	 * 
+	 * 
+	 */
+
+	private static void executeAutomationOfAllInstances()
+			throws PersistenceException
+	{
+		String filenameFormat = "files/usecases/experiments/scenarios/%s/%s/io.properties";
+
+		String scenarioName = "ChargedGroups_ChargedConstraints";
+
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s1"),
+				scenarioName, "charged", "charged",
+				"course_20_21", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s2"),
+				scenarioName, "charged", "charged",
+				"course_20_21", "s2");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s1"),
+				scenarioName, "charged", "charged",
+				"course_21_22", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s2"),
+				scenarioName, "charged", "charged",
+				"course_21_22", "s2");
+
+		scenarioName = "ChargedGroups_RegularConstraints";
+
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s1"),
+				scenarioName, "charged", "regular",
+				"course_20_21", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s2"),
+				scenarioName, "charged", "regular",
+				"course_20_21", "s2");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s1"),
+				scenarioName, "charged", "regular",
+				"course_21_22", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s2"),
+				scenarioName, "charged", "regular",
+				"course_21_22", "s2");
+
+		scenarioName = "RegularGroups_ChargedConstraints";
+
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s1"),
+				scenarioName, "regular", "charged",
+				"course_20_21", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s2"),
+				scenarioName, "regular", "charged",
+				"course_20_21", "s2");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s1"),
+				scenarioName, "regular", "charged",
+				"course_21_22", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s2"),
+				scenarioName, "regular", "charged",
+				"course_21_22", "s2");
+
+		scenarioName = "RegularGroups_RegularConstraints";
+
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s1"),
+				scenarioName, "regular", "regular",
+				"course_20_21", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_20_21_s2"),
+				scenarioName, "regular", "regular",
+				"course_20_21", "s2");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s1"),
+				scenarioName, "regular", "regular",
+				"course_21_22", "s1");
+		executeAutomationOfInstance(
+				String.format(filenameFormat, scenarioName,
+						"course_21_22_s2"),
+				scenarioName, "regular", "regular",
+				"course_21_22", "s2");
+	}
+
+	private static void executeAutomationOfInstance(String filename,
+			String scenarioName, String groupLoad,
+			String constraintsLoad, String course, String semester)
+			throws PersistenceException
+	{
+		FileManager fm = new FileManager();
+
+		String format = "SUBJECTS_FILE_PATH = %s\n"
+				+ "CLASSROOMS_FILE_PATH = %s\n"
+				+ "GROUPS_FILE_PATH = %s\n"
+				+ "GROUPSCHEDULE_FILE_PATH = %s\n"
+				+ "WEEKS_FILE_PATH = %s\n"
+				+ "LOAD_ASSIGNMENTS = true\n"
+				+ "ASSIGNMENTS_FILE_PATH = %s\n"
+				+ "LOAD_PREFERENCES = true\n"
+				+ "PREFERENCES_FILE_PATH = %s\n"
+				+ "LOAD_RESTRICTIONS = true\n"
+				+ "RESTRICTIONS_FILE_PATH = %s\n"
+				+ "OUTPUT_FOLDER_PATH = %s\n"
+				+ "OUTPUT_RESULTS_FILENAME = %s\n";
+
+		String subjectPath = String.format(
+				"./experiments/general/%s/1_CSV_Asignatura.csv",
+				semester);
+		String classroomsPath = "./experiments/general/2_CSV_Aula.csv";
+
+		String groupsPath = String.format(
+				"./experiments/groups/%s/%s/%s/3_CSV_Grupo.csv",
+				groupLoad, course, semester);
+		String groupSchedulePath = String.format(
+				"./experiments/groups/%s/%s/%s/4_CSV_Horario.csv",
+				groupLoad, course, semester);
+		String weeksPath = String.format(
+				"./experiments/groups/%s/%s/%s/5_CSV_SemanaLectiva.csv",
+				groupLoad, course, semester);
+
+		String assignmentsPath = String.format(
+				"./experiments/general/%s/6_CSV_Asignaciones.csv",
+				semester);
+
+		String preferencesPath = String.format(
+				"./experiments/restrictions/%s/%s/7_CSV_Preferencias.csv",
+				constraintsLoad, semester);
+		String restrictionsPath = String.format(
+				"./experiments/restrictions/%s/%s/7_CSV_Restricciones.csv",
+				constraintsLoad, semester);
+
+		String outputFolder = String.format(
+				"./experiments/scenarios/%s/%s_%s/",
+				scenarioName, course, semester);
+
+		String outputResultName = "results";
+
+		String conf = String.format(format, subjectPath, classroomsPath,
+				groupsPath, groupSchedulePath, weeksPath,
+				assignmentsPath, preferencesPath,
+				restrictionsPath, outputFolder,
+				outputResultName);
+
+		fm.writeToFile(filename, conf);
+	}
+
+	private static void executeAutomationOfConfigFiles()
+			throws PersistenceException
+	{
+		FileManager fm = new FileManager();
+
+		String[] crossProb = { "0.8", "0.9", "1.0" };
+		String[] mutaProb = { "0.05", "0.1", "0.2" };
+		String[] popsize = { "100", "250", "500" };
+
+		String format = "POP_SIZE = %s\nCROSS_PROB = %s\nMUTA_PROB = %s\n";
+
+		String pathFormat = "files/usecases/experiments/params/combination%02d.properties";
+
+		int count = 1;
+		for (String cp : crossProb) {
+			for (String mp : mutaProb) {
+				for (String ps : popsize) {
+					String conf = String.format(format, ps,
+							cp, mp);
+					String path = String.format(pathFormat,
+							count);
+					fm.writeToFile(path, conf);
+					++count;
+				}
+			}
+		}
+	}
 }

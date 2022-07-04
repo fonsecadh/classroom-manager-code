@@ -723,3 +723,62 @@ jul 04, 2022 8:04:01 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
 DETALLADO: END Genetic Algorithm
 jul 04, 2022 8:04:01 PM main.Program main
 DETALLADO: END Business logic
+jul 04, 2022 10:37:55 PM persistence.filemanager.FileManager writeToFile
+GRAVE: files/experiments/params/combination%02d.properties (No existe el fichero o el directorio)
+java.io.FileNotFoundException: files/experiments/params/combination%02d.properties (No existe el fichero o el directorio)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101)
+	at java.io.FileWriter.<init>(FileWriter.java:63)
+	at persistence.filemanager.FileManager.writeToFile(FileManager.java:22)
+	at main.Program.executeAutomationOfConfigFiles(Program.java:1085)
+	at main.Program.main(Program.java:81)
+
+jul 04, 2022 10:37:55 PM main.Program main
+GRAVE: File not found (files/experiments/params/combination%02d.properties)
+business.errorhandler.exceptions.PersistenceException: File not found (files/experiments/params/combination%02d.properties)
+	at persistence.filemanager.FileManager.writeToFile(FileManager.java:30)
+	at main.Program.executeAutomationOfConfigFiles(Program.java:1085)
+	at main.Program.main(Program.java:81)
+
+jul 04, 2022 10:38:34 PM persistence.filemanager.FileManager writeToFile
+GRAVE: files/experiments/params/combination01.properties (No existe el fichero o el directorio)
+java.io.FileNotFoundException: files/experiments/params/combination01.properties (No existe el fichero o el directorio)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101)
+	at java.io.FileWriter.<init>(FileWriter.java:63)
+	at persistence.filemanager.FileManager.writeToFile(FileManager.java:22)
+	at main.Program.executeAutomationOfConfigFiles(Program.java:1085)
+	at main.Program.main(Program.java:81)
+
+jul 04, 2022 10:38:34 PM main.Program main
+GRAVE: File not found (files/experiments/params/combination01.properties)
+business.errorhandler.exceptions.PersistenceException: File not found (files/experiments/params/combination01.properties)
+	at persistence.filemanager.FileManager.writeToFile(FileManager.java:30)
+	at main.Program.executeAutomationOfConfigFiles(Program.java:1085)
+	at main.Program.main(Program.java:81)
+
+jul 04, 2022 11:52:05 PM persistence.filemanager.FileManager writeToFile
+GRAVE: files/experiments/scenarios/ChargedGroups_ChargedConstraints/course_20_21_s1/io.properties (No existe el fichero o el directorio)
+java.io.FileNotFoundException: files/experiments/scenarios/ChargedGroups_ChargedConstraints/course_20_21_s1/io.properties (No existe el fichero o el directorio)
+	at java.io.FileOutputStream.open0(Native Method)
+	at java.io.FileOutputStream.open(FileOutputStream.java:270)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:213)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:101)
+	at java.io.FileWriter.<init>(FileWriter.java:63)
+	at persistence.filemanager.FileManager.writeToFile(FileManager.java:22)
+	at main.Program.executeAutomationOfInstance(Program.java:1169)
+	at main.Program.executeAutomationOfAllInstances(Program.java:1070)
+	at main.Program.main(Program.java:81)
+
+jul 04, 2022 11:52:05 PM main.Program main
+GRAVE: File not found (files/experiments/scenarios/ChargedGroups_ChargedConstraints/course_20_21_s1/io.properties)
+business.errorhandler.exceptions.PersistenceException: File not found (files/experiments/scenarios/ChargedGroups_ChargedConstraints/course_20_21_s1/io.properties)
+	at persistence.filemanager.FileManager.writeToFile(FileManager.java:30)
+	at main.Program.executeAutomationOfInstance(Program.java:1169)
+	at main.Program.executeAutomationOfAllInstances(Program.java:1070)
+	at main.Program.main(Program.java:81)
+
