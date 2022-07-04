@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,7 @@ import business.alg.greed.model.Restriction;
 import business.classfinder.logic.Classfinder;
 import business.classfinder.model.ClassfinderQuery;
 import business.config.Config;
+import business.errorhandler.exceptions.ArgumentException;
 import business.errorhandler.exceptions.InputValidationException;
 import business.errorhandler.exceptions.PersistenceException;
 import business.errorhandler.logic.ErrorHandler;
@@ -57,6 +59,7 @@ import persistence.problem.csv.GroupsDataAccessCsv;
 import persistence.problem.csv.PreferencesDataAccessCsv;
 import persistence.problem.csv.RestrictionsDataAccessCsv;
 import persistence.problem.csv.SubjectDataAccessCsv;
+import ui.ArgOption;
 import ui.CommandLineInterface;
 
 public class Program {
@@ -74,17 +77,33 @@ public class Program {
 				totalTime;
 		try {
 			cli.showProgramDetails();
-			switch (parseArgs(args)) {
+			ArgOption o = parseArgs(args);
+			switch (o.getOption()) {
 			case 0:
-				executeAlgorithm();
+				executeAlgorithm(o.getConfigurationFiles());
 				break;
 			case 1:
-				executeClassFinder();
+				executeClassFinder(o.getConfigurationFiles());
 				break;
 			case 2:
-				executeInputFileAutomation();
+				executeInputFileAutomation(
+						o.getConfigurationFiles());
+				break;
+			case 3:
+				executeExperiments(o.getConfigurationFiles());
+				break;
+			case 4:
+				cli.showHelp();
+				break;
+			case 5:
+				cli.showVersion();
 				break;
 			}
+		} catch (ArgumentException e) {
+			cli.showHelp();
+			logh.log(Level.SEVERE, Program.class.getName(), "main",
+					e.getLocalizedMessage(), e);
+			errh.addError(new ErrorType(e));
 		} catch (Exception e) {
 			logh.log(Level.SEVERE, Program.class.getName(), "main",
 					e.getLocalizedMessage(), e);
@@ -115,12 +134,64 @@ public class Program {
 		}
 	}
 
-	private static int parseArgs(String[] args)
+	private static ArgOption parseArgs(String[] args)
+			throws ArgumentException
 	{
-		return 0;
+		Map<String, List<String>> flagMap = new HashMap<String, List<String>>();
+		List<String> configFilePaths = null;
+		for (int i = 0; i < args.length; i++) {
+			String a = args[i];
+			if (a.charAt(0) == '-') {
+				if (a.length() < 2) {
+					String msg = String.format(
+							"Wrong argument (%s) received",
+							a);
+					throw new ArgumentException(msg);
+				}
+				configFilePaths = new ArrayList<String>();
+				flagMap.put(a.substring(1), configFilePaths);
+			} else if (configFilePaths != null) {
+				configFilePaths.add(a);
+			} else {
+				String msg = String.format(
+						"Wrong argument (%s) received",
+						a);
+				throw new ArgumentException(msg);
+			}
+		}
+		Set<String> flags = flagMap.keySet();
+		if (flags.size() > 1 || flags.size() == 0) {
+			String msg = "Utility must receive one (and only one) option flag as an argument";
+			throw new ArgumentException(msg);
+		}
+		String flag = flags.iterator().next();
+		switch (flag) {
+		case "h":
+		case "-help":
+			return new ArgOption(4, flagMap.get(flag));
+		case "v":
+		case "-version":
+			return new ArgOption(5, flagMap.get(flag));
+		case "a":
+		case "-algorithm":
+			return new ArgOption(0, flagMap.get(flag));
+		case "q":
+		case "-query":
+			return new ArgOption(1, flagMap.get(flag));
+		case "t":
+		case "-transform":
+			return new ArgOption(2, flagMap.get(flag));
+		case "e":
+		case "-experiment":
+			return new ArgOption(3, flagMap.get(flag));
+		default:
+			String msg = String.format("Wrong flag (%s) received",
+					flag);
+			throw new ArgumentException(msg);
+		}
 	}
 
-	public static void executeAlgorithm()
+	public static void executeAlgorithm(List<String> confPaths)
 			throws PersistenceException, InputValidationException
 	{
 		// CLI
@@ -143,10 +214,10 @@ public class Program {
 		FileManager fm = new FileManager();
 
 		// Config file
-		String configFilePath = "files/config/classroom-manager.properties";
-
-		cli.showMessageWithoutNewLine("Loading CONFIG file...");
-		config.load(configFilePath);
+		cli.showMessageWithoutNewLine("Loading CONFIG files...");
+		for (String conf : confPaths) {
+			config.load(conf);
+		}
 		cli.showMessage(" DONE");
 
 		// Input
@@ -401,7 +472,7 @@ public class Program {
 				"END Business logic");
 	}
 
-	public static void executeClassFinder()
+	public static void executeClassFinder(List<String> confPaths)
 			throws PersistenceException, InputValidationException
 	{
 		// CLI
@@ -424,10 +495,10 @@ public class Program {
 		FileManager fm = new FileManager();
 
 		// Config file
-		String configFilePath = "files/config/classfinder.properties";
-
-		cli.showMessageWithoutNewLine("Loading CONFIG file...");
-		config.load(configFilePath);
+		cli.showMessageWithoutNewLine("Loading CONFIG files...");
+		for (String conf : confPaths) {
+			config.load(conf);
+		}
 		cli.showMessage(" DONE");
 
 		// Input
@@ -555,7 +626,7 @@ public class Program {
 				"END Business logic");
 	}
 
-	public static void executeInputFileAutomation()
+	public static void executeInputFileAutomation(List<String> confPaths)
 			throws PersistenceException, InputValidationException
 	{
 		// CLI
@@ -578,10 +649,10 @@ public class Program {
 		FileManager fm = new FileManager();
 
 		// Config file
-		String configFilePath = "files/config/automation.properties";
-
-		cli.showMessageWithoutNewLine("Loading CONFIG file...");
-		config.load(configFilePath);
+		cli.showMessageWithoutNewLine("Loading CONFIG files...");
+		for (String conf : confPaths) {
+			config.load(conf);
+		}
 		cli.showMessage(" DONE");
 
 		// Input
@@ -670,5 +741,10 @@ public class Program {
 		}
 		logh.log(Level.FINE, Program.class.getName(), "main",
 				"END Business logic");
+	}
+
+	public static void executeExperiments(List<String> confPaths)
+			throws PersistenceException, InputValidationException
+	{
 	}
 }

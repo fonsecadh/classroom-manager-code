@@ -30,6 +30,11 @@ public class CommandLineInterface {
 		System.out.println(msg);
 	}
 
+	public void showHelp()
+	{
+		// TODO
+	}
+
 	public void showMessage(String msg)
 	{
 		System.out.println(msg);
