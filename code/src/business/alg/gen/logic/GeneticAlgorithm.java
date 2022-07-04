@@ -129,17 +129,24 @@ public class GeneticAlgorithm {
 			currentTime = System.currentTimeMillis();
 			totalTime = currentTime - startTime;
 
-			// Metrics for the command line interface
+			// Metrics
+			this.metrics.addGenerationMetrics(gen,
+					metrics.getDouble("BEST_FITNESS"),
+					metrics.getDouble("AVG_FITNESS"),
+					(totalTime / 1000.0));
+
+			// Show metrics in CLI if necessary
 			if (showGenInfo != 0 && (gen == 1
 					|| gen % showGenInfo == 0)) {
-				cli.showMessage(String.format(
+				String genMetrics = String.format(
 						"Generation = %d, best fitness = %.2f, average fitness = %.2f, current time (s) = %.2f",
 						gen,
 						metrics.getDouble(
 								"BEST_FITNESS"),
 						metrics.getDouble(
 								"AVG_FITNESS"),
-						(totalTime / 1000.0)));
+						(totalTime / 1000.0));
+				cli.showMessage(genMetrics);
 			}
 		} while (gen < nGenerations && totalTime < maxTimeMs);
 		// CLI and LOG
@@ -209,6 +216,8 @@ public class GeneticAlgorithm {
 			// Mutation
 			if (mutationProb >= random.nextDouble()) {
 				c1 = mutation(c1);
+			}
+			if (mutationProb >= random.nextDouble()) {
 				c2 = mutation(c2);
 			}
 			// Tournament

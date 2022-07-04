@@ -1,11 +1,14 @@
 package business.alg.greed.logic.filters;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import business.alg.gen.model.Preference;
+import business.alg.gen.model.PreferenceType;
 import business.problem.model.Classroom;
 import business.problem.model.Group;
 
@@ -18,6 +21,7 @@ import business.problem.model.Group;
 public class ClassroomFilterManager {
 	private List<ClassroomFilter> filters;
 	private List<Classroom> classrooms;
+	private Map<String, List<Preference>> preferences;
 	/**
 	 * Map with the filtered classrooms for each group. <br>
 	 * <br>
@@ -27,10 +31,13 @@ public class ClassroomFilterManager {
 	private Map<String, List<Classroom>> mapFiltered;
 
 	public ClassroomFilterManager(List<ClassroomFilter> classroomFilters,
-			List<Classroom> classrooms) {
+			List<Classroom> classrooms,
+			Map<String, List<Preference>> preferences) {
 		this.filters = new ArrayList<ClassroomFilter>(classroomFilters);
 		this.classrooms = new ArrayList<Classroom>(classrooms);
 		this.mapFiltered = new HashMap<String, List<Classroom>>();
+		this.preferences = new HashMap<String, List<Preference>>(
+				preferences);
 	}
 
 	/**
@@ -51,8 +58,51 @@ public class ClassroomFilterManager {
 			for (ClassroomFilter cf : filters) {
 				fc = cf.filterByGroup(g, fc);
 			}
-			Collections.sort(fc, (c1, c2) -> c1.getNumberOfSeats()
-					- c2.getNumberOfSeats());
+			// If a group has preferences
+			// Order is positive prefs -> no prefs -> negative prefs
+			List<Preference> prefs = preferences.get(g.getCode());
+			if (prefs != null && prefs.size() > 0) {
+				List<Classroom> cPos = prefs.stream()
+						.filter(p -> p.getType().equals(
+								PreferenceType.POSITIVE))
+						.map(p -> p.getClassroom())
+						.collect(Collectors.toList());
+
+				List<Classroom> cNeg = prefs.stream()
+						.filter(p -> p.getType().equals(
+								PreferenceType.NEGATIVE))
+						.map(p -> p.getClassroom())
+						.collect(Collectors.toList());
+
+				List<Classroom> first = new ArrayList<Classroom>();
+				List<Classroom> middle = new ArrayList<Classroom>();
+				List<Classroom> last = new ArrayList<Classroom>();
+				for (Classroom c : fc) {
+					if (cNeg.contains(c)) {
+						last.add(c);
+					} else if (cPos.contains(c)) {
+						first.add(c);
+					} else {
+						middle.add(c);
+					}
+				}
+				Comparator<Classroom> comp = Comparator
+						.comparing(Classroom::getNumberOfSeats);
+				first.sort(comp);
+				middle.sort(comp);
+				last.sort(comp);
+
+				fc.clear();
+				for (Classroom c : first)
+					fc.add(c);
+				for (Classroom c : middle)
+					fc.add(c);
+				for (Classroom c : last)
+					fc.add(c);
+			} else { // If a group does not have preferences
+				fc.sort(Comparator.comparing(
+						Classroom::getNumberOfSeats));
+			}
 			mapFiltered.put(g.getCode(), fc);
 		}
 		return new ArrayList<Classroom>(fc);

@@ -40,6 +40,32 @@ public class FileManager {
 		}
 	}
 
+	public void appendToFile(String filename, String content)
+			throws PersistenceException
+	{
+		try {
+			BufferedWriter file = new BufferedWriter(
+					new FileWriter(filename, true));
+			file.write(content);
+			file.close();
+		} catch (FileNotFoundException e) {
+			LogHandler.getInstance().log(Level.SEVERE,
+					FileManager.class.getName(),
+					"writeToFile", e.getLocalizedMessage(),
+					e);
+			throw new PersistenceException(String.format(
+					"File not found (%s)", filename));
+		} catch (IOException e) {
+			LogHandler.getInstance().log(Level.SEVERE,
+					FileManager.class.getName(),
+					"writeToFile", e.getLocalizedMessage(),
+					e);
+			throw new PersistenceException(String.format(
+					"Could not write to file (%s)",
+					filename));
+		}
+	}
+
 	public List<String> readLinesFromFile(String filename)
 			throws PersistenceException
 	{

@@ -23,8 +23,8 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 	public double getValue(Map<String, Assignment> assignments)
 	{
 		double value = 0.0;
-		int prefCounter = 0;
-		int prefValidCounter = 0;
+		double prefCounter = 0.0;
+		double prefValidCounter = 0.0;
 		for (String groupCode : preferences.keySet()) {
 			Classroom c = assignments.get(groupCode).getClassroom();
 			if (c != null) {

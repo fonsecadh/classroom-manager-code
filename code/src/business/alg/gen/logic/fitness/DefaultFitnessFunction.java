@@ -36,7 +36,9 @@ public class DefaultFitnessFunction implements FitnessFunction {
 	{
 		double result = 0.0;
 		for (FitnessValue fnVal : fnValues) {
-			result += fnVal.getWeight() * fnVal.getValue(resulting);
+			if (fnVal.getWeight() > 0)
+				result += fnVal.getWeight()
+						* fnVal.getValue(resulting);
 		}
 		return result;
 	}
