@@ -45,18 +45,19 @@ public class EnrolledStudentsDataAccessCsv {
 			String subject = header[i];
 			String groupCode = String.format("%s.%s.%s", subject,
 					groupType, groupName);
-			Group g = groups.get(groupCode);
-			if (g == null) {
-				String msg = String.format(
-						"Non existing code for group in %s csv file (%s), line %d",
-						CSVNAME, groupCode, lineNumber);
-				throw new InputValidationException(msg);
-			}
 			String enrolled = fields[i].trim();
-			if (enrolled != "") {
+			if (!enrolled.equals("")) {
 				// Validate and parse enrolled students
 				validate(enrolled, lineNumber);
 				int nStudents = Integer.parseInt(enrolled);
+				Group g = groups.get(groupCode);
+				if (g == null) {
+					String msg = String.format(
+							"Non existing code for group in %s csv file (%s), line %d",
+							CSVNAME, groupCode,
+							lineNumber);
+					throw new InputValidationException(msg);
+				}
 				g.setNumberOfStudents(nStudents);
 				// Add group to map
 				groups.put(g.getCode(), g);

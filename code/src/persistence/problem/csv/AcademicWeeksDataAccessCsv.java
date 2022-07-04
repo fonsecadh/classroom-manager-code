@@ -19,29 +19,25 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 			throws PersistenceException, InputValidationException
 	{
 		List<String> lines = fileManager.readLinesFromFile(filename);
-
-		String header = lines.get(0);
-		validateHeader(header);
-		String[] headerArray = header.split(";", -1);
-
-		for (int i = 1; i < lines.size(); i++)
-			addWeeksToGroup(lines.get(i), i + 1, groups,
-					headerArray);
+		for (int i = 1; i < lines.size(); i++) { // Ignore header
+			addWeeksToGroup(lines.get(i), i + 1, groups);
+		}
 	}
 
 	private void addWeeksToGroup(String line, int lineNumber,
-			Map<String, Group> groups, String[] header)
+			Map<String, Group> groups)
 			throws InputValidationException
 	{
 		String[] fields = line.split(";", -1); // -1 allows empty
 						       // strings to be included
 						       // in the array
 
-		ValidationUtils.validateColumns(fields, header.length, CSVNAME,
-				lineNumber);
+		ValidationUtils.validateColumns(fields, 2, CSVNAME, lineNumber);
 
 		String groupCode = fields[0].trim();
-		ValidationUtils.validateString(groupCode, CSVNAME, lineNumber);
+		String weeks = fields[1].trim();
+
+		validate(groupCode, weeks, lineNumber);
 
 		// Add weeks to group
 		Group g = groups.get(groupCode);
@@ -51,22 +47,21 @@ public class AcademicWeeksDataAccessCsv implements AcademicWeeksDataAccess {
 					CSVNAME, groupCode, lineNumber);
 			throw new InputValidationException(msg);
 		}
-		for (int i = 1; i < header.length; i++) {
-			String week = header[i];
-			if (fields[i].equalsIgnoreCase("S"))
+		String[] wArr = weeks.split(",");
+		for (String w : wArr) {
+			String week = w.trim();
+			if (!week.equals("") && week.startsWith("S")) {
 				g.addAcademicWeek(week);
+			}
 		}
 	}
 
-	private void validateHeader(String header)
+	private void validate(String groupCode, String weeks, int lineNumber)
 			throws InputValidationException
 	{
-		String[] fields = header.split(";", -1); // -1 allows empty
-							 // strings to be
-							 // included in the
-							 // array
-		for (String f : fields) {
-			ValidationUtils.validateString(f, CSVNAME, 1);
-		}
+		String csvName = CSVNAME;
+
+		// Group code validation
+		ValidationUtils.validateString(groupCode, csvName, lineNumber);
 	}
 }

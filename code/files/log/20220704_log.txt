@@ -1,0 +1,346 @@
+jul 04, 2022 10:53:42 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 10:53:42 AM main.Program main
+GRAVE: Wrong line format in PLANNING csv file: different column size, line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in PLANNING csv file: different column size, line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:133)
+	at persistence.automation.csv.PlanningDataAccessCsv.processLine(PlanningDataAccessCsv.java:45)
+	at persistence.automation.csv.PlanningDataAccessCsv.loadGroupsFromPlanning(PlanningDataAccessCsv.java:32)
+	at main.Program.executeInputFileAutomation(Program.java:600)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 10:54:15 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 10:54:16 AM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:53)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:16:28 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:16:28 AM main.Program main
+GRAVE: Null or empty string in ENROLLED csv file, line 3
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ENROLLED csv file, line 3
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.validate(EnrolledStudentsDataAccessCsv.java:71)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:58)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:16:54 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:16:55 AM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:53)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:17:11 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:17:12 AM main.Program main
+GRAVE: Null or empty string in ENROLLED csv file, line 3
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ENROLLED csv file, line 3
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.validate(EnrolledStudentsDataAccessCsv.java:71)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:58)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:20:21 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:20:22 AM main.Program main
+GRAVE: Null or empty string in ENROLLED csv file, line 3
+business.errorhandler.exceptions.InputValidationException: Null or empty string in ENROLLED csv file, line 3
+	at persistence.problem.csv.utils.ValidationUtils.validateString(ValidationUtils.java:18)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.validate(EnrolledStudentsDataAccessCsv.java:72)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:58)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:21:33 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:21:33 AM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:53)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:21:52 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:21:53 AM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:53)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:24:25 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:24:25 AM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 11:24:25 AM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 11:24:25 AM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 11:26:54 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:26:54 AM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 11:26:54 AM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 11:26:54 AM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 11:33:22 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:37:15 AM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 11:37:15 AM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 11:37:15 AM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 11:44:03 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:44:03 AM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 11:44:03 AM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 11:44:03 AM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 11:44:28 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:44:29 AM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (IA.T.2), line 3
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 11:44:40 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:44:40 AM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 11:44:40 AM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 11:44:40 AM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 11:47:11 AM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 11:47:11 AM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 11:47:11 AM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 11:47:11 AM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 12:03:02 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:03:02 PM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 12:03:02 PM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 12:03:02 PM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 12:04:33 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:04:33 PM main.Program main
+GRAVE: Wrong integer in GROUPS csv file (cero or negative: 0), line 271
+business.errorhandler.exceptions.InputValidationException: Wrong integer in GROUPS csv file (cero or negative: 0), line 271
+	at persistence.problem.csv.utils.ValidationUtils.validatePositiveInt(ValidationUtils.java:56)
+	at persistence.problem.csv.GroupsDataAccessCsv.validate(GroupsDataAccessCsv.java:106)
+	at persistence.problem.csv.GroupsDataAccessCsv.lineToGroup(GroupsDataAccessCsv.java:51)
+	at persistence.problem.csv.GroupsDataAccessCsv.loadGroups(GroupsDataAccessCsv.java:29)
+	at main.Program.executeAlgorithm(Program.java:199)
+	at main.Program.main(Program.java:79)
+
+jul 04, 2022 12:07:12 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:07:12 PM main.Program main
+GRAVE: Wrong line format in WEEKS csv file: different column size, line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in WEEKS csv file: different column size, line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:133)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.addWeeksToGroup(AcademicWeeksDataAccessCsv.java:35)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.loadAcademicWeeks(AcademicWeeksDataAccessCsv.java:23)
+	at main.Program.executeAlgorithm(Program.java:210)
+	at main.Program.main(Program.java:79)
+
+jul 04, 2022 12:08:53 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:08:53 PM main.Program main
+GRAVE: Wrong line format in WEEKS csv file: different column size (Expected: 2, Received: 53), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in WEEKS csv file: different column size (Expected: 2, Received: 53), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:134)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.addWeeksToGroup(AcademicWeeksDataAccessCsv.java:35)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.loadAcademicWeeks(AcademicWeeksDataAccessCsv.java:23)
+	at main.Program.executeAlgorithm(Program.java:210)
+	at main.Program.main(Program.java:79)
+
+jul 04, 2022 12:12:16 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:12:17 PM main.Program main
+GRAVE: Wrong line format in WEEKS csv file: different column size (Expected: 2, Received: 53), line 2
+business.errorhandler.exceptions.InputValidationException: Wrong line format in WEEKS csv file: different column size (Expected: 2, Received: 53), line 2
+	at persistence.problem.csv.utils.ValidationUtils.validateColumns(ValidationUtils.java:134)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.addWeeksToGroup(AcademicWeeksDataAccessCsv.java:35)
+	at persistence.problem.csv.AcademicWeeksDataAccessCsv.loadAcademicWeeks(AcademicWeeksDataAccessCsv.java:23)
+	at main.Program.executeAlgorithm(Program.java:210)
+	at main.Program.main(Program.java:79)
+
+jul 04, 2022 12:12:57 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:12:57 PM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 12:12:57 PM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 12:12:57 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 04, 2022 12:12:57 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 50
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 340
+jul 04, 2022 12:16:08 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 04, 2022 12:16:08 PM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 12:20:47 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:20:48 PM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 12:20:48 PM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 12:20:48 PM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 12:22:37 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:22:37 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (IFA.L.1), line 11
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (IFA.L.1), line 11
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:24:39 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:24:39 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (SDM.L.4), line 14
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (SDM.L.4), line 14
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:24:53 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:24:54 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (SR.L.5), line 15
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (SR.L.5), line 15
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:25:06 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:25:06 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (RI.L.I-4), line 26
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (RI.L.I-4), line 26
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:25:43 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:25:43 PM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 12:25:43 PM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 12:25:43 PM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 12:27:09 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:27:10 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (DPPI.L.3), line 13
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (DPPI.L.3), line 13
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:27:42 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:27:42 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (SDI.L.6), line 16
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (SDI.L.6), line 16
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:27:51 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:27:52 PM main.Program main
+GRAVE: Non existing code for group in ENROLLED csv file (DLP.L.I-1), line 23
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ENROLLED csv file (DLP.L.I-1), line 23
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.addEnrolledStudentsToGroup(EnrolledStudentsDataAccessCsv.java:59)
+	at persistence.automation.csv.EnrolledStudentsDataAccessCsv.loadEnrolledStudents(EnrolledStudentsDataAccessCsv.java:26)
+	at main.Program.executeInputFileAutomation(Program.java:604)
+	at main.Program.main(Program.java:85)
+
+jul 04, 2022 12:28:20 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:28:21 PM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 12:28:21 PM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 12:28:21 PM main.Program main
+DETALLADO: END Business logic
+jul 04, 2022 12:55:39 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:55:39 PM main.Program main
+GRAVE: Non existing code for group in ASSIGNMENTS csv file (TEC.L.1), line 2
+business.errorhandler.exceptions.InputValidationException: Non existing code for group in ASSIGNMENTS csv file (TEC.L.1), line 2
+	at persistence.problem.csv.AssignmentDataAccessCsv.lineToAssignment(AssignmentDataAccessCsv.java:63)
+	at persistence.problem.csv.AssignmentDataAccessCsv.loadAssignments(AssignmentDataAccessCsv.java:35)
+	at main.Program.executeAlgorithm(Program.java:218)
+	at main.Program.main(Program.java:79)
+
+jul 04, 2022 12:57:58 PM main.Program main
+DETALLADO: START Persistence logic
+jul 04, 2022 12:57:58 PM main.Program main
+DETALLADO: END Persistence logic
+jul 04, 2022 12:57:58 PM main.Program main
+DETALLADO: START Business logic
+jul 04, 2022 12:57:58 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 04, 2022 12:57:58 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 50
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 308
+jul 04, 2022 1:01:21 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 04, 2022 1:01:21 PM main.Program main
+DETALLADO: END Business logic

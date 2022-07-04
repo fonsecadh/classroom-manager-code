@@ -117,7 +117,7 @@ public class Program {
 
 	private static int parseArgs(String[] args)
 	{
-		return 1;
+		return 0;
 	}
 
 	public static void executeAlgorithm()
@@ -578,7 +578,7 @@ public class Program {
 		FileManager fm = new FileManager();
 
 		// Config file
-		String configFilePath = "files/config/classfinder.properties";
+		String configFilePath = "files/config/automation.properties";
 
 		cli.showMessageWithoutNewLine("Loading CONFIG file...");
 		config.load(configFilePath);
@@ -640,9 +640,10 @@ public class Program {
 		InputFilesAutomation auto = new InputFilesAutomation(groupList);
 
 		// Paths
-		String gPath = outputFolderPath + outputGroupsFilename;
-		String gsPath = outputFolderPath + outputGroupScheduleFilename;
-		String wPath = outputFolderPath + outputWeeksFilename;
+		String gPath = outputFolderPath + outputGroupsFilename + ".csv";
+		String gsPath = outputFolderPath + outputGroupScheduleFilename
+				+ ".csv";
+		String wPath = outputFolderPath + outputWeeksFilename + ".csv";
 
 		cli.showMessageWithoutNewLine("Generating GROUPS file...");
 		fm.writeToFile(gPath, auto.getGroupData());

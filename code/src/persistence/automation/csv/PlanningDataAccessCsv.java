@@ -100,7 +100,8 @@ public class PlanningDataAccessCsv {
 		// Academic weeks
 		List<String> weeks = ProblemUtils.getAcademicWeeks(sd, ed);
 		for (String w : weeks) {
-			g.addAcademicWeek(w);
+			if (!g.getAcademicWeeks().contains(w))
+				g.addAcademicWeek(w);
 		}
 		// Add group to map
 		groups.put(g.getCode(), g);
