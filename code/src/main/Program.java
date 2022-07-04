@@ -1207,7 +1207,7 @@ public class Program {
 				"./experiments/restrictions/%s/%s/7_CSV_Preferencias.csv",
 				constraintsLoad, semester);
 		String restrictionsPath = String.format(
-				"./experiments/restrictions/%s/%s/7_CSV_Restricciones.csv",
+				"./experiments/restrictions/%s/%s/8_CSV_Restricciones.csv",
 				constraintsLoad, semester);
 
 		String outputFolder = String.format(
