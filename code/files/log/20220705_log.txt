@@ -285,3 +285,59 @@ jul 05, 2022 12:27:07 AM business.alg.gen.logic.GeneticAlgorithm geneticAlgorith
 DETALLADO: END Genetic Algorithm
 jul 05, 2022 12:27:07 AM main.Program main
 DETALLADO: END Business logic
+jul 05, 2022 10:35:59 PM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 10:35:59 PM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 10:35:59 PM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 10:35:59 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 10:35:59 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 346
+jul 05, 2022 10:36:10 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 10:36:10 PM main.Program main
+GRAVE: d != java.lang.Double
+java.util.IllegalFormatConversionException: d != java.lang.Double
+	at java.util.Formatter$FormatSpecifier.failConversion(Formatter.java:4302)
+	at java.util.Formatter$FormatSpecifier.printInteger(Formatter.java:2793)
+	at java.util.Formatter$FormatSpecifier.print(Formatter.java:2747)
+	at java.util.Formatter.format(Formatter.java:2520)
+	at java.util.Formatter.format(Formatter.java:2455)
+	at java.lang.String.format(String.java:2940)
+	at business.alg.gen.logic.fitness.values.FreeLabsFitnessValue.getDetails(FreeLabsFitnessValue.java:39)
+	at business.alg.gen.logic.IndividualPrinter.getSummaryMetricsForBestIndividual(IndividualPrinter.java:211)
+	at main.Program.executeExperiments(Program.java:1041)
+	at main.Program.main(Program.java:94)
+
+jul 05, 2022 10:37:39 PM main.Program main
+DETALLADO: START Persistence logic
+jul 05, 2022 10:37:39 PM main.Program main
+DETALLADO: END Persistence logic
+jul 05, 2022 10:37:39 PM main.Program main
+DETALLADO: START Business logic
+jul 05, 2022 10:37:39 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: START Genetic Algorithm
+jul 05, 2022 10:37:39 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+MUY DETALLADO: Parameters: 
+
+	-> Max number of generations: 10
+	-> Max time (ms): 360000
+	-> Mutation probability: 0.5
+	-> Crossover probability: 0.9
+	-> Population size: 200
+	-> Fitness function: business.alg.gen.logic.fitness.DefaultFitnessFunction
+	-> Individual length: 346
+jul 05, 2022 10:37:50 PM business.alg.gen.logic.GeneticAlgorithm geneticAlgorithm
+DETALLADO: END Genetic Algorithm
+jul 05, 2022 10:37:50 PM main.Program main
+DETALLADO: END Business logic

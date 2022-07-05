@@ -19,6 +19,36 @@ public class PreferencesFitnessValue extends AbstractFitnessValue {
 				preferences);
 	}
 
+	// TODO - DELETE IN FINAL VERSION!
+	public String getDetails(Map<String, Assignment> assignments)
+	{
+		int prefCounter = 0;
+		int prefValidCounter = 0;
+		for (String groupCode : preferences.keySet()) {
+			Classroom c = assignments.get(groupCode).getClassroom();
+			if (c != null) {
+				List<Preference> prefsForGroup = preferences
+						.get(groupCode);
+				boolean negativeValid = prefsForGroup.stream()
+						.noneMatch(p -> p.getType()
+								.equals(PreferenceType.NEGATIVE)
+								&& p.getClassroom()
+										.equals(c));
+				boolean positiveValid = prefsForGroup.stream()
+						.anyMatch(p -> p.getType()
+								.equals(PreferenceType.POSITIVE)
+								&& p.getClassroom()
+										.equals(c));
+				if (negativeValid && positiveValid) {
+					prefValidCounter++;
+				}
+			}
+			prefCounter++;
+		}
+		return String.format("PREFS;%d;%d", prefCounter,
+				prefValidCounter);
+	}
+
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{

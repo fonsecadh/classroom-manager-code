@@ -26,6 +26,67 @@ public class SharedLabsFitnessValue extends AbstractFitnessValue {
 				.collect(Collectors.toList());
 	}
 
+	// TODO - DELETE IN FINAL VERSION!
+	public String getDetails(Map<String, Assignment> assignments)
+	{
+		double value = 0.0;
+
+		List<Classroom> assignedLabsEn, assignedLabsEs;
+		assignedLabsEn = new ArrayList<Classroom>();
+		assignedLabsEs = new ArrayList<Classroom>();
+		for (Subject s : subjects) {
+			assignedLabsEn.clear();
+			assignedLabsEs.clear();
+			for (Group g : s.getGroups()) {
+				if (ProblemUtils.isLabGroup(g)) {
+					if (assignments.get(
+							g.getCode()) != null) {
+						if (ProblemUtils.isEnglishGroup(
+								g)) {
+							assignedLabsEn.add(
+									assignments.get(g
+											.getCode())
+											.getClassroom());
+						} else {
+							assignedLabsEs.add(
+									assignments.get(g
+											.getCode())
+											.getClassroom());
+						}
+					}
+				}
+			}
+			Set<Classroom> labSetEn, labSetEs;
+
+			int langCounter = 0;
+			int uniqueLabsEn = 0, uniqueLabsEs = 0;
+			double subjectValue = 0.0, enValue = 0.0, esValue = 0.0;
+			if (assignedLabsEn.size() > 0) {
+				labSetEn = new HashSet<Classroom>(
+						assignedLabsEn);
+				uniqueLabsEn = labSetEn.size();
+				enValue = 100 - (uniqueLabsEn * 100
+						/ labs.size());
+				++langCounter;
+			}
+			if (assignedLabsEs.size() > 0) {
+				labSetEs = new HashSet<Classroom>(
+						assignedLabsEs);
+				uniqueLabsEs = labSetEs.size();
+				esValue = 100 - (uniqueLabsEs * 100
+						/ labs.size());
+				++langCounter;
+			}
+			subjectValue = enValue + esValue;
+			if (langCounter > 0)
+				subjectValue = subjectValue / langCounter;
+
+			value += subjectValue;
+		}
+		value = value / subjects.size();
+		return String.format("SHAREDLABS;%.2f", value);
+	}
+
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{

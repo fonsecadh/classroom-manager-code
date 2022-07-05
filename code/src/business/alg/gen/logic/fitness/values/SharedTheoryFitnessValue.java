@@ -27,6 +27,101 @@ public class SharedTheoryFitnessValue extends AbstractFitnessValue {
 				.collect(Collectors.toList());
 	}
 
+	// TODO - DELETE IN FINAL VERSION!
+	public String getDetails(Map<String, Assignment> assignments)
+	{
+		double value = 0.0;
+
+		List<Classroom> assignedTheoryEn, assignedTheoryEs;
+		assignedTheoryEn = new ArrayList<Classroom>();
+		assignedTheoryEs = new ArrayList<Classroom>();
+
+		Map<String, List<Assignment>> courseAssignmentsMap = new HashMap<String, List<Assignment>>();
+		for (Subject s : subjects) {
+			for (Group g : s.getGroups()) {
+				List<Assignment> caList = courseAssignmentsMap
+						.get(s.getCourse());
+				if (caList == null)
+					caList = new ArrayList<Assignment>();
+				caList.add(assignments.get(g.getCode()));
+				courseAssignmentsMap.put(s.getCourse(), caList);
+			}
+		}
+		Set<String> courses = courseAssignmentsMap.keySet();
+		for (String course : courses) {
+			double courseValue = 0.0;
+
+			assignedTheoryEn.clear();
+			assignedTheoryEs.clear();
+
+			List<String> groupNames = courseAssignmentsMap
+					.get(course).stream()
+					.map(a -> a.getGroup()
+							.getNameFromCode())
+					.collect(Collectors.toList());
+			for (String groupName : groupNames) {
+				List<Assignment> assignmentsForGroupName = courseAssignmentsMap
+						.get(course).stream()
+						.filter(a -> a.getGroup()
+								.sameGroupNameAs(
+										groupName))
+						.collect(Collectors.toList());
+				for (Assignment a : assignmentsForGroupName) {
+					Group g = a.getGroup();
+					if (ProblemUtils.isTheoryGroup(g)) {
+						if (assignments.get(g
+								.getCode()) != null) {
+							if (ProblemUtils.isEnglishGroup(
+									g)) {
+								assignedTheoryEn.add(
+										assignments.get(g
+												.getCode())
+												.getClassroom());
+							} else {
+								assignedTheoryEs.add(
+										assignments.get(g
+												.getCode())
+												.getClassroom());
+							}
+						}
+					}
+				}
+				Set<Classroom> theoSetEn, theoSetEs;
+
+				int langCounter = 0;
+				int uniqueTheoEn = 0, uniqueTheoEs = 0;
+				double groupNameValue = 0.0, enValue = 0.0,
+						esValue = 0.0;
+				if (assignedTheoryEn.size() > 0) {
+					theoSetEn = new HashSet<Classroom>(
+							assignedTheoryEn);
+					uniqueTheoEn = theoSetEn.size();
+					enValue = 100 - (uniqueTheoEn * 100
+							/ theory.size());
+					++langCounter;
+				}
+				if (assignedTheoryEs.size() > 0) {
+					theoSetEs = new HashSet<Classroom>(
+							assignedTheoryEs);
+					uniqueTheoEs = theoSetEs.size();
+					esValue = 100 - (uniqueTheoEs * 100
+							/ theory.size());
+					++langCounter;
+				}
+				groupNameValue = enValue + esValue;
+				if (langCounter > 0)
+					groupNameValue = groupNameValue
+							/ langCounter;
+
+				courseValue += groupNameValue;
+			}
+			courseValue = courseValue / groupNames.size();
+			value += courseValue;
+		}
+		value = value / courses.size();
+		return String.format("SHAREDTHEORY;%.2f", value);
+	}
+
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{

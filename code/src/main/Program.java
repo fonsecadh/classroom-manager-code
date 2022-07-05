@@ -1039,7 +1039,23 @@ public class Program {
 				+ "\n"
 				+ individualPrinter
 						.getSummaryMetricsForBestIndividual(
-								preferences)
+								new FreeLabsFitnessValue(
+										freeLabsFnWeight,
+										freeLabs),
+								new LanguageFitnessValue(
+										languageFnWeight,
+										subjectList),
+								new PreferencesFitnessValue(
+										prefsFnWeight,
+										preferences),
+								new SharedLabsFitnessValue(
+										sharedLabsFnWeight,
+										subjectList,
+										classroomList),
+								new SharedTheoryFitnessValue(
+										sharedTheoryFnWeight,
+										subjectList,
+										classroomList))
 				+ "##### END EXECUTION #####\n";
 
 		// Results

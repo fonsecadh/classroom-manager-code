@@ -11,8 +11,11 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import business.alg.gen.model.Preference;
-import business.alg.gen.model.PreferenceType;
+import business.alg.gen.logic.fitness.values.FreeLabsFitnessValue;
+import business.alg.gen.logic.fitness.values.LanguageFitnessValue;
+import business.alg.gen.logic.fitness.values.PreferencesFitnessValue;
+import business.alg.gen.logic.fitness.values.SharedLabsFitnessValue;
+import business.alg.gen.logic.fitness.values.SharedTheoryFitnessValue;
 import business.alg.greed.model.Assignment;
 import business.problem.model.Classroom;
 import business.problem.model.Group;
@@ -186,52 +189,30 @@ public class IndividualPrinter {
 		return str;
 	}
 
+	// TODO - DELETE IN FINAL VERSION!
 	public String getSummaryMetricsForBestIndividual(
-			Map<String, List<Preference>> preferences)
+			FreeLabsFitnessValue freeLabsFn,
+			LanguageFitnessValue langFn,
+			PreferencesFitnessValue prefsFn,
+			SharedLabsFitnessValue sharedLabsFn,
+			SharedTheoryFitnessValue sharedTheoryFn)
 	{
 		StringBuilder sb = new StringBuilder();
 		appendTitle(sb, "Summary for best individual");
-		appendNewLine(sb);
 		int naCounter = 0;
 		for (Assignment a : assignmentsMap.values()) {
 			if (a.getClassroom() == null) {
 				++naCounter;
 			}
 		}
-		String naMsg = String.format(
-				"Out of the %s assignments, there are %d assignments without classroom.",
+		String naMsg = String.format("ASSIGN;%d;%d",
 				assignmentsMap.values().size(), naCounter);
 		appendLine(sb, naMsg);
-		appendNewLine(sb);
-
-		int prefCounter = 0;
-		int prefValidCounter = 0;
-		for (String groupCode : preferences.keySet()) {
-			Classroom c = assignmentsMap.get(groupCode)
-					.getClassroom();
-			if (c != null) {
-				List<Preference> prefsForGroup = preferences
-						.get(groupCode);
-				boolean negativeValid = prefsForGroup.stream()
-						.noneMatch(p -> p.getType()
-								.equals(PreferenceType.NEGATIVE)
-								&& p.getClassroom()
-										.equals(c));
-				boolean positiveValid = prefsForGroup.stream()
-						.anyMatch(p -> p.getType()
-								.equals(PreferenceType.POSITIVE)
-								&& p.getClassroom()
-										.equals(c));
-				if (negativeValid && positiveValid) {
-					prefValidCounter++;
-				}
-			}
-			prefCounter++;
-		}
-		String prefMsg = String.format(
-				"Of the %d preferences, %d are satisfied.",
-				prefCounter, prefValidCounter);
-		appendLine(sb, prefMsg);
+		appendLine(sb, freeLabsFn.getDetails(assignmentsMap));
+		appendLine(sb, langFn.getDetails(assignmentsMap));
+		appendLine(sb, prefsFn.getDetails(assignmentsMap));
+		appendLine(sb, sharedLabsFn.getDetails(assignmentsMap));
+		appendLine(sb, sharedTheoryFn.getDetails(assignmentsMap));
 		return sb.toString();
 	}
 

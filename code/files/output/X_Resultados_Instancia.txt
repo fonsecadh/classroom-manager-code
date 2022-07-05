@@ -218,3 +218,25 @@ Out of the 346 assignments, there are 4 assignments without classroom.
 
 Of the 19 preferences, 15 are satisfied.
 ##### END EXECUTION #####
+#### START EXECUTION ####
+GenNumber;BestFitness;AvgFitness;CurrentTimeInSeconds
+1;138,03;121,03;2,56
+2;138,03;124,83;3,62
+3;138,03;127,60;4,52
+4;138,03;129,77;5,46
+5;138,32;131,34;6,53
+6;138,32;132,87;7,51
+7;138,32;134,31;8,42
+8;138,32;135,41;9,31
+9;138,32;136,20;10,19
+10;138,32;136,83;11,07
+
+Summary for best individual
+===========================
+ASSIGN;346;4
+FREELABS;4;7,17
+LANG;80,34
+PREFS;19;15
+SHAREDLABS;82,64
+SHAREDTHEORY;25,15
+##### END EXECUTION #####
