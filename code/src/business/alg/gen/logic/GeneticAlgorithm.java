@@ -121,11 +121,13 @@ public class GeneticAlgorithm {
 
 		int gen = 0;
 		do {
-			// Core of the genetic algorithm
-			population = nextGeneration(population);
-			bestIndividual = bestIndividual(population);
-			++gen;
-
+			if (nGenerations > 0) {
+				// Core of the genetic algorithm
+				population = nextGeneration(population);
+				bestIndividual = bestIndividual(population);
+				++gen;
+			} // Otherwise the GA returns the best individual of the
+			  // initial population
 			currentTime = System.currentTimeMillis();
 			totalTime = currentTime - startTime;
 

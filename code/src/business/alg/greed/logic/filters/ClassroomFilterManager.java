@@ -29,15 +29,18 @@ public class ClassroomFilterManager {
 	 * Value: A list with the filtered classrooms;
 	 */
 	private Map<String, List<Classroom>> mapFiltered;
+	private boolean preferenceBias;
 
 	public ClassroomFilterManager(List<ClassroomFilter> classroomFilters,
 			List<Classroom> classrooms,
-			Map<String, List<Preference>> preferences) {
+			Map<String, List<Preference>> preferences,
+			boolean preferenceBias) {
 		this.filters = new ArrayList<ClassroomFilter>(classroomFilters);
 		this.classrooms = new ArrayList<Classroom>(classrooms);
 		this.mapFiltered = new HashMap<String, List<Classroom>>();
 		this.preferences = new HashMap<String, List<Preference>>(
 				preferences);
+		this.preferenceBias = preferenceBias;
 	}
 
 	/**
@@ -58,10 +61,11 @@ public class ClassroomFilterManager {
 			for (ClassroomFilter cf : filters) {
 				fc = cf.filterByGroup(g, fc);
 			}
-			// If a group has preferences
+			// If a group has preferences and the greedy is biased
 			// Order is positive prefs -> no prefs -> negative prefs
 			List<Preference> prefs = preferences.get(g.getCode());
-			if (prefs != null && prefs.size() > 0) {
+			if (prefs != null && prefs.size() > 0
+					&& preferenceBias) {
 				List<Classroom> cPos = prefs.stream()
 						.filter(p -> p.getType().equals(
 								PreferenceType.POSITIVE))

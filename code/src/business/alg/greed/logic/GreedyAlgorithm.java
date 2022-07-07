@@ -57,6 +57,8 @@ public class GreedyAlgorithm {
 	private List<Subject> subjectList;
 	private ClassroomFilterManager cfm;
 	private CollisionManager cm;
+	private boolean performRepairs;
+	private boolean sameClassroomBias;
 
 	/**
 	 * Creates a Greedy Algorithm.
@@ -82,11 +84,23 @@ public class GreedyAlgorithm {
 	 * 
 	 *                               List of all the subjects
 	 *                               ({@link Subject}).
+	 * @param performRepairs
+	 * 
+	 *                               If the greedy algorithm should execute
+	 *                               the repairing process.
+	 * 
+	 * @param sameClassroomBias
+	 * 
+	 *                               If the greedy algorithm should assign
+	 *                               the same classroom to the lab groups of
+	 *                               a subject or to the theory groups of a
+	 *                               course with the same name.
 	 */
 	public GreedyAlgorithm(ClassroomFilterManager classroomFilterManager,
 			CollisionManager collisionManager,
 			Map<String, Subject> groupSubjectMap,
-			List<Subject> subjectList) {
+			List<Subject> subjectList, boolean performRepairs,
+			boolean sameClassroomBias) {
 		this.cfm = classroomFilterManager;
 		this.cm = collisionManager;
 		this.groupSubjectMap = new HashMap<String, Subject>(
@@ -96,6 +110,8 @@ public class GreedyAlgorithm {
 		this.subjectAssignmentsMap = new HashMap<String, List<Assignment>>();
 		this.courseAssignmentsMap = new HashMap<String, List<Assignment>>();
 		this.assignedGroupsToClassrooms = new HashMap<String, Set<Group>>();
+		this.performRepairs = performRepairs;
+		this.sameClassroomBias = sameClassroomBias;
 	}
 
 	/**
@@ -129,12 +145,18 @@ public class GreedyAlgorithm {
 				Classroom c = bestClassroomFor(a);
 				if (c != null) {
 					assignClassroomToGroup(c, a, result);
-					assignClassroomToOtherGroups(c, a,
-							result);
+					if (sameClassroomBias) {
+						assignClassroomToOtherGroups(c,
+								a, result);
+					}
 				} else {
 					repairs.add(a);
 				}
 			}
+		}
+		if (!performRepairs) {
+			// The repairing process is not executed
+			return new HashMap<String, Assignment>(result);
 		}
 		// Repairing process
 		for (Assignment a : repairs) {

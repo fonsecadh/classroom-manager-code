@@ -331,6 +331,14 @@ public class Program {
 		String outputAssignmentsFilename = config
 				.getProperty("OUTPUT_ASSIGNMENTS_FILENAME");
 
+		// Greedy parameters
+		boolean performRepairs = Boolean.parseBoolean(
+				config.getProperty("PERFORM_REPAIRS"));
+		boolean sameClassroomBias = Boolean.parseBoolean(
+				config.getProperty("SAME_CLASSROOM_BIAS"));
+		boolean preferenceBias = Boolean.parseBoolean(
+				config.getProperty("PREFERENCE_BIAS"));
+
 		// Genetic parameters
 		int individualLength = groups.size();
 		int populationSize = Integer
@@ -418,7 +426,8 @@ public class Program {
 						new Assignment(g));
 		}
 		ClassroomFilterManager cfm = new ClassroomFilterManager(
-				classroomFilters, classroomList, preferences);
+				classroomFilters, classroomList, preferences,
+				preferenceBias);
 		CollisionManager cm = new CollisionManager();
 
 		Map<String, Subject> groupSubjectMap = new HashMap<String, Subject>();
@@ -428,7 +437,8 @@ public class Program {
 			}
 		}
 		GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm,
-				groupSubjectMap, subjectList);
+				groupSubjectMap, subjectList, performRepairs,
+				sameClassroomBias);
 
 		FitnessFunction fitnessFunction = new DefaultFitnessFunction(
 				decoder, greedyAlgo, fitnessValues);
@@ -771,7 +781,7 @@ public class Program {
 	/*
 	 * 
 	 * 
-	 * EXPERIMENTS
+	 * EXPERIMENTS : TODO - DELETE IN FINAL VERSION!
 	 * 
 	 * 
 	 */
@@ -800,9 +810,11 @@ public class Program {
 
 		// Config file
 		cli.showMessageWithoutNewLine("Loading CONFIG files...");
-		for (String conf : confPaths) {
+		for (int i = 0; i < confPaths.size() - 1; i++) {
+			String conf = confPaths.get(i);
 			config.load(conf);
 		}
+		String outputResultsFilename = confPaths.get(confPaths.size() - 1);
 		cli.showMessage(" DONE");
 
 		// Input
@@ -904,8 +916,16 @@ public class Program {
 		// Output
 		String outputFolderPath = config
 				.getProperty("OUTPUT_FOLDER_PATH");
-		String outputResultsFilename = config
-				.getProperty("OUTPUT_RESULTS_FILENAME");
+		//String outputResultsFilename = config
+		//		.getProperty("OUTPUT_RESULTS_FILENAME");
+
+		// Greedy parameters
+		boolean performRepairs = Boolean.parseBoolean(
+				config.getProperty("PERFORM_REPAIRS"));
+		boolean sameClassroomBias = Boolean.parseBoolean(
+				config.getProperty("SAME_CLASSROOM_BIAS"));
+		boolean preferenceBias = Boolean.parseBoolean(
+				config.getProperty("PREFERENCE_BIAS"));
 
 		// Genetic parameters
 		int individualLength = groups.size();
@@ -994,7 +1014,8 @@ public class Program {
 						new Assignment(g));
 		}
 		ClassroomFilterManager cfm = new ClassroomFilterManager(
-				classroomFilters, classroomList, preferences);
+				classroomFilters, classroomList, preferences,
+				preferenceBias);
 		CollisionManager cm = new CollisionManager();
 
 		Map<String, Subject> groupSubjectMap = new HashMap<String, Subject>();
@@ -1004,7 +1025,8 @@ public class Program {
 			}
 		}
 		GreedyAlgorithm greedyAlgo = new GreedyAlgorithm(cfm, cm,
-				groupSubjectMap, subjectList);
+				groupSubjectMap, subjectList, performRepairs,
+				sameClassroomBias);
 
 		FitnessFunction fitnessFunction = new DefaultFitnessFunction(
 				decoder, greedyAlgo, fitnessValues);

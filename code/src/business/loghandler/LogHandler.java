@@ -16,7 +16,7 @@ public class LogHandler {
 	private static final LogHandler INSTANCE = new LogHandler();
 	private static final Logger LOGGER = Logger
 			.getLogger(LogHandler.class.getName());
-	// For linux / mac production
+	// For production
 	// private static final String FOLDERPATH = "./classmanager_log/";
 	// For developing
 	private static final String FOLDERPATH = "files/log/";
