@@ -18,53 +18,6 @@ public class LanguageFitnessValue extends AbstractFitnessValue {
 		this.subjects = new ArrayList<Subject>(subjects);
 	}
 
-	// TODO - DELETE IN FINAL VERSION!
-	public String getDetails(Map<String, Assignment> assignments)
-	{
-		double value = 0.0;
-
-		List<Classroom> enTheory, enLab, esTheory, esLab,
-				theoryIntersec, labIntersec;
-		enTheory = new ArrayList<Classroom>();
-		enLab = new ArrayList<Classroom>();
-		esTheory = new ArrayList<Classroom>();
-		esLab = new ArrayList<Classroom>();
-		theoryIntersec = new ArrayList<Classroom>();
-		labIntersec = new ArrayList<Classroom>();
-		for (Subject s : subjects) {
-			clearLists(enTheory, enLab, esTheory, esLab,
-					theoryIntersec, labIntersec);
-			for (Group g : s.getGroups()) {
-				addClassrooms(assignments, enTheory, enLab,
-						esTheory, esLab, g);
-			}
-			theoryIntersec = intersection(enTheory, esTheory);
-			labIntersec = intersection(enLab, esLab);
-
-			double subjectValue, theoryValue = 0.0, labValue = 0.0;
-			int langCounter = 0;
-			if (enTheory.size() + esTheory.size() > 0) {
-				theoryValue = 100 - (theoryIntersec.size() * 100
-						/ (enTheory.size() + esTheory
-								.size()));
-				++langCounter;
-			}
-			if (enLab.size() + esLab.size() > 0) {
-				labValue = 100 - (labIntersec.size() * 100
-						/ (enLab.size() + esLab
-								.size()));
-				++langCounter;
-			}
-			subjectValue = theoryValue + labValue;
-			if (langCounter > 0)
-				subjectValue = subjectValue / langCounter;
-
-			value += subjectValue;
-		}
-		value = value / subjects.size();
-		return String.format("LANG;%.2f", value);
-	}
-
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{

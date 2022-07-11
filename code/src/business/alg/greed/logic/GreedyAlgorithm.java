@@ -171,7 +171,7 @@ public class GreedyAlgorithm {
 					break classroomloop;
 				}
 				if (collisions.size() == 0) {
-					// TODO: BUG - IGNORE UNTIL FIXING
+					// Assignment could not be repaired
 					break classroomloop;
 				}
 				Group g = collisions.get(0);

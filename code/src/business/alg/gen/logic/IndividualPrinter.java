@@ -1,6 +1,5 @@
 package business.alg.gen.logic;
 
-import java.io.PrintStream;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,11 +10,6 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import business.alg.gen.logic.fitness.values.FreeLabsFitnessValue;
-import business.alg.gen.logic.fitness.values.LanguageFitnessValue;
-import business.alg.gen.logic.fitness.values.PreferencesFitnessValue;
-import business.alg.gen.logic.fitness.values.SharedLabsFitnessValue;
-import business.alg.gen.logic.fitness.values.SharedTheoryFitnessValue;
 import business.alg.greed.model.Assignment;
 import business.problem.model.Classroom;
 import business.problem.model.Group;
@@ -73,11 +67,6 @@ public class IndividualPrinter {
 			}
 		}
 		return sb.toString();
-	}
-
-	public void printIndividual(PrintStream printStream)
-	{
-		printStream.println(getPrettyIndividual());
 	}
 
 	public String getTimetableFor(Classroom c)
@@ -187,33 +176,6 @@ public class IndividualPrinter {
 			}
 		}
 		return str;
-	}
-
-	// TODO - DELETE IN FINAL VERSION!
-	public String getSummaryMetricsForBestIndividual(
-			FreeLabsFitnessValue freeLabsFn,
-			LanguageFitnessValue langFn,
-			PreferencesFitnessValue prefsFn,
-			SharedLabsFitnessValue sharedLabsFn,
-			SharedTheoryFitnessValue sharedTheoryFn)
-	{
-		StringBuilder sb = new StringBuilder();
-		appendTitle(sb, "Summary for best individual");
-		int naCounter = 0;
-		for (Assignment a : assignmentsMap.values()) {
-			if (a.getClassroom() == null) {
-				++naCounter;
-			}
-		}
-		String naMsg = String.format("ASSIGN;%d;%d",
-				assignmentsMap.values().size(), naCounter);
-		appendLine(sb, naMsg);
-		appendLine(sb, freeLabsFn.getDetails(assignmentsMap));
-		appendLine(sb, langFn.getDetails(assignmentsMap));
-		appendLine(sb, prefsFn.getDetails(assignmentsMap));
-		appendLine(sb, sharedLabsFn.getDetails(assignmentsMap));
-		appendLine(sb, sharedTheoryFn.getDetails(assignmentsMap));
-		return sb.toString();
 	}
 
 	private void appendTitle(StringBuilder sb, String msg)

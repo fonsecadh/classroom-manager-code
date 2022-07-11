@@ -20,25 +20,6 @@ public class FreeLabsFitnessValue extends AbstractFitnessValue {
 		this.freeLabsPref = freeLabsPreference;
 	}
 
-	// TODO - DELETE IN FINAL VERSION!
-	public String getDetails(Map<String, Assignment> assignments)
-	{
-		this.counter = new FreeLabsCounter();
-
-		List<Assignment> filtered = assignments.values().stream()
-				.filter(a -> a.isAssigned() && ProblemUtils
-						.isLabGroup(a.getGroup()))
-				.collect(Collectors.toList());
-		for (Assignment a : filtered) {
-			Group g = a.getGroup();
-			for (GroupSchedule gs : g.getAllGroupSchedules()) {
-				counter.increaseCounterFor(gs);
-			}
-		}
-		double mean = counter.getMeanByHour();
-		return String.format("FREELABS;%d;%.2f", freeLabsPref, mean);
-	}
-
 	@Override
 	public double getValue(Map<String, Assignment> assignments)
 	{

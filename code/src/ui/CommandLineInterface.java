@@ -32,7 +32,30 @@ public class CommandLineInterface {
 
 	public void showHelp()
 	{
-		// TODO
+		StringBuilder sb = new StringBuilder();
+		appendLine(sb, "classmanager - manages the classrooms of the School "
+				+ "of Computer Engineering of the University of Oviedo");
+		appendNewLine(sb);
+		appendLine(sb, "classmanager OPTION [FILE...]");
+		appendNewLine(sb);
+		appendLine(sb, "OPTIONS");
+		appendNewLine(sb);
+		appendLine(sb, "\t-h,--help");
+		appendLine(sb, "\t\tOutput a usage message and exit");
+		appendLine(sb, "\t-v,--version");
+		appendLine(sb, "\t\tOutput the version of classmanager and exit");
+		appendLine(sb, "\t-a,--algorithm");
+		appendLine(sb, "\t\tPerform the assignments, output the result into the expected "
+				+ "files and exit");
+		appendLine(sb, "\t-q,--query");
+		appendLine(sb, "\t\tSearch for available classrooms, output the result into the expected "
+				+ "files and exit");
+		appendLine(sb, "\t-t,--transform");
+		appendLine(sb, "\t\tTransform the School files into compatible files, output the result "
+				+ "into the expected files and exit");
+		appendNewLine(sb);
+
+		System.out.println(sb.toString());
 	}
 
 	public void showMessage(String msg)
@@ -67,5 +90,15 @@ public class CommandLineInterface {
 	public void showNewLine()
 	{
 		System.out.println();
+	}
+
+	private void appendLine(StringBuilder sb, String msg)
+	{
+		sb.append(msg + "\n");
+	}
+
+	private void appendNewLine(StringBuilder sb)
+	{
+		sb.append("\n");
 	}
 }
